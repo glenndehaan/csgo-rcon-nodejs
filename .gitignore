@@ -1,0 +1,18 @@
+# PhpStorm
+.idea
+
+# General files
+*~
+*.DS_STORE
+
+# Js & css build files
+dist/
+
+# Dependency managers
+node_modules/
+npm-debug.log
+
+# App
+csgo-rcon.json
+csgo-rcon.log
+config.js
