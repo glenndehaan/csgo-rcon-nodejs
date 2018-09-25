@@ -8,7 +8,7 @@ const config = require("../config.js");
  * @param callback
  */
 function loadCSGOConfig(match_config, callback) {
-    fs.readFile(`${__dirname}/../${match_config}.txt`, (err, data) => {
+    fs.readFile(`${__dirname}/../${config.application.csgoConfigFolder}/${match_config}.txt`, 'utf8', (err, data) => {
         if (err) {
             throw err;
         }
