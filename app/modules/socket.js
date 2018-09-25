@@ -1,6 +1,8 @@
 const app = require('http').createServer();
 const io = require('socket.io')(app);
 const config = require("../config");
+const log = require("./logger");
+const db = require("./database").db;
 
 /**
  * Init the socket connection
@@ -9,7 +11,7 @@ const config = require("../config");
  * @param db
  * @param rcon_functions
  */
-function init(log, db, rcon_functions) {
+function init(rcon_functions) {
     io.on('connection', function (socket) {
         socket.emit('init', {
             matches: db.getData("/match"),

@@ -1,7 +1,7 @@
+const log = require("./logger");
 const config = require("../config");
 const queueFailMax = 35;
 // let queueFailCurrent = 0;
-let logger = null;
 
 /**
  * Create globals. The active queue of the application and a var to check if a command is still running
@@ -12,12 +12,8 @@ let queueFailCurrent = {};
 
 /**
  * Init function to add the servers to the global objects
- *
- * @param log
  */
-function init(log){
-    logger = log;
-
+function init(){
     for(let item = 0; item < config.servers.length; item++){
         activeQueue[`${config.servers[item].ip}:${config.servers[item].port}`] = [];
         commandRunning[`${config.servers[item].ip}:${config.servers[item].port}`] = false;
@@ -60,7 +56,7 @@ setInterval(() => {
                     queueFailCurrent[`${config.servers[item].ip}:${config.servers[item].port}`] = 0;
                     complete(`${config.servers[item].ip}:${config.servers[item].port}`);
 
-                    logger.warn(`[QUEUE] Max Queue Fail reached! Cleaning up...`);
+                    log.warn(`[QUEUE] Max Queue Fail reached! Cleaning up...`);
                 }
             }else{
                 queueFailCurrent[`${config.servers[item].ip}:${config.servers[item].port}`]++;

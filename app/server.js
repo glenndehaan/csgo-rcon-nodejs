@@ -3,17 +3,16 @@
  */
 const Rcon = require('srcds-rcon');
 const os = require("os");
-const JsonDB = require('node-json-db');
-const config = require("./config");
-const db = new JsonDB('csgo-rcon', true, false);
+
+/**
+ * Import own modules
+ */
+const log = require("./modules/logger");
+const database = require("./modules/database");
 const queue = require("./modules/queue");
 const socket = require("./modules/socket");
 const configProvider = require("./modules/config");
-
-/**
- * Check if we are using the dev version
- */
-const dev = process.env.NODE_ENV !== 'production';
+const config = require("./config");
 
 /**
  * Hack since the srcds-rcon package isn't handling rejections
@@ -21,26 +20,11 @@ const dev = process.env.NODE_ENV !== 'production';
 process.on('unhandledRejection', (reason, p) => {});
 
 /**
- * Init logger and set log level
+ * Init modules
  */
-const log = require('simple-node-logger').createSimpleLogger({
-    logFilePath: `${dev ? __dirname : process.cwd()}${config.logger.location}`,
-    timestampFormat: 'YYYY-MM-DD HH:mm:ss.SSS'
-});
-log.setLevel(config.logger.level);
-
-/**
- * Init the queue
- */
-queue.init(log);
-socket.init(log, db, {connectServer, resetServer, disconnectServer});
-
-/**
- * Init the DB object if we launch the app for the first time
- */
-if(Object.keys(db.getData("/")).length === 0 && db.getData("/").constructor === Object){
-    db.push("/match", []);
-}
+database.init();
+queue.init();
+socket.init({connectServer, resetServer, disconnectServer});
 
 /**
  * Create global vars
