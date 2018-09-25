@@ -4,12 +4,16 @@
 const Rcon = require('srcds-rcon');
 const os = require("os");
 const JsonDB = require('node-json-db');
-const log = require('simple-node-logger').createSimpleLogger('csgo-rcon.log');
+const config = require("./config");
 const db = new JsonDB('csgo-rcon', true, false);
 const queue = require("./modules/queue");
 const socket = require("./modules/socket");
 const configProvider = require("./modules/config");
-const config = require("./config");
+
+/**
+ * Check if we are using the dev version
+ */
+const dev = process.env.NODE_ENV !== 'production';
 
 /**
  * Hack since the srcds-rcon package isn't handling rejections
@@ -17,9 +21,13 @@ const config = require("./config");
 process.on('unhandledRejection', (reason, p) => {});
 
 /**
- * Set log level from config
+ * Init logger and set log level
  */
-log.setLevel(config.application.logLevel);
+const log = require('simple-node-logger').createSimpleLogger({
+    logFilePath: `${dev ? __dirname : process.cwd()}${config.logger.location}`,
+    timestampFormat: 'YYYY-MM-DD HH:mm:ss.SSS'
+});
+log.setLevel(config.logger.level);
 
 /**
  * Init the queue

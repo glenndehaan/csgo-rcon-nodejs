@@ -1,5 +1,5 @@
 const fs = require("fs");
-const config = require("../config.js");
+const config = require("../config");
 
 /**
  * Grabs CSGO configs from file system
