@@ -1,17 +1,14 @@
 const app = require('http').createServer();
 const io = require('socket.io')(app);
-const config = require("../config");
 const log = require("./logger");
 const db = require("./database").db;
+const rcon = require("./rcon");
+const config = require("../config");
 
 /**
  * Init the socket connection
- *
- * @param log
- * @param db
- * @param rcon_functions
  */
-function init(rcon_functions) {
+function init() {
     io.on('connection', function (socket) {
         socket.emit('init', {
             matches: db.getData("/match"),
@@ -32,7 +29,7 @@ function init(rcon_functions) {
             log.info(`[SOCKET][${socket.id}] Starts match ID: ${data.id}`);
 
             const dbData = db.getData(`/match[${data.id}]`);
-            rcon_functions.connectServer(dbData.server, dbData, true);
+            rcon.connect(dbData.server, dbData, true);
 
             db.push(`/match[${data.id}]/status`, 1);
             io.sockets.emit('update', {
@@ -45,7 +42,7 @@ function init(rcon_functions) {
             log.info(`[SOCKET][${socket.id}] Ended match ID: ${data.id}`);
 
             const dbData = db.getData(`/match[${data.id}]`);
-            rcon_functions.resetServer(dbData.server);
+            rcon.reset(dbData.server);
 
             db.push(`/match[${data.id}]/status`, 2);
             io.sockets.emit('update', {
@@ -58,7 +55,7 @@ function init(rcon_functions) {
             log.info(`[SOCKET][${socket.id}] Disconnects server from match ID: ${data.id}`);
 
             const dbData = db.getData(`/match[${data.id}]`);
-            rcon_functions.disconnectServer(dbData.server);
+            rcon.disconnect(dbData.server);
         });
 
         log.info(`[SOCKET] New client connected! ID: ${socket.id}`);

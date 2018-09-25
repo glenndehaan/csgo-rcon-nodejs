@@ -14,6 +14,7 @@ function loadCSGOConfig(match_config, callback) {
         }
 
         callback(data);
+        console.log('data', data);
     });
 }
 
