@@ -4,8 +4,8 @@
   "description": "NPM packages for csgo-rcon-nodejs",
   "private": true,
   "scripts": {
-    "start": "node ./app/server.js",
-    "dev": "nodemon -L --watch ./app ./app/server.js"
+    "start": "cd ./app && node ./server.js",
+    "dev": "cd ./app && nodemon -L --watch ./ ./server.js"
   },
   "author": "Glenn de Haan",
   "license": "MIT",
