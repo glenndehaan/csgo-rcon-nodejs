@@ -15,4 +15,4 @@ npm-debug.log
 # App
 csgo-rcon.json
 csgo-rcon.log
-node/config.js
+app/config.js

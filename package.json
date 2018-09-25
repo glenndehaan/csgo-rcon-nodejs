@@ -1,0 +1,19 @@
+{
+  "name": "csgo-rcon-nodejs",
+  "version": "0.0.0",
+  "description": "NPM packages for csgo-rcon-nodejs",
+  "private": true,
+  "scripts": {
+    "start": "node ./app/server.js",
+    "dev": "nodemon -L --watch ./app ./app/server.js"
+  },
+  "author": "Glenn de Haan",
+  "license": "MIT",
+  "dependencies": {
+    "node-json-db": "^0.9.0",
+    "nodemon": "^1.18.4",
+    "simple-node-logger": "^0.93.40",
+    "socket.io": "^2.1.1",
+    "srcds-rcon": "github:randunel/node-srcds-rcon"
+  }
+}
