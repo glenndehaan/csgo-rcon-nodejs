@@ -65,7 +65,7 @@ function init() {
      * Start listening on the right port/host for the Socket.IO server
      */
     app.listen(config.application.port, config.application.host);
-    log.info(`[SYSTEM] Socket.IO started on: ${config.application.host}:${config.application.port}`);
+    log.info(`[SOCKET] Socket.IO started on: ${config.application.host}:${config.application.port}`);
 }
 
 module.exports = {io, init};

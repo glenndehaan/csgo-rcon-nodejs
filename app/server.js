@@ -4,6 +4,7 @@
 const log = require("./modules/logger");
 const database = require("./modules/database");
 const queue = require("./modules/queue");
+const web = require("./modules/web");
 const socket = require("./modules/socket");
 
 /**
@@ -16,6 +17,7 @@ process.on('unhandledRejection', (reason, p) => {});
  */
 database.init();
 queue.init();
+// web.init();
 socket.init();
 
 log.info("[SYSTEM] App running");
