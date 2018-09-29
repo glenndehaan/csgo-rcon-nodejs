@@ -1,0 +1,32 @@
+// helpers
+
+// visually hide copy
+@mixin hideType {
+  font-size: 0;
+  line-height: 0;
+  text-indent: -9999999px;
+  overflow: hidden;
+}
+
+// self clear children
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+// fallback for IE (no object-fit support)
+// parent needs to have overflow hidden
+@mixin objectfitIE {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+}

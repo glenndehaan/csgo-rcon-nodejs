@@ -5,7 +5,10 @@
   "private": true,
   "scripts": {
     "start": "cd ./app && node ./server.js",
-    "dev": "cd ./app && nodemon -L --watch ./ ./server.js"
+    "dev": "cd ./app && nodemon -L --watch ./ ./server.js",
+    "webpack": "webpack --watch --watch-poll --mode development --config ./_scripts/webpack/webpack.config.js",
+    "webpack:production": "webpack --mode production --config ./_scripts/webpack/webpack.config.js",
+    "lint": "eslint -c ./package.json ./"
   },
   "author": "Glenn de Haan",
   "license": "MIT",

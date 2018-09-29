@@ -1,0 +1,33 @@
+// font-smoothing
+
+@mixin font-smoothing($light-text: true) {
+  @if $light-text == true {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  @else {
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+  }
+}
+
+@mixin font($type: main, $fontsmoothing: false) {
+  @if $type == main {
+    font-family: $fontTypeBase;
+    font-weight: 400;
+    font-style: normal;
+  }
+  @if $type == main-bold {
+    font-family: $fontTypeBaseBold;
+    font-weight: 500;
+    font-style: normal;
+  }
+  @if $type == main-italic {
+    font-family: $fontTypeBaseItalic;
+    font-weight: 400;
+    font-style: italic;
+  }
+  @if $fontsmoothing == true {
+    @include font-smoothing(true);
+  }
+}

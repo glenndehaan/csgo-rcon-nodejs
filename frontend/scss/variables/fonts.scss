@@ -1,0 +1,21 @@
+// 1. loading fonts
+// 2. defining global font-sizes
+// 3. defining global font-name variables
+
+// paths
+$path-to-font: '../fonts';
+
+// todo add custom fonts
+
+// Font sizes
+$sizeFontSmall: 14px;
+$sizeFontTitleLarge: 30px;
+$sizeFontSubTitle: 16px;
+$sizeFontHighlight: 20px;
+
+// Fonts
+$fontTypeBase: Calibri, sans-serif;
+$fontTypeBaseItalic: Calibri, sans-serif;
+$fontTypeBaseBold: Calibri, sans-serif;
+$fontTypeSemiBold: Calibri, sans-serif;
+$fontTypeHeader: Calibri, sans-serif;

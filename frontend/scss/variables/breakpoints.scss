@@ -1,0 +1,20 @@
+// Breakpoints
+
+$small: 400px;
+$medium: 600px;
+$large: 900px;
+$xlarge: 1200px;
+
+// Ranges starting form a breakpoint
+$small-up: ( min:  $small );
+$medium-up: ( min:  $medium );
+$large-up: ( min: $large );
+$xlarge-up: ( min: $xlarge );
+
+// Ranges between breakpoints
+$small-to-medium: ( min: $small, max: #{$medium - 1} );
+$medium-to-large: ( min: $medium, max: #{$large - 1} );
+
+// Ranges up to a breakpoint
+$small-down: ( max: #{$small - 1} );
+$medium-down: ( max: #{$medium - 1} );
