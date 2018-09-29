@@ -1,4 +1,5 @@
 import {h, Component} from 'preact';
+
 export default class Header extends Component {
     /**
      * Preact render function
@@ -22,14 +23,6 @@ export default class Header extends Component {
                     </ul>
                 </div>
             </nav>
-
-
         );
     }
 }
-
-
-
-
-
-

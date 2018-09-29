@@ -20,8 +20,8 @@ export default new class Socket {
         this.disconnectedCallback = disconnectedCallback;
 
         this.callbacks = {
-            message: [],
-            users: []
+            init: [],
+            update: []
         };
 
         this.setup();
@@ -36,10 +36,7 @@ export default new class Socket {
             maxAttempts: 10,
             onopen: () => {
                 console.log('[SOCKET] Connected!');
-
-                this.send("hello", {
-                    nickname: this.config.nickname
-                });
+                this.connectedCallback();
             },
             onmessage: (e) => this.message(e.data),
             onreconnect: () => console.warn('[SOCKET] Reconnecting...'),
@@ -62,19 +59,14 @@ export default new class Socket {
         const decodedMessage = atob(data);
         const message = JSON.parse(decodedMessage);
 
-        if(message.instruction === "hello") {
-            console.log(`[SOCKET] Hello: ${JSON.stringify(message.data)}`);
-            this.connectedCallback();
+        if(message.instruction === "init") {
+            console.log(`[SOCKET] Init: ${JSON.stringify(message.data)}`);
+            this.runBoundFunctions("init", message.data);
         }
 
-        if(message.instruction === "message") {
-            console.log(`[SOCKET] Message: ${JSON.stringify(message.data)}`);
-            this.runBoundFunctions("message", message.data);
-        }
-
-        if(message.instruction === "users") {
-            console.log(`[SOCKET] Users update: ${JSON.stringify(message.data)}`);
-            this.runBoundFunctions("users", message.data.users);
+        if(message.instruction === "update") {
+            console.log(`[SOCKET] Update: ${JSON.stringify(message.data)}`);
+            this.runBoundFunctions("update", message.data);
         }
     }
 

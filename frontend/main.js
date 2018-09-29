@@ -1,6 +1,8 @@
 import {h, Component, render} from 'preact';
 import Socket from './modules/socket';
-import Header from "./modules/Header";
+
+import Header from "./components/Header";
+import Home from './components/Home'
 
 class App extends Component {
     /**
@@ -10,12 +12,11 @@ class App extends Component {
         super();
 
         this.state = {
-            server: null,
-            nickname: null,
-            informationReady: false,
             connected: false,
             connectionError: false
         };
+
+        Socket.initialize(window.location.host, () => this.connected(), () => this.disconnected());
     }
 
     /**
@@ -37,18 +38,6 @@ class App extends Component {
     }
 
     /**
-     * Function when connect form is submit
-     */
-    connectSubmit(server, nickname) {
-        this.setState({
-            server,
-            nickname
-        });
-
-        Socket.initialize(server, nickname, () => this.connected(), () => this.disconnected());
-    }
-
-    /**
      * Preact render function
      *
      * @returns {*}
@@ -56,8 +45,10 @@ class App extends Component {
     render() {
         return (
             <div id="root">
-                Hoi
                 <Header/>
+                <div className="container">
+                    <Home/>
+                </div>
             </div>
         );
     }
