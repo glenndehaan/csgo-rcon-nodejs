@@ -33,7 +33,7 @@ const init = (server) => {
          * Main message bus
          */
         ws.on('message', (data) => {
-            const dataString = this.decrypt(data);
+            const dataString = decrypt(data);
 
             if (typeof dataString.instruction === "undefined" || dataString.instruction === "") {
                 global.log.error(`[SOCKET][${ws.id}] No instruction received from socket`);
