@@ -76,7 +76,7 @@ export default class Home extends Component {
 
                 <div className="table-responsive">
                     <table id="view-table" className="table table-striped">
-                        <thead>
+                        <thead className="thead-dark">
                             <tr>
                                 <th>Server</th>
                                 <th>Map</th>
