@@ -1,8 +1,10 @@
 import {h, Component, render} from 'preact';
+import Router from 'preact-router';
 import Socket from './modules/socket';
 
 import Header from "./components/Header";
 import Home from './components/Home'
+import Create from './components/Create'
 
 class App extends Component {
     /**
@@ -47,7 +49,10 @@ class App extends Component {
             <div id="root">
                 <Header/>
                 <div className="container">
-                    <Home/>
+                    <Router>
+                        <Home path="/"/>
+                        <Create path="/match/create"/>
+                    </Router>
                 </div>
             </div>
         );

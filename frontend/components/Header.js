@@ -1,4 +1,5 @@
 import {h, Component} from 'preact';
+import { Link } from 'preact-router/match';
 
 export default class Header extends Component {
     /**
@@ -8,17 +9,16 @@ export default class Header extends Component {
      */
     render() {
         return (
-
             <nav className="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-                <a className="navbar-brand" href="/">CSGO Rcon NodeJS</a>
+                <Link className="navbar-brand" href="/">CSGO Rcon NodeJS</Link>
 
                 <div className="collapse navbar-collapse" id="navbarsExampleDefault">
                     <ul className="navbar-nav mr-auto">
-                        <li className="nav-item active">
-                            <a className="nav-link" href="/">Home <span className="sr-only">(current)</span></a>
+                        <li className="nav-item">
+                            <Link activeClassName="active" className="nav-link" href="/">Home</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/match/create">Create match</a>
+                            <Link activeClassName="active" className="nav-link" href="/match/create/">Create match</Link>
                         </li>
                     </ul>
                 </div>

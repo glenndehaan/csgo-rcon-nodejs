@@ -9,8 +9,8 @@ export default class Home extends Component {
         super();
 
         this.state = {
-            servers: [],
-            matches: []
+            servers: Socket.data.servers,
+            matches: Socket.data.matches
         };
     }
 

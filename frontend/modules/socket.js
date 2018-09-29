@@ -24,6 +24,11 @@ export default new class Socket {
             update: []
         };
 
+        this.data = {
+            servers: [],
+            matches: []
+        };
+
         this.setup();
     }
 
@@ -61,11 +66,19 @@ export default new class Socket {
 
         if(message.instruction === "init") {
             console.log(`[SOCKET] Init: ${JSON.stringify(message.data)}`);
+
+            this.data.servers = message.data.servers;
+            this.data.matches = message.data.matches;
+
             this.runBoundFunctions("init", message.data);
         }
 
         if(message.instruction === "update") {
             console.log(`[SOCKET] Update: ${JSON.stringify(message.data)}`);
+
+            this.data.servers = message.data.servers;
+            this.data.matches = message.data.matches;
+
             this.runBoundFunctions("update", message.data);
         }
     }
