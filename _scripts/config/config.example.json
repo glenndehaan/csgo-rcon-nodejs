@@ -1,6 +1,9 @@
 {
   "application": {
+    "name": "CSGO Rcon NodeJS",
     "companyName": "A Company",
+    "env": " (local)",
+    "basePath": "/",
     "csgoConfigFolder": "../_scripts/csgo-configs",
     "port": 3542,
     "host": "0.0.0.0"

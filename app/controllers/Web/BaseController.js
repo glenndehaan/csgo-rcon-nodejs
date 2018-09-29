@@ -1,5 +1,5 @@
 const config = require("../../config");
-const assets = require("../../modules/Assets");
+const assets = require("../../modules/assets");
 
 class BaseController {
     constructor() {
