@@ -9,7 +9,7 @@ const web = require("./modules/web");
 /**
  * Hack since the srcds-rcon package isn't handling rejections
  */
-process.on('unhandledRejection', (reason, p) => {});
+process.on('unhandledRejection', () => {});
 
 /**
  * Init modules

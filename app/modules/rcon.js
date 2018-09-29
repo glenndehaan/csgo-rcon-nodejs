@@ -22,7 +22,7 @@ let broadcasters = {};
 function initBroadcaster(server) {
     broadcasters[server] = setInterval(() => {
         queue.add(server, function() {
-            rcon[server].command(`say "Welcome to the ${config.application.companyName} server"`).then(status => {
+            rcon[server].command(`say "Welcome to the ${config.application.companyName} server"`).then(() => {
                 log.info(`[BROADCASTER][${server}] Message sending complete!`);
                 queue.complete(server);
             });
@@ -60,7 +60,7 @@ function startMatch(server, matchInfo) {
     const team1 = matchInfo.team1;
     const team2 = matchInfo.team2;
 
-    const map = matchInfo.map;
+    // const map = matchInfo.map;
     const match_config = matchInfo.match_config;
 
     /**
