@@ -1,5 +1,6 @@
 import {h, Component, render} from 'preact';
 import Socket from './modules/socket';
+import Header from "./modules/Header";
 
 class App extends Component {
     /**
@@ -56,6 +57,7 @@ class App extends Component {
         return (
             <div id="root">
                 Hoi
+                <Header/>
             </div>
         );
     }
