@@ -10,13 +10,17 @@
   "author": "Glenn de Haan",
   "license": "MIT",
   "dependencies": {
+    "atob": "^2.1.2",
     "body-parser": "^1.18.3",
+    "btoa": "^1.2.1",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
+    "express-ws": "^4.0.0",
     "node-json-db": "^0.9.0",
     "nodemon": "^1.18.4",
     "simple-node-logger": "^0.93.40",
     "socket.io": "^2.1.1",
-    "srcds-rcon": "github:randunel/node-srcds-rcon"
+    "srcds-rcon": "github:randunel/node-srcds-rcon",
+    "uuid": "^3.3.2"
   }
 }

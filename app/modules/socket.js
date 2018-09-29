@@ -1,71 +1,137 @@
-const app = require('http').createServer();
-const io = require('socket.io')(app);
+const uuidv4 = require('uuid/v4');
+const btoa = require('btoa');
+const atob = require('atob');
 const log = require("./logger");
 const db = require("./database").db;
 const rcon = require("./rcon");
+const server = require("./web").app;
 const config = require("../config");
+
+let socket = null;
 
 /**
  * Init the socket connection
  */
-function init() {
-    io.on('connection', function (socket) {
-        socket.emit('init', {
-            matches: db.getData("/match"),
-            servers: config.servers
-        });
-
-        socket.on('create_match', function (data) {
-            log.info(`[SOCKET][${socket.id}] Created a new match! RAW: ${JSON.stringify(data)}`);
-            db.push("/match[]", data);
-
-            io.sockets.emit('update', {
-                matches: db.getData("/match"),
-                servers: config.servers
-            });
-        });
-
-        socket.on('start_match', function (data) {
-            log.info(`[SOCKET][${socket.id}] Starts match ID: ${data.id}`);
-
-            const dbData = db.getData(`/match[${data.id}]`);
-            rcon.connect(dbData.server, dbData, true);
-
-            db.push(`/match[${data.id}]/status`, 1);
-            io.sockets.emit('update', {
-                matches: db.getData("/match"),
-                servers: config.servers
-            });
-        });
-
-        socket.on('end_match', function (data) {
-            log.info(`[SOCKET][${socket.id}] Ended match ID: ${data.id}`);
-
-            const dbData = db.getData(`/match[${data.id}]`);
-            rcon.reset(dbData.server);
-
-            db.push(`/match[${data.id}]/status`, 2);
-            io.sockets.emit('update', {
-                matches: db.getData("/match"),
-                servers: config.servers
-            });
-        });
-
-        socket.on('disconnect_server', function (data) {
-            log.info(`[SOCKET][${socket.id}] Disconnects server from match ID: ${data.id}`);
-
-            const dbData = db.getData(`/match[${data.id}]`);
-            rcon.disconnect(dbData.server);
-        });
-
-        log.info(`[SOCKET] New client connected! ID: ${socket.id}`);
-    });
+const init = () => {
+    socket = require('express-ws')(server);
 
     /**
-     * Start listening on the right port/host for the Socket.IO server
+     * WS main route
      */
-    app.listen(config.application.port, config.application.host);
-    log.info(`[SOCKET] Socket.IO started on: ${config.application.host}:${config.application.port}`);
-}
+    server.ws('/', (ws) => {
+        /**
+         * Create globals
+         */
+        ws.id = uuidv4();
 
-module.exports = {io, init};
+        /**
+         * Main message bus
+         */
+        ws.on('message', (data) => {
+            const dataString = this.decrypt(data);
+
+            if (typeof dataString.instruction === "undefined" || dataString.instruction === "") {
+                global.log.error(`[SOCKET][${ws.id}] No instruction received from socket`);
+                return;
+            }
+
+            if (dataString.instruction === "create_match") {
+                log.info(`[SOCKET][${ws.id}] Created a new match! RAW: ${JSON.stringify(dataString.data)}`);
+                db.push("/match[]", dataString.data);
+
+                informAllSockets('update', {
+                    matches: db.getData("/match"),
+                    servers: config.servers
+                });
+            }
+
+            if (dataString.instruction === "start_match") {
+                log.info(`[SOCKET][${ws.id}] Starts match ID: ${dataString.data.id}`);
+
+                const dbData = db.getData(`/match[${dataString.data.id}]`);
+                rcon.connect(dbData.server, dbData, true);
+
+                db.push(`/match[${dataString.data.id}]/status`, 1);
+                informAllSockets('update', {
+                    matches: db.getData("/match"),
+                    servers: config.servers
+                });
+            }
+
+            if (dataString.instruction === "end_match") {
+                log.info(`[SOCKET][${ws.id}] Ended match ID: ${dataString.data.id}`);
+
+                const dbData = db.getData(`/match[${dataString.data.id}]`);
+                rcon.reset(dbData.server);
+
+                db.push(`/match[${dataString.data.id}]/status`, 2);
+                informAllSockets('update', {
+                    matches: db.getData("/match"),
+                    servers: config.servers
+                });
+            }
+
+            if (dataString.instruction === "disconnect_server") {
+                log.info(`[SOCKET][${ws.id}] Disconnects server from match ID: ${dataString.datadata.id}`);
+
+                const dbData = db.getData(`/match[${dataString.data.id}]`);
+                rcon.disconnect(dbData.server);
+            }
+        });
+
+        /**
+         * Function to catch client disconnect
+         */
+        ws.on('close', () => {
+            log.info(`[SOCKET][${ws.id}] Disconnected!`);
+        });
+
+        /**
+         * Send init data
+         */
+        ws.send(encrypt({
+            instruction: 'init',
+            data: {
+                matches: db.getData("/match"),
+                servers: config.servers
+            }
+        }));
+
+        log.info(`[SOCKET][${ws.id}] User connected!`)
+    });
+
+    log.info(`[SOCKET] WS started!`);
+};
+
+/**
+ * Function to send info to all sockets
+ */
+const informAllSockets = (instruction, data) => {
+    this.socket.getWss().clients.forEach(client => {
+        // Check if connection is still open
+        if (client.readyState !== client.OPEN) return;
+
+        client.send(encrypt({
+            instruction,
+            data
+        }));
+    });
+};
+
+/**
+ * Function encrypt data before sending
+ */
+const encrypt = (data) => {
+    const string = JSON.stringify(data);
+    return btoa(string);
+};
+
+/**
+ * Function decrypt data from socket
+ */
+const decrypt = (data) => {
+    const string = atob(data);
+    return JSON.parse(string);
+};
+
+module.exports = {socket, init};

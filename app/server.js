@@ -17,7 +17,7 @@ process.on('unhandledRejection', (reason, p) => {});
  */
 database.init();
 queue.init();
-// web.init();
+web.init();
 socket.init();
 
 log.info("[SYSTEM] App running");
