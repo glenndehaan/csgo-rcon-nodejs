@@ -3,6 +3,7 @@ import { route } from 'preact-router';
 import Socket from "../modules/socket";
 
 import {getIsoCodes} from '../utils/Strings';
+import uuidv4 from 'uuid/v4';
 
 export default class Create extends Component {
     /**
@@ -81,6 +82,7 @@ export default class Create extends Component {
     createMatch() {
         if(!this.checkFields()) {
             Socket.send("create_match", {
+                id: uuidv4(),
                 team1: {
                     name: this.fields.team1.name.value,
                     country: this.fields.team1.country.value

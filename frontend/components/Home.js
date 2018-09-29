@@ -1,4 +1,5 @@
 import {h, Component} from 'preact';
+import { Link } from 'preact-router/match';
 import Socket from "../modules/socket";
 
 export default class Home extends Component {
@@ -94,6 +95,7 @@ export default class Home extends Component {
                                     <td>{match.team1.name}</td>
                                     <td>{match.team2.name}</td>
                                     <td>{`${this.statusResolver(match.status)} (${match.status})`}</td>
+                                    <td><Link href={`/match/${match.id}`}><button type="button" className="btn btn-primary">Match details</button></Link></td>
                                 </tr>
                             ))}
                         </tbody>
