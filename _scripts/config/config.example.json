@@ -1,6 +1,6 @@
 {
   "application": {
-    "name": "CSGO Rcon NodeJS",
+    "name": "CSGO Remote",
     "companyName": "A Company",
     "env": " (local)",
     "basePath": "/",
