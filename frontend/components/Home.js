@@ -18,18 +18,27 @@ export default class Home extends Component {
      * Runs then component mounts
      */
     componentDidMount() {
-        Socket.on("init", (data) => {
-            this.setState({
-                servers: data.servers,
-                matches: data.matches
-            })
-        });
+        Socket.on("init", (data) => this.onUpdate(data));
+        Socket.on("update", (data) => this.onUpdate(data));
+    }
 
-        Socket.on("update", (data) => {
-            this.setState({
-                servers: data.servers,
-                matches: data.matches
-            })
+    /**
+     * Runs before component unmounts
+     */
+    componentWillUnmount() {
+        Socket.off("init", (data) => this.onUpdate(data));
+        Socket.off("update", (data) => this.onUpdate(data));
+    }
+
+    /**
+     * Updates the state based on data from the socket
+     *
+     * @param data
+     */
+    onUpdate(data) {
+        this.setState({
+            servers: data.servers,
+            matches: data.matches
         });
     }
 
