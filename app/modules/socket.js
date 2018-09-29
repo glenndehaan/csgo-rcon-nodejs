@@ -112,7 +112,7 @@ const init = (server) => {
  * Function to send info to all sockets
  */
 const informAllSockets = (instruction, data) => {
-    this.socket.getWss().clients.forEach(client => {
+    socket.getWss().clients.forEach(client => {
         // Check if connection is still open
         if (client.readyState !== client.OPEN) return;
 

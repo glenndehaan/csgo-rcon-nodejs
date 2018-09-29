@@ -1,5 +1,8 @@
 import {h, Component} from 'preact';
+import { route } from 'preact-router';
 import Socket from "../modules/socket";
+
+import {getIsoCodes} from '../utils/Strings';
 
 export default class Create extends Component {
     /**
@@ -14,7 +17,19 @@ export default class Create extends Component {
             map: ""
         };
 
-        this.serverField = null;
+        this.fields = {
+            team1: {
+                name: null,
+                country: null
+            },
+            team2: {
+                name: null,
+                country: null
+            },
+            server: null,
+            map: null,
+            main_config: null
+        };
     }
 
     /**
@@ -50,7 +65,7 @@ export default class Create extends Component {
      */
     updateMapField() {
         for(let item = 0; item < this.state.servers.length; item++) {
-            if(this.serverField.value === (this.state.servers[item].ip + ":" + this.state.servers[item].port)) {
+            if(this.fields.server.value === (this.state.servers[item].ip + ":" + this.state.servers[item].port)) {
                 this.setState({
                     map: this.state.servers[item].default_map
                 });
@@ -58,6 +73,87 @@ export default class Create extends Component {
                 break;
             }
         }
+    }
+
+    /**
+     * Check's the fields and creates the match
+     */
+    createMatch() {
+        if(!this.checkFields()) {
+            Socket.send("create_match", {
+                team1: {
+                    name: this.fields.team1.name.value,
+                    country: this.fields.team1.country.value
+                },
+                team2: {
+                    name: this.fields.team2.name.value,
+                    country: this.fields.team2.country.value
+                },
+                map: this.fields.map.value,
+                match_config: this.fields.main_config.value,
+                server: this.fields.server.value,
+                status: 0
+            });
+
+            this.fields.team1.name.value = "";
+            this.fields.team1.country.selectedIndex = 0;
+            this.fields.team2.name.value = "";
+            this.fields.team2.country.selectedIndex = 0;
+            this.fields.server.selectedIndex = 0;
+            this.fields.map.value = "";
+            this.fields.main_config.selectedIndex = 0;
+
+            route('/');
+        }
+    }
+
+    /**
+     * Checks if all fields are correct
+     *
+     * @return {boolean}
+     */
+    checkFields() {
+        let errors = false;
+
+        // Reset checks
+        this.fields.team1.name.classList.remove("error");
+        this.fields.team1.country.classList.remove("error");
+        this.fields.team2.name.classList.remove("error");
+        this.fields.team2.country.classList.remove("error");
+        this.fields.server.classList.remove("error");
+        this.fields.map.classList.remove("error");
+        this.fields.main_config.classList.remove("error");
+
+        if(this.fields.team1.name.value === "") {
+            errors = true;
+            this.fields.team1.name.classList.add("error");
+        }
+        if(this.fields.team1.country.value === "false" || this.fields.team1.country.value === false) {
+            errors = true;
+            this.fields.team1.country.classList.add("error");
+        }
+        if(this.fields.team2.name.value === "") {
+            errors = true;
+            this.fields.team2.name.classList.add("error");
+        }
+        if(this.fields.team2.country.value === "false" || this.fields.team2.country.value === false) {
+            errors = true;
+            this.fields.team2.country.classList.add("error");
+        }
+        if(this.fields.server.value === "false" || this.fields.server.value === false) {
+            errors = true;
+            this.fields.server.classList.add("error");
+        }
+        if(this.fields.map.value === "") {
+            errors = true;
+            this.fields.map.classList.add("error");
+        }
+        if(this.fields.main_config.value === "false" || this.fields.main_config.value === false) {
+            errors = true;
+            this.fields.main_config.classList.add("error");
+        }
+
+        return errors;
     }
 
     /**
@@ -77,11 +173,18 @@ export default class Create extends Component {
                             <tbody>
                                 <tr>
                                     <td>Name</td>
-                                    <td><input type="text" name="team-name-1" id="team-name-1" title="team-name-1" /></td>
+                                    <td><input type="text" name="team-name-1" id="team-name-1" title="team-name-1" ref={c => this.fields.team1.name = c} /></td>
                                 </tr>
                                 <tr>
                                     <td>Country Code</td>
-                                    <td><input type="text" name="team-country-1" id="team-country-1" title="team-country-1" /></td>
+                                    <td>
+                                        <select name="team-country-1" id="team-country-1" title="team-country-1" ref={c => this.fields.team1.country = c}>
+                                            <option selected disabled value="false">Select country</option>
+                                            {getIsoCodes().map((code, index) => (
+                                                <option key={index} value={code.code}>{code.name}</option>
+                                            ))}
+                                        </select>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -91,11 +194,18 @@ export default class Create extends Component {
                             <tbody>
                                 <tr>
                                     <td>Name</td>
-                                    <td><input type="text" name="team-name-2" id="team-name-2" title="team-name-2" /></td>
+                                    <td><input type="text" name="team-name-2" id="team-name-2" title="team-name-2" ref={c => this.fields.team2.name = c} /></td>
                                 </tr>
                                 <tr>
                                     <td>Country Code</td>
-                                    <td><input type="text" name="team-country-2" id="team-country-2" title="team-country-2" /></td>
+                                    <td>
+                                        <select name="team-country-2" id="team-country-2" title="team-country-2" ref={c => this.fields.team2.country = c}>
+                                            <option selected disabled value="false">Select country</option>
+                                            {getIsoCodes().map((code, index) => (
+                                                <option key={index} value={code.code}>{code.name}</option>
+                                            ))}
+                                        </select>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -106,7 +216,7 @@ export default class Create extends Component {
                                 <tr>
                                     <td>Server</td>
                                     <td>
-                                        <select title="server" name="server" id="server" onChange={() => this.updateMapField()} ref={c => this.serverField = c}>
+                                        <select title="server" name="server" id="server" onChange={() => this.updateMapField()} ref={c => this.fields.server = c}>
                                             <option selected disabled value="false">Select a server</option>
                                             {this.state.servers.map((server, index) => (
                                                 <option key={index} value={`${server.ip}:${server.port}`}>{`${server.ip}:${server.port}`}</option>
@@ -116,12 +226,12 @@ export default class Create extends Component {
                                 </tr>
                                 <tr>
                                     <td>Map</td>
-                                    <td><input type="text" name="map" title="map" id="map" value={this.state.map} disabled/></td>
+                                    <td><input type="text" name="map" title="map" id="map" value={this.state.map} ref={c => this.fields.map = c} disabled/></td>
                                 </tr>
                                 <tr>
                                     <td>Main CSGO Config</td>
                                     <td>
-                                        <select title="csgo-config" name="csgo-config" id="csgo-config">
+                                        <select title="csgo-config" name="csgo-config" id="csgo-config" ref={c => this.fields.main_config = c}>
                                             <option selected disabled value="false">Select a config</option>
                                             <option value="esl5v5">esl5v5</option>
                                         </select>
@@ -129,7 +239,7 @@ export default class Create extends Component {
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td><button type="button" className="btn btn-lg btn-success" id="submit">Create</button></td>
+                                    <td><button type="button" className="btn btn-lg btn-success" id="submit" onClick={() => this.createMatch()}>Create</button></td>
                                 </tr>
                             </tbody>
                         </table>
