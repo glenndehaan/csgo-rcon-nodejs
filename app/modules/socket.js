@@ -1,18 +1,23 @@
+/**
+ * Import base packages
+ */
 const uuidv4 = require('uuid/v4');
 const btoa = require('btoa');
 const atob = require('atob');
 const log = require("./logger");
 const db = require("./database").db;
 const rcon = require("./rcon");
-const server = require("./web").app;
 const config = require("../config");
 
+/**
+ * Create socket object
+ */
 let socket = null;
 
 /**
  * Init the socket connection
  */
-const init = () => {
+const init = (server) => {
     socket = require('express-ws')(server);
 
     /**

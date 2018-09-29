@@ -10,6 +10,7 @@ const bodyParser = require('body-parser');
  */
 const log = require("./logger");
 const config = require("../config");
+const socket = require("./socket");
 const webRouter = require('../routers/Web');
 const apiRouter = require('../routers/Api');
 const indexController = require('../controllers/Web/IndexController');
@@ -32,7 +33,7 @@ const init = () => {
     /**
      * Setup socket
      */
-    // new Socket(app);
+    socket.init(app);
 
     /**
      * Serve static public dir
