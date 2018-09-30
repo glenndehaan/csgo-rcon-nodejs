@@ -9,21 +9,16 @@ export default class Header extends Component {
      */
     render() {
         return (
-            <nav className="navbar navbar-expand-lg navbar-dark">
+            <nav className="navbar navbar-expand navbar-dark">
                 <Link href="/" className="navbar-brand">CSGO Remote</Link>
-                <button className="navbar-toggler" type="button" data-target="#navigation">
-                    <span className="navbar-toggler-icon" />
-                </button>
-                <div className="collapse navbar-collapse">
-                    <ul className="navbar-nav">
-                        <li className="nav-item">
-                            <Link href="/" activeClassName="active" className="nav-link">Home</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link href="/match/create" activeClassName="active" className="nav-link">Create Match</Link>
-                        </li>
-                    </ul>
-                </div>
+                <ul className="navbar-nav">
+                    <li className="nav-item">
+                        <Link href="/" activeClassName="active" className="nav-link">Home</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link href="/match/create" activeClassName="active" className="nav-link">Create Match</Link>
+                    </li>
+                </ul>
             </nav>
         );
     }
