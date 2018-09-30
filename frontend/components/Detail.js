@@ -1,5 +1,9 @@
 import {h, Component} from 'preact';
+import { route } from 'preact-router';
 import Socket from "../modules/socket";
+
+import {statusResolver} from "../utils/Strings";
+import {findByIdInObjectArray} from "../utils/Arrays";
 
 export default class Detail extends Component {
     /**
@@ -18,15 +22,22 @@ export default class Detail extends Component {
      * Runs then component mounts
      */
     componentDidMount() {
-        Socket.on("init", (data) => this.onUpdate(data));
         Socket.on("update", (data) => this.onUpdate(data));
+
+        this.setState({
+            match: findByIdInObjectArray(Socket.data.matches, this.props.id)
+        });
+
+        if(this.state.match === false) {
+            route('/');
+        }
+        console.log('this.state.match', this.state.match);
     }
 
     /**
      * Runs before component unmounts
      */
     componentWillUnmount() {
-        Socket.off("init", (data) => this.onUpdate(data));
         Socket.off("update", (data) => this.onUpdate(data));
     }
 
@@ -48,10 +59,43 @@ export default class Detail extends Component {
      * @returns {*}
      */
     render() {
-        return (
-            <div className="starter-template">
-                <h3>Match details</h3>
-            </div>
-        );
+        if(this.state.match) {
+            return (
+                <div className="starter-template">
+                    <h3>Match {this.state.match.team1.name} v/s {this.state.match.team2.name}</h3>
+                    <div className="row">
+                        <div className="col-md-8">
+                            <h4>Match details</h4>
+                            Team 1 Name: {this.state.match.team1.name}<br/>
+                            Team 1 Country: {this.state.match.team1.country}<br/>
+                            <br/>
+                            Team 2 Name: {this.state.match.team2.name}<br/>
+                            Team 2 Country: {this.state.match.team2.country}<br/>
+                            <br/>
+                            Server: {this.state.match.server}<br/>
+                            Map: {this.state.match.map}<br/>
+                            Main CSGO Config: {this.state.match.match_config}<br/>
+                            Current match status: {`${statusResolver(this.state.match.status)} (${this.state.match.status})`}
+                        </div>
+                        <div className="col-md-4">
+                            <h4>Server controls</h4>
+                            <button type='button' className='btn btn-sm btn-success' data-action='start'>
+                                Connect Server & Start Match
+                            </button>
+                            <br/>
+                            <br/>
+                            <button type='button' className='btn btn-sm btn-warning' data-action='end'>
+                                End Match & Restore Server
+                            </button>
+                            <br/>
+                            <br/>
+                            <button type='button' className='btn btn-sm btn-danger' data-action='disconnect'>
+                                Disconnect Server
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
     }
 }

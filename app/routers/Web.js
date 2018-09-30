@@ -20,6 +20,12 @@ const routes = [
         method: 'get',
         controller: 'Index',
         action: 'index'
+    },
+    {
+        route: '/match/:id',
+        method: 'get',
+        controller: 'Index',
+        action: 'index'
     }
 ];
 

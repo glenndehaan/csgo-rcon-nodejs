@@ -1,6 +1,8 @@
 import {h, Component} from 'preact';
 import { Link } from 'preact-router/match';
+
 import Socket from "../modules/socket";
+import {statusResolver} from "../utils/Strings";
 
 export default class Home extends Component {
     /**
@@ -19,7 +21,6 @@ export default class Home extends Component {
      * Runs then component mounts
      */
     componentDidMount() {
-        Socket.on("init", (data) => this.onUpdate(data));
         Socket.on("update", (data) => this.onUpdate(data));
     }
 
@@ -27,7 +28,6 @@ export default class Home extends Component {
      * Runs before component unmounts
      */
     componentWillUnmount() {
-        Socket.off("init", (data) => this.onUpdate(data));
         Socket.off("update", (data) => this.onUpdate(data));
     }
 
@@ -41,28 +41,6 @@ export default class Home extends Component {
             servers: data.servers,
             matches: data.matches
         });
-    }
-
-    /**
-     * Converts the status code to a string
-     *
-     * @param statusCode
-     * @return {string}
-     */
-    statusResolver(statusCode) {
-        if (statusCode === 0) {
-            return "Match not started";
-        }
-
-        if (statusCode === 1) {
-            return "Match running";
-        }
-
-        if (statusCode === 2) {
-            return "Match ended";
-        }
-
-        return "Unknown Status";
     }
 
     /**
@@ -94,7 +72,7 @@ export default class Home extends Component {
                                     <td>{match.map}</td>
                                     <td>{match.team1.name}</td>
                                     <td>{match.team2.name}</td>
-                                    <td>{`${this.statusResolver(match.status)} (${match.status})`}</td>
+                                    <td>{`${statusResolver(match.status)} (${match.status})`}</td>
                                     <td><Link href={`/match/${match.id}`}><button type="button" className="btn btn-primary">Match details</button></Link></td>
                                 </tr>
                             ))}

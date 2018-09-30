@@ -5,14 +5,12 @@ export default new class Socket {
      * Function to setup the socket connection
      *
      * @param url
-     * @param nickname
      * @param connectedCallback
      * @param disconnectedCallback
      */
-    initialize(url, nickname, connectedCallback, disconnectedCallback) {
+    initialize(url, connectedCallback, disconnectedCallback) {
         this.config = {
-            url: `ws://${url}/`,
-            nickname
+            url: `ws://${url}/`
         };
         this.ws = null;
         this.id = "";
@@ -41,7 +39,6 @@ export default new class Socket {
             maxAttempts: 10,
             onopen: () => {
                 console.log('[SOCKET] Connected!');
-                this.connectedCallback();
             },
             onmessage: (e) => this.message(e.data),
             onreconnect: () => console.warn('[SOCKET] Reconnecting...'),
@@ -70,7 +67,7 @@ export default new class Socket {
             this.data.servers = message.data.servers;
             this.data.matches = message.data.matches;
 
-            this.runBoundFunctions("init", message.data);
+            this.connectedCallback();
         }
 
         if(message.instruction === "update") {

@@ -15,8 +15,7 @@ class App extends Component {
         super();
 
         this.state = {
-            connected: false,
-            connectionError: false
+            connected: false
         };
 
         Socket.initialize(window.location.host, () => this.connected(), () => this.disconnected());
@@ -50,14 +49,25 @@ class App extends Component {
             <div id="root">
                 <Header/>
                 <div className="container">
-                    <Router>
-                        <Home path="/"/>
-                        <Create path="/match/create"/>
-                        <Detail path="/match/:id"/>
-                    </Router>
+                    {this.state.connected && this.mainRender()}
                 </div>
             </div>
         );
+    }
+
+    /**
+     * Renders the main app when connection is ready
+     *
+     * @return {*}
+     */
+    mainRender() {
+        return (
+            <Router>
+                <Home path="/"/>
+                <Create path="/match/create"/>
+                <Detail path="/match/:id"/>
+            </Router>
+        )
     }
 }
 

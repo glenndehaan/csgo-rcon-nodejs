@@ -1,9 +1,9 @@
 import {h, Component} from 'preact';
 import { route } from 'preact-router';
-import Socket from "../modules/socket";
-
-import {getIsoCodes} from '../utils/Strings';
 import uuidv4 from 'uuid/v4';
+
+import Socket from "../modules/socket";
+import {getIsoCodes} from '../utils/Strings';
 
 export default class Create extends Component {
     /**
@@ -37,7 +37,6 @@ export default class Create extends Component {
      * Runs then component mounts
      */
     componentDidMount() {
-        Socket.on("init", (data) => this.onUpdate(data));
         Socket.on("update", (data) => this.onUpdate(data));
     }
 
@@ -45,7 +44,6 @@ export default class Create extends Component {
      * Runs before component unmounts
      */
     componentWillUnmount() {
-        Socket.off("init", (data) => this.onUpdate(data));
         Socket.off("update", (data) => this.onUpdate(data));
     }
 

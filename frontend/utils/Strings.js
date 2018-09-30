@@ -28,6 +28,28 @@ function fixTimeCalculation(time) {
 }
 
 /**
+ * Converts the status code to a string
+ *
+ * @param statusCode
+ * @return {string}
+ */
+function statusResolver(statusCode) {
+    if (statusCode === 0) {
+        return "Match not started";
+    }
+
+    if (statusCode === 1) {
+        return "Match running";
+    }
+
+    if (statusCode === 2) {
+        return "Match ended";
+    }
+
+    return "Unknown Status";
+}
+
+/**
  * Returns all iso codes
  *
  * @return {*[]}
@@ -280,4 +302,4 @@ function getIsoCodes() {
     ];
 }
 
-export {generateId, fixTimeCalculation, getIsoCodes};
+export {generateId, fixTimeCalculation, statusResolver, getIsoCodes};
