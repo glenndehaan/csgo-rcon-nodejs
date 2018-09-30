@@ -74,7 +74,6 @@
     "preact-router": "^2.6.1",
     "sass-loader": "^7.0.3",
     "simple-node-logger": "^0.93.40",
-    "socket.io": "^2.1.1",
     "sockette": "^2.0.0",
     "srcds-rcon": "github:randunel/node-srcds-rcon",
     "uuid": "^3.3.2",

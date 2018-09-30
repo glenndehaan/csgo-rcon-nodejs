@@ -2,27 +2,38 @@
 
 A prototype to control a CSGO server with a NodeJS backend
 
-## Structure
-- ES6
+## Backend Structure
 - NodeJS
 - Simple Node Logger
 - srcds-rcon
 - Json DB
-- Socket.IO
+- Express
+- Express-WS
+
+## Frontend Structure
+- Webpack
+- Preact
+- Preact Router
+- Bootstrap
+- Sass
+- Sockette
 
 ## Basic Usage
-- Install NodeJS 8.0 or higher
-- Copy the `config.example.js` file to `config.js` and change the vars to your settings
-- Run `npm install` in the node folder
-- Run `npm run dev` in the node folder
-- Copy the web folder to a webserver like Apache2 or nginx
+TODO: Update the basic usage!
 
-Then open up a webbrowser and go to the site to create a match and start the server.
+## Development Usage
+- Install NodeJS 8.0 or higher
+- Copy the `_scripts/config/config.example.json` to here `app/config/config.json`
+- Run `npm install` in the root project folder
+- Run `npm run webpack` in the root project folder
+- Run `npm run dev` in the root project folder
+
+Then open up a webbrowser and go to the site
 
 ## Logging
 All logs will be written to the `csgo-rcon.log` file in the node folder.
 
-To increase the logging change the logLevel in the `config.js` file from `info` to `debug`.
+To increase the logging change the logger level in the `config.json` file from `info` to `debug`.
 
 ## Database
 To make this as simple as it is I use a local Json database.
