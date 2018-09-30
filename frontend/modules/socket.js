@@ -18,13 +18,13 @@ export default new class Socket {
         this.disconnectedCallback = disconnectedCallback;
 
         this.callbacks = {
-            init: [],
             update: []
         };
 
         this.data = {
             servers: [],
-            matches: []
+            matches: [],
+            maps: []
         };
 
         this.setup();
@@ -66,6 +66,7 @@ export default new class Socket {
 
             this.data.servers = message.data.servers;
             this.data.matches = message.data.matches;
+            this.data.maps = message.data.maps;
 
             this.connectedCallback();
         }
@@ -75,6 +76,7 @@ export default new class Socket {
 
             this.data.servers = message.data.servers;
             this.data.matches = message.data.matches;
+            this.data.maps = message.data.maps;
 
             this.runBoundFunctions("update", message.data);
         }

@@ -46,7 +46,8 @@ const init = (server) => {
 
                 informAllSockets('update', {
                     matches: db.getData("/match"),
-                    servers: config.servers
+                    servers: config.servers,
+                    maps: config.maps
                 });
             }
 
@@ -59,7 +60,8 @@ const init = (server) => {
                 db.push(`/match[${dataString.data.id}]/status`, 1);
                 informAllSockets('update', {
                     matches: db.getData("/match"),
-                    servers: config.servers
+                    servers: config.servers,
+                    maps: config.maps
                 });
             }
 
@@ -72,7 +74,8 @@ const init = (server) => {
                 db.push(`/match[${dataString.data.id}]/status`, 2);
                 informAllSockets('update', {
                     matches: db.getData("/match"),
-                    servers: config.servers
+                    servers: config.servers,
+                    maps: config.maps
                 });
             }
 
@@ -98,7 +101,8 @@ const init = (server) => {
             instruction: 'init',
             data: {
                 matches: db.getData("/match"),
-                servers: config.servers
+                servers: config.servers,
+                maps: config.maps
             }
         }));
 

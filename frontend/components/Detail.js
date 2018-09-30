@@ -14,7 +14,9 @@ export default class Detail extends Component {
 
         this.state = {
             servers: Socket.data.servers,
-            matches: Socket.data.matches
+            matches: Socket.data.matches,
+            maps: Socket.data.maps,
+            match: false
         };
     }
 
@@ -49,7 +51,8 @@ export default class Detail extends Component {
     onUpdate(data) {
         this.setState({
             servers: data.servers,
-            matches: data.matches
+            matches: data.matches,
+            maps: data.maps
         });
     }
 
@@ -105,20 +108,55 @@ export default class Detail extends Component {
                             Current match status: {`${statusResolver(this.state.match.status)} (${this.state.match.status})`}
                         </div>
                         <div className="col-md-4">
+                            <h4>Match controls</h4>
+                            <div>
+                                <button type='button' className='btn btn-sm btn-success btn-detail' onClick={() => this.startMatch()}>
+                                    Connect Server & Start Match
+                                </button>
+                                <br/>
+                                <button type='button' className='btn btn-sm btn-warning btn-detail' onClick={() => this.endMatch()}>
+                                    End Match & Restore Server
+                                </button>
+                                <br/>
+                                <button type='button' className='btn btn-sm btn-danger btn-detail' onClick={() => this.disconnectServer()}>
+                                    Disconnect Server
+                                </button>
+                                <br/>
+                            </div>
                             <h4>Server controls</h4>
-                            <button type='button' className='btn btn-sm btn-success' onClick={() => this.startMatch()}>
-                                Connect Server & Start Match
-                            </button>
-                            <br/>
-                            <br/>
-                            <button type='button' className='btn btn-sm btn-warning' onClick={() => this.endMatch()}>
-                                End Match & Restore Server
-                            </button>
-                            <br/>
-                            <br/>
-                            <button type='button' className='btn btn-sm btn-danger' onClick={() => this.disconnectServer()}>
-                                Disconnect Server
-                            </button>
+                            <div>
+                                <div className="btn-group" role="group">
+                                    <button type='button' className='btn btn-sm btn-success btn-detail'>
+                                        Resume game
+                                    </button>
+                                    <button type='button' className='btn btn-sm btn-warning btn-detail'>
+                                        Pause game
+                                    </button>
+                                </div>
+                                <br/>
+                                <button type='button' className='btn btn-sm btn-primary btn-detail'>
+                                    Switch team sides
+                                </button>
+                                <br/>
+                                <select name="map" id="map" title="map">
+                                    <option selected disabled value="false">Select map</option>
+                                    {this.state.maps.map((map, index) => (
+                                        <option key={index} value={map}>{map}</option>
+                                    ))}
+                                </select>
+                                &nbsp;
+                                <button type='button' className='btn btn-sm btn-primary btn-detail'>
+                                    Switch map
+                                </button>
+                                <br/>
+                                <button type='button' className='btn btn-sm btn-primary btn-detail'>
+                                    Restart round
+                                </button>
+                                <br/>
+                                <button type='button' className='btn btn-sm btn-primary btn-detail'>
+                                    Restart game
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

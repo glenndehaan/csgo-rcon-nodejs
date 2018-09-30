@@ -19,5 +19,14 @@
       "password": "anrconpassword",
       "default_map": "de_dust2"
     }
+  ],
+  "maps": [
+    "de_inferno",
+    "de_train",
+    "de_mirage",
+    "de_nuke",
+    "de_overpass",
+    "de_cache",
+    "de_dust2"
   ]
 }
