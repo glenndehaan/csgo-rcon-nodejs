@@ -54,6 +54,33 @@ export default class Detail extends Component {
     }
 
     /**
+     * Starts the match
+     */
+    startMatch() {
+        Socket.send("start_match", {
+            id: parseInt(this.state.match.index)
+        });
+    }
+
+    /**
+     * Ends the match
+     */
+    endMatch() {
+        Socket.send("end_match", {
+            id: parseInt(this.state.match.index)
+        });
+    }
+
+    /**
+     * Disconnects the CSGO server
+     */
+    disconnectServer() {
+        Socket.send("disconnect_server", {
+            id: parseInt(this.state.match.index)
+        });
+    }
+
+    /**
      * Preact render function
      *
      * @returns {*}
@@ -79,17 +106,17 @@ export default class Detail extends Component {
                         </div>
                         <div className="col-md-4">
                             <h4>Server controls</h4>
-                            <button type='button' className='btn btn-sm btn-success' data-action='start'>
+                            <button type='button' className='btn btn-sm btn-success' onClick={() => this.startMatch()}>
                                 Connect Server & Start Match
                             </button>
                             <br/>
                             <br/>
-                            <button type='button' className='btn btn-sm btn-warning' data-action='end'>
+                            <button type='button' className='btn btn-sm btn-warning' onClick={() => this.endMatch()}>
                                 End Match & Restore Server
                             </button>
                             <br/>
                             <br/>
-                            <button type='button' className='btn btn-sm btn-danger' data-action='disconnect'>
+                            <button type='button' className='btn btn-sm btn-danger' onClick={() => this.disconnectServer()}>
                                 Disconnect Server
                             </button>
                         </div>

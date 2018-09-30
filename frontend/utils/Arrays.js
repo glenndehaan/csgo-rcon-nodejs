@@ -8,6 +8,7 @@
 function findByIdInObjectArray(array, id) {
     for(let item = 0; item < array.length; item++) {
         if(typeof array[item].id !== "undefined" && array[item].id === id) {
+            array[item].index = item;
             return array[item];
         }
     }
