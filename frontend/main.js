@@ -15,10 +15,11 @@ class App extends Component {
         super();
 
         this.state = {
-            connected: false
+            connected: false,
+            reconnecting: false
         };
 
-        Socket.initialize(window.location.host, () => this.connected(), () => this.disconnected());
+        Socket.initialize(window.location.host, () => this.connected(), () => this.disconnected() , () => this.reconnecting());
     }
 
     /**
@@ -26,7 +27,8 @@ class App extends Component {
      */
     connected() {
         this.setState({
-            connected: true
+            connected: true,
+            reconnecting: false
         });
     }
 
@@ -35,7 +37,17 @@ class App extends Component {
      */
     disconnected() {
         this.setState({
-            connected: false
+            connected: false,
+            reconnecting: false
+        });
+    }
+
+    /**
+     * Function when the socket is reconnecting
+     */
+    reconnecting() {
+        this.setState({
+            reconnecting: true
         });
     }
 
@@ -47,7 +59,7 @@ class App extends Component {
     render() {
         return (
             <div id="root">
-                <Header/>
+                <Header connected={this.state.connected} reconnecting={this.state.reconnecting}/>
                 <div className="container">
                     {this.state.connected && this.mainRender()}
                 </div>

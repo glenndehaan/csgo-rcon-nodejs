@@ -8,7 +8,7 @@ export default new class Socket {
      * @param connectedCallback
      * @param disconnectedCallback
      */
-    initialize(url, connectedCallback, disconnectedCallback) {
+    initialize(url, connectedCallback, disconnectedCallback, reconnectingCallback) {
         this.config = {
             url: `ws://${url}/`
         };
@@ -16,6 +16,7 @@ export default new class Socket {
         this.id = "";
         this.connectedCallback = connectedCallback;
         this.disconnectedCallback = disconnectedCallback;
+        this.reconnectingCallback = reconnectingCallback;
 
         this.callbacks = {
             update: []
@@ -41,7 +42,10 @@ export default new class Socket {
                 console.log('[SOCKET] Connected!');
             },
             onmessage: (e) => this.message(e.data),
-            onreconnect: () => console.warn('[SOCKET] Reconnecting...'),
+            onreconnect: () => {
+                console.warn('[SOCKET] Reconnecting...');
+                this.reconnectingCallback();
+            },
             onclose: () => console.warn('[SOCKET] Closed!'),
             onerror: e => console.error('[SOCKET] Error:', e),
             onmaximum: () => {
