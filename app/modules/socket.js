@@ -121,7 +121,7 @@ const init = (server) => {
             }
 
             if (dataString.instruction === "game_restart") {
-                log.info(`[SOCKET][${ws.id}][game_team_switch] Match index: ${dataString.data.id}`);
+                log.info(`[SOCKET][${ws.id}][game_restart] Match index: ${dataString.data.id}`);
 
                 const dbData = db.getData(`/match[${dataString.data.id}]`);
                 rcon.cmd(dbData.server, 'mp_restartgame 1');
