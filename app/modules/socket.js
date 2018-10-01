@@ -7,6 +7,7 @@ const atob = require('atob');
 const log = require("./logger");
 const db = require("./database").db;
 const rcon = require("./rcon");
+const csgo_config = require("./csgo-config");
 const config = require("../config");
 
 /**
@@ -44,10 +45,13 @@ const init = (server) => {
                 log.info(`[SOCKET][${ws.id}] Created a new match! RAW: ${JSON.stringify(dataString.data)}`);
                 db.push("/match[]", dataString.data);
 
-                informAllSockets('update', {
-                    matches: db.getData("/match"),
-                    servers: config.servers,
-                    maps: config.maps
+                csgo_config.getConfigs((configs) => {
+                    informAllSockets('update', {
+                        matches: db.getData("/match"),
+                        servers: config.servers,
+                        maps: config.maps,
+                        configs
+                    });
                 });
             }
 
@@ -58,10 +62,13 @@ const init = (server) => {
                 rcon.connect(dbData.server, dbData, true);
 
                 db.push(`/match[${dataString.data.id}]/status`, 1);
-                informAllSockets('update', {
-                    matches: db.getData("/match"),
-                    servers: config.servers,
-                    maps: config.maps
+                csgo_config.getConfigs((configs) => {
+                    informAllSockets('update', {
+                        matches: db.getData("/match"),
+                        servers: config.servers,
+                        maps: config.maps,
+                        configs
+                    });
                 });
             }
 
@@ -72,10 +79,13 @@ const init = (server) => {
                 rcon.reset(dbData.server);
 
                 db.push(`/match[${dataString.data.id}]/status`, 2);
-                informAllSockets('update', {
-                    matches: db.getData("/match"),
-                    servers: config.servers,
-                    maps: config.maps
+                csgo_config.getConfigs((configs) => {
+                    informAllSockets('update', {
+                        matches: db.getData("/match"),
+                        servers: config.servers,
+                        maps: config.maps,
+                        configs
+                    });
                 });
             }
 
@@ -97,14 +107,17 @@ const init = (server) => {
         /**
          * Send init data
          */
-        ws.send(encrypt({
-            instruction: 'init',
-            data: {
-                matches: db.getData("/match"),
-                servers: config.servers,
-                maps: config.maps
-            }
-        }));
+        csgo_config.getConfigs((configs) => {
+            ws.send(encrypt({
+                instruction: 'init',
+                data: {
+                    matches: db.getData("/match"),
+                    servers: config.servers,
+                    maps: config.maps,
+                    configs
+                }
+            }));
+        });
 
         log.info(`[SOCKET][${ws.id}] User connected!`)
     });

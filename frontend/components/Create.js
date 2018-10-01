@@ -15,6 +15,7 @@ export default class Create extends Component {
         this.state = {
             servers: Socket.data.servers,
             matches: Socket.data.matches,
+            configs: Socket.data.configs,
             map: ""
         };
 
@@ -29,7 +30,8 @@ export default class Create extends Component {
             },
             server: null,
             map: null,
-            main_config: null
+            main_config: null,
+            knife_config: null
         };
     }
 
@@ -55,7 +57,8 @@ export default class Create extends Component {
     onUpdate(data) {
         this.setState({
             servers: data.servers,
-            matches: data.matches
+            matches: data.matches,
+            configs: data.configs
         });
     }
 
@@ -90,6 +93,7 @@ export default class Create extends Component {
                     country: this.fields.team2.country.value
                 },
                 map: this.fields.map.value,
+                knife_config: this.fields.knife_config.value,
                 match_config: this.fields.main_config.value,
                 server: this.fields.server.value,
                 status: 0
@@ -101,6 +105,7 @@ export default class Create extends Component {
             this.fields.team2.country.selectedIndex = 0;
             this.fields.server.selectedIndex = 0;
             this.fields.map.value = "";
+            this.fields.knife_config.selectedIndex = 0;
             this.fields.main_config.selectedIndex = 0;
 
             route('/');
@@ -122,6 +127,7 @@ export default class Create extends Component {
         this.fields.team2.country.classList.remove("error");
         this.fields.server.classList.remove("error");
         this.fields.map.classList.remove("error");
+        this.fields.knife_config.classList.remove("error");
         this.fields.main_config.classList.remove("error");
 
         if(this.fields.team1.name.value === "") {
@@ -147,6 +153,10 @@ export default class Create extends Component {
         if(this.fields.map.value === "") {
             errors = true;
             this.fields.map.classList.add("error");
+        }
+        if(this.fields.knife_config.value === "false" || this.fields.knife_config.value === false) {
+            errors = true;
+            this.fields.knife_config.classList.add("error");
         }
         if(this.fields.main_config.value === "false" || this.fields.main_config.value === false) {
             errors = true;
@@ -225,15 +235,28 @@ export default class Create extends Component {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Map</td>
+                                    <td>Default Server Map</td>
                                     <td><input type="text" name="map" title="map" id="map" value={this.state.map} ref={c => this.fields.map = c} disabled/></td>
                                 </tr>
                                 <tr>
-                                    <td>Main CSGO Config</td>
+                                    <td>CSGO Knife Config</td>
                                     <td>
-                                        <select title="csgo-config" name="csgo-config" id="csgo-config" ref={c => this.fields.main_config = c}>
+                                        <select title="csgo-knife-config" name="csgo-knife-config" id="csgo-knife-config" ref={c => this.fields.knife_config = c}>
                                             <option selected disabled value="false">Select a config</option>
-                                            <option value="esl5v5">esl5v5</option>
+                                            {this.state.configs.knife.map((config, index) => (
+                                                <option key={index} value={config}>{config}</option>
+                                            ))}
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>CSGO Main Config</td>
+                                    <td>
+                                        <select title="csgo-main-config" name="csgo-main-config" id="csgo-main-config" ref={c => this.fields.main_config = c}>
+                                            <option selected disabled value="false">Select a config</option>
+                                            {this.state.configs.main.map((config, index) => (
+                                                <option key={index} value={config}>{config}</option>
+                                            ))}
                                         </select>
                                     </td>
                                 </tr>

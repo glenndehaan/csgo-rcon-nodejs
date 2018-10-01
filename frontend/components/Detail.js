@@ -57,6 +57,15 @@ export default class Detail extends Component {
     }
 
     /**
+     * Starts the knife round
+     */
+    startKnife() {
+        Socket.send("start_knife", {
+            id: parseInt(this.state.match.index)
+        });
+    }
+
+    /**
      * Starts the match
      */
     startMatch() {
@@ -104,22 +113,23 @@ export default class Detail extends Component {
                             <br/>
                             Server: {this.state.match.server}<br/>
                             Map: {this.state.match.map}<br/>
-                            Main CSGO Config: {this.state.match.match_config}<br/>
+                            CSGO Knife Config: {this.state.match.knife_config}<br/>
+                            CSGO Main Config: {this.state.match.match_config}<br/>
                             Current match status: {`${statusResolver(this.state.match.status)} (${this.state.match.status})`}
                         </div>
                         <div className="col-md-4">
                             <h4>Match controls</h4>
                             <div>
+                                <button type='button' className='btn btn-sm btn-success btn-detail' onClick={() => this.startKnife()}>
+                                    Start knife round
+                                </button>
+                                <br/>
                                 <button type='button' className='btn btn-sm btn-success btn-detail' onClick={() => this.startMatch()}>
-                                    Connect Server & Start Match
+                                    Start match
                                 </button>
                                 <br/>
                                 <button type='button' className='btn btn-sm btn-warning btn-detail' onClick={() => this.endMatch()}>
                                     End Match & Restore Server
-                                </button>
-                                <br/>
-                                <button type='button' className='btn btn-sm btn-danger btn-detail' onClick={() => this.disconnectServer()}>
-                                    Disconnect Server
                                 </button>
                                 <br/>
                             </div>
