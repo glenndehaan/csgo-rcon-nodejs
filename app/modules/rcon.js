@@ -141,8 +141,6 @@ function startMatch(server, matchInfo) {
  * @param autoStartMatch
  */
 function connect(server, matchInfo = {}, autoStartMatch = false) {
-
-    console.log('hoi1s');
     for(let item = 0; item < config.servers.length; item++){
         if(`${config.servers[item].ip}:${config.servers[item].port}` === server) {
             console.log('server');
@@ -156,7 +154,6 @@ function connect(server, matchInfo = {}, autoStartMatch = false) {
             });
 
             rcon[`${config.servers[item].ip}:${config.servers[item].port}`].connect().then(() => {
-                console.log('her');
                 log.info(`[RCON INIT][${config.servers[item].ip}:${config.servers[item].port}] Server ready `);
 
                 if(autoStartMatch) {
@@ -273,4 +270,19 @@ function disconnect(server) {
     log.info(`[RCON][${server}] Disconnecting server!`);
 }
 
-module.exports = {connect, reset, disconnect};
+/**
+ * Sends a single command to the rcon server
+ *
+ * @param server
+ * @param cmd
+ */
+function cmd(server, cmd) {
+    queue.add(server, function() {
+        rcon[server].command(cmd).then(source => {
+            log.trace(`[RCON][${server}] CMD Send: `, source);
+            queue.complete(server);
+        });
+    });
+}
+
+module.exports = {connect, reset, disconnect, cmd};

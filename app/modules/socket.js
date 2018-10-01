@@ -41,7 +41,7 @@ const init = (server) => {
                 return;
             }
 
-            if (dataString.instruction === "create_match") {
+            if (dataString.instruction === "match_create") {
                 log.info(`[SOCKET][${ws.id}] Created a new match! RAW: ${JSON.stringify(dataString.data)}`);
                 db.push("/match[]", dataString.data);
 
@@ -55,7 +55,8 @@ const init = (server) => {
                 });
             }
 
-            if (dataString.instruction === "start_match") {
+            //todo split connect an match logic
+            if (dataString.instruction === "match_start_main") {
                 log.info(`[SOCKET][${ws.id}] Starts match ID: ${dataString.data.id}`);
 
                 const dbData = db.getData(`/match[${dataString.data.id}]`);
@@ -72,7 +73,7 @@ const init = (server) => {
                 });
             }
 
-            if (dataString.instruction === "end_match") {
+            if (dataString.instruction === "match_end") {
                 log.info(`[SOCKET][${ws.id}] Ended match ID: ${dataString.data.id}`);
 
                 const dbData = db.getData(`/match[${dataString.data.id}]`);
@@ -89,11 +90,41 @@ const init = (server) => {
                 });
             }
 
+            //todo remove
             if (dataString.instruction === "disconnect_server") {
                 log.info(`[SOCKET][${ws.id}] Disconnects server from match ID: ${dataString.datadata.id}`);
 
                 const dbData = db.getData(`/match[${dataString.data.id}]`);
                 rcon.disconnect(dbData.server);
+            }
+
+            //new code starts here!!
+            if (dataString.instruction === "game_resume") {
+                log.info(`[SOCKET][${ws.id}][game_resume] Match index: ${dataString.data.id}`);
+
+                const dbData = db.getData(`/match[${dataString.data.id}]`);
+                rcon.cmd(dbData.server, 'mp_unpause_match');
+            }
+
+            if (dataString.instruction === "game_pause") {
+                log.info(`[SOCKET][${ws.id}][game_pause] Match index: ${dataString.data.id}`);
+
+                const dbData = db.getData(`/match[${dataString.data.id}]`);
+                rcon.cmd(dbData.server, 'mp_pause_match');
+            }
+
+            if (dataString.instruction === "game_team_switch") {
+                log.info(`[SOCKET][${ws.id}][game_team_switch] Match index: ${dataString.data.id}`);
+
+                const dbData = db.getData(`/match[${dataString.data.id}]`);
+                rcon.cmd(dbData.server, 'mp_swapteams');
+            }
+
+            if (dataString.instruction === "game_restart") {
+                log.info(`[SOCKET][${ws.id}][game_team_switch] Match index: ${dataString.data.id}`);
+
+                const dbData = db.getData(`/match[${dataString.data.id}]`);
+                rcon.cmd(dbData.server, 'mp_restartgame 1');
             }
         });
 

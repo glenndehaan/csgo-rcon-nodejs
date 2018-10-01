@@ -60,7 +60,7 @@ export default class Detail extends Component {
      * Starts the knife round
      */
     startKnife() {
-        Socket.send("start_knife", {
+        Socket.send("match_start_knife", {
             id: parseInt(this.state.match.index)
         });
     }
@@ -69,7 +69,7 @@ export default class Detail extends Component {
      * Starts the match
      */
     startMatch() {
-        Socket.send("start_match", {
+        Socket.send("match_start_main", {
             id: parseInt(this.state.match.index)
         });
     }
@@ -78,16 +78,53 @@ export default class Detail extends Component {
      * Ends the match
      */
     endMatch() {
-        Socket.send("end_match", {
+        Socket.send("match_end", {
             id: parseInt(this.state.match.index)
         });
     }
 
     /**
-     * Disconnects the CSGO server
+     * Resumes the game
      */
-    disconnectServer() {
-        Socket.send("disconnect_server", {
+    resumeGame() {
+        Socket.send("game_resume", {
+            id: parseInt(this.state.match.index)
+        });
+    }
+
+    /**
+     * Pauses the game
+     */
+    pauseGame() {
+        Socket.send("game_pause", {
+            id: parseInt(this.state.match.index)
+        });
+    }
+
+    /**
+     * Switches the teams in game
+     */
+    switchTeamSides() {
+        Socket.send("game_team_switch", {
+            id: parseInt(this.state.match.index)
+        });
+    }
+
+    /**
+     * Switches the map
+     */
+    switchMap() {
+        //todo send map
+        Socket.send("game_map", {
+            id: parseInt(this.state.match.index)
+        });
+    }
+
+    /**
+     * Restart the game
+     */
+    restartGame() {
+        Socket.send("game_restart", {
             id: parseInt(this.state.match.index)
         });
     }
@@ -136,15 +173,15 @@ export default class Detail extends Component {
                             <h4>Server controls</h4>
                             <div>
                                 <div className="btn-group" role="group">
-                                    <button type='button' className='btn btn-sm btn-success btn-detail'>
+                                    <button type='button' className='btn btn-sm btn-success btn-detail' onClick={() => this.resumeGame()}>
                                         Resume game
                                     </button>
-                                    <button type='button' className='btn btn-sm btn-warning btn-detail'>
+                                    <button type='button' className='btn btn-sm btn-warning btn-detail' onClick={() => this.pauseGame()}>
                                         Pause game
                                     </button>
                                 </div>
                                 <br/>
-                                <button type='button' className='btn btn-sm btn-primary btn-detail'>
+                                <button type='button' className='btn btn-sm btn-primary btn-detail' onClick={() => this.switchTeamSides()}>
                                     Switch team sides
                                 </button>
                                 <br/>
@@ -155,15 +192,11 @@ export default class Detail extends Component {
                                     ))}
                                 </select>
                                 &nbsp;
-                                <button type='button' className='btn btn-sm btn-primary btn-detail'>
+                                <button type='button' className='btn btn-sm btn-primary btn-detail' onClick={() => this.switchMap()}>
                                     Switch map
                                 </button>
                                 <br/>
-                                <button type='button' className='btn btn-sm btn-primary btn-detail'>
-                                    Restart round
-                                </button>
-                                <br/>
-                                <button type='button' className='btn btn-sm btn-primary btn-detail'>
+                                <button type='button' className='btn btn-sm btn-danger btn-detail' onClick={() => this.restartGame()}>
                                     Restart game
                                 </button>
                             </div>
