@@ -82,7 +82,7 @@ export default class Create extends Component {
      */
     createMatch() {
         if(!this.checkFields()) {
-            Socket.send("create_match", {
+            Socket.send("match_create", {
                 id: uuidv4(),
                 team1: {
                     name: this.fields.team1.name.value,
