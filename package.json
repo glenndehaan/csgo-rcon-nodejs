@@ -79,6 +79,7 @@
     "rimraf": "^2.6.2",
     "sass-loader": "^7.0.3",
     "simple-node-logger": "^0.93.40",
+    "size-plugin": "^1.0.1",
     "sockette": "^2.0.0",
     "srcds-rcon": "github:randunel/node-srcds-rcon",
     "uglify-es": "^3.3.9",
