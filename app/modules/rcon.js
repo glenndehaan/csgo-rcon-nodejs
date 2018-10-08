@@ -37,12 +37,10 @@ function initBroadcaster(server) {
  * @param match_config
  */
 function loadCSGOConfig(server, match_config) {
-    csgoConfig.loadCSGOConfig(match_config, (config) => {
-        const commands = config.split(os.EOL);
-
-        for(let item = 0; item < commands.length; item++) {
+    csgoConfig.loadCSGOConfig(match_config, "main", (config) => {
+        for(let item = 0; item < config.length; item++) {
             queue.add(server, function() {
-                rcon[server].command(commands[item]).then(() => {
+                rcon[server].command(config[item]).then(() => {
                     queue.complete(server);
                 });
             });
