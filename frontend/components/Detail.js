@@ -18,6 +18,10 @@ export default class Detail extends Component {
             maps: Socket.data.maps,
             match: false
         };
+
+        this.fields = {
+            map: null
+        };
     }
 
     /**
@@ -114,10 +118,17 @@ export default class Detail extends Component {
      * Switches the map
      */
     switchMap() {
-        //todo send map
-        Socket.send("game_map", {
-            id: parseInt(this.state.match.index)
-        });
+        // Reset checks
+        this.fields.map.classList.remove("error");
+
+        if(this.fields.map.value === "false" || this.fields.map.value === false) {
+            this.fields.map.classList.add("error");
+        } else {
+            Socket.send("game_map_update", {
+                id: parseInt(this.state.match.index),
+                map: this.fields.map.value
+            });
+        }
     }
 
     /**
@@ -185,7 +196,7 @@ export default class Detail extends Component {
                                     Switch team sides
                                 </button>
                                 <br/>
-                                <select name="map" id="map" title="map">
+                                <select name="map" id="map" title="map" ref={c => this.fields.map = c}>
                                     <option selected disabled value="false">Select map</option>
                                     {this.state.maps.map((map, index) => (
                                         <option key={index} value={map}>{map}</option>

@@ -120,6 +120,13 @@ const init = (server) => {
                 rcon.cmd(dbData.server, 'mp_swapteams');
             }
 
+            if (dataString.instruction === "game_map_update") {
+                log.info(`[SOCKET][${ws.id}][game_map_update] Match index: ${dataString.data.id}`);
+
+                const dbData = db.getData(`/match[${dataString.data.id}]`);
+                rcon.cmd(dbData.server, `map ${dataString.data.map}`);
+            }
+
             if (dataString.instruction === "game_restart") {
                 log.info(`[SOCKET][${ws.id}][game_restart] Match index: ${dataString.data.id}`);
 
