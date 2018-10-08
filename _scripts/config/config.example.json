@@ -17,7 +17,8 @@
       "ip": "192.168.1.xx",
       "port": 27015,
       "password": "anrconpassword",
-      "default_map": "de_dust2"
+      "default_map": "de_dust2",
+      "server_restore_config": "server"
     }
   ],
   "maps": [

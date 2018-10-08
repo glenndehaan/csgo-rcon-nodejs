@@ -2,7 +2,6 @@
  * Import base packages
  */
 const Rcon = require('srcds-rcon');
-const os = require("os");
 const config = require("../config");
 const log = require("./logger");
 const csgoConfig = require("./csgo-config");
@@ -46,6 +45,24 @@ function loadCSGOConfig(server, match_config) {
             });
         }
     });
+}
+
+/**
+ * Function find the restore config that belongs to the server
+ *
+ * @param server
+ * @return string
+ */
+function findServerRestoreConfig(server) {
+    for(let item = 0; item < config.servers.length; item++) {
+        const splitted = server.split(":");
+
+        if(config.servers[item].ip === splitted[0] && config.servers[item].port === parseInt(splitted[1])) {
+            return config.servers[item].server_restore_config;
+        }
+    }
+
+    return "server";
 }
 
 /**
@@ -250,7 +267,7 @@ function reset(server) {
      * Load default Server config
      */
     queue.add(server, function() {
-        rcon[server].command('exec server.cfg').then(source => {
+        rcon[server].command(`exec ${findServerRestoreConfig(server)}.cfg`).then(source => {
             log.trace(`[RCON][${server}] Load default server config `, source);
             queue.complete(server);
         });
