@@ -14,14 +14,37 @@ function loadCSGOConfig(config_name, type = "main", callback) {
             throw err;
         }
 
-        callback(data);
+        callback(processConfig(data));
     });
+}
+
+/**
+ * Removes all comments and other unneeded stuff
+ *
+ * @param data
+ * @return array
+ */
+function processConfig(data) {
+    data = data.replace(/^\/\/.*$/m, '');
+    data = data.split("\n");
+    const newData = [];
+    for (let i = 0; i < data.length; i += 1) {
+        const line = data[i].trim();
+        const segments = line.split(' ');
+
+        if(segments[0] === 'say') {
+            newData.push(line);
+        } else if (segments[0] !== '' && segments[0] !== '//') {
+            newData.push(`${segments[0]} ${segments[1].split('\t')[0]}`);
+        }
+    }
+
+    return newData;
 }
 
 /**
  * Grabs CSGO configs from file system
  *
- * @param type
  * @param callback
  */
 function getConfigs(callback) {
