@@ -55,12 +55,28 @@ const init = (server) => {
                 });
             }
 
-            //todo split connect an match logic
+            if (dataString.instruction === "match_start_knife") {
+                log.info(`[SOCKET][${ws.id}] Starts match ID: ${dataString.data.id}`);
+
+                const dbData = db.getData(`/match[${dataString.data.id}]`);
+                rcon.startMatch(dbData.server, dbData, "knife");
+
+                db.push(`/match[${dataString.data.id}]/status`, 1);
+                csgo_config.getConfigs((configs) => {
+                    informAllSockets('update', {
+                        matches: db.getData("/match"),
+                        servers: config.servers,
+                        maps: config.maps,
+                        configs
+                    });
+                });
+            }
+
             if (dataString.instruction === "match_start_main") {
                 log.info(`[SOCKET][${ws.id}] Starts match ID: ${dataString.data.id}`);
 
                 const dbData = db.getData(`/match[${dataString.data.id}]`);
-                rcon.connect(dbData.server, dbData, true);
+                rcon.startMatch(dbData.server, dbData, "main");
 
                 db.push(`/match[${dataString.data.id}]/status`, 1);
                 csgo_config.getConfigs((configs) => {
@@ -90,15 +106,6 @@ const init = (server) => {
                 });
             }
 
-            //todo remove
-            if (dataString.instruction === "disconnect_server") {
-                log.info(`[SOCKET][${ws.id}] Disconnects server from match ID: ${dataString.datadata.id}`);
-
-                const dbData = db.getData(`/match[${dataString.data.id}]`);
-                rcon.disconnect(dbData.server);
-            }
-
-            //new code starts here!!
             if (dataString.instruction === "game_resume") {
                 log.info(`[SOCKET][${ws.id}][game_resume] Match index: ${dataString.data.id}`);
 

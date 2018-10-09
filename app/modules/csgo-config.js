@@ -8,7 +8,7 @@ const config = require("../config");
  * @param type
  * @param callback
  */
-function loadCSGOConfig(config_name, type = "main", callback) {
+const loadCSGOConfig = (config_name, type = "main", callback) => {
     fs.readFile(`${__dirname}/../${config.application.csgoConfigFolder}/${type}/${config_name}.txt`, 'utf8', (err, data) => {
         if (err) {
             throw err;
@@ -16,7 +16,7 @@ function loadCSGOConfig(config_name, type = "main", callback) {
 
         callback(processConfig(data));
     });
-}
+};
 
 /**
  * Removes all comments and other unneeded stuff
@@ -24,7 +24,7 @@ function loadCSGOConfig(config_name, type = "main", callback) {
  * @param data
  * @return array
  */
-function processConfig(data) {
+const processConfig = (data) => {
     data = data.replace(/^\/\/.*$/m, '');
     data = data.split("\n");
     const newData = [];
@@ -40,14 +40,14 @@ function processConfig(data) {
     }
 
     return newData;
-}
+};
 
 /**
  * Grabs CSGO configs from file system
  *
  * @param callback
  */
-function getConfigs(callback) {
+const getConfigs = (callback) => {
     fs.readdir(`${__dirname}/../${config.application.csgoConfigFolder}/main`, (err, main_files) => {
         if (err) {
             throw err;
@@ -74,6 +74,6 @@ function getConfigs(callback) {
             callback(files);
         });
     });
-}
+};
 
 module.exports = {loadCSGOConfig, getConfigs};

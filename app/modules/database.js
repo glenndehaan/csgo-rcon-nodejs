@@ -8,7 +8,7 @@ const log = require("./logger");
 /**
  * Initial function
  */
-function init() {
+const init = () => {
     /**
      * Init the DB object if we launch the app for the first time
      */
@@ -19,6 +19,6 @@ function init() {
     }
 
     log.info("[DATABASE] Ready!");
-}
+};
 
 module.exports = {init, db};
