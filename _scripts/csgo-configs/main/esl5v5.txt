@@ -2,6 +2,12 @@
 // CS:GO 3on3/5on5 Ladder Config
 // 14.01.2016
 
+// Reset Knife data
+mp_t_default_secondary "weapon_glock"
+mp_ct_default_secondary "weapon_hkp2000"
+mp_give_player_c4 1
+// End Reset Knife data
+
 ammo_grenade_limit_default 1
 ammo_grenade_limit_flashbang 2
 ammo_grenade_limit_total 4
