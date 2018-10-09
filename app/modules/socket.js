@@ -78,7 +78,7 @@ const init = (server) => {
                 const dbData = db.getData(`/match[${dataString.data.id}]`);
                 rcon.startMatch(dbData.server, dbData, "main");
 
-                db.push(`/match[${dataString.data.id}]/status`, 1);
+                db.push(`/match[${dataString.data.id}]/status`, 2);
                 csgo_config.getConfigs((configs) => {
                     informAllSockets('update', {
                         matches: db.getData("/match"),
@@ -95,7 +95,7 @@ const init = (server) => {
                 const dbData = db.getData(`/match[${dataString.data.id}]`);
                 rcon.reset(dbData.server);
 
-                db.push(`/match[${dataString.data.id}]/status`, 2);
+                db.push(`/match[${dataString.data.id}]/status`, 99);
                 csgo_config.getConfigs((configs) => {
                     informAllSockets('update', {
                         matches: db.getData("/match"),
@@ -109,6 +109,7 @@ const init = (server) => {
             if (dataString.instruction === "game_resume") {
                 log.info(`[SOCKET][${ws.id}][game_resume] Match index: ${dataString.data.id}`);
 
+                db.push(`/match[${dataString.data.id}]/status`, 2);
                 const dbData = db.getData(`/match[${dataString.data.id}]`);
                 rcon.cmd(dbData.server, 'mp_unpause_match');
             }
@@ -116,6 +117,7 @@ const init = (server) => {
             if (dataString.instruction === "game_pause") {
                 log.info(`[SOCKET][${ws.id}][game_pause] Match index: ${dataString.data.id}`);
 
+                db.push(`/match[${dataString.data.id}]/status`, 50);
                 const dbData = db.getData(`/match[${dataString.data.id}]`);
                 rcon.cmd(dbData.server, 'mp_pause_match');
             }

@@ -39,10 +39,18 @@ function statusResolver(statusCode) {
     }
 
     if (statusCode === 1) {
-        return "Match running";
+        return "Knife round running";
     }
 
     if (statusCode === 2) {
+        return "Match running";
+    }
+
+    if (statusCode === 50) {
+        return "Match paused";
+    }
+
+    if (statusCode === 99) {
         return "Match ended";
     }
 
