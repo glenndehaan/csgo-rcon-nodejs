@@ -96,7 +96,13 @@ const findServerRestoreConfig = (server) => {
 const startMatch = (server, matchInfo, type = "main") => {
     const team1 = matchInfo.team1;
     const team2 = matchInfo.team2;
-    const match_config = matchInfo.match_config;
+    const match_config = (type === "main") ? matchInfo.match_config : matchInfo.knife_config;
+    const message = (type === "main") ? "Live!!!" : "Knife!!!";
+
+    /**
+     * Load External config file
+     */
+    loadExternalCSGOConfig(server, match_config, type);
 
     /**
      * Set hostname for match
@@ -141,17 +147,34 @@ const startMatch = (server, matchInfo, type = "main") => {
     });
 
     /**
-     * Load External config file
-     */
-    loadExternalCSGOConfig(server, match_config, type);
-
-    /**
      * Restart game
      */
     queue.add(server, () => {
         rcon[server].command(`mp_restartgame 1`).then(source => {
             log.trace(`[RCON][${server}] Restart game: `, source);
             log.info(`[RCON][${server}] Match config ready and started!`);
+            queue.complete(server);
+        });
+    });
+
+    /**
+     * Inform players
+     */
+    queue.add(server, () => {
+        rcon[server].command(`say '${message}'`).then(source => {
+            log.trace(`[RCON][${server}] Say: `, source);
+            queue.complete(server);
+        });
+    });
+    queue.add(server, () => {
+        rcon[server].command(`say '${message}'`).then(source => {
+            log.trace(`[RCON][${server}] Say: `, source);
+            queue.complete(server);
+        });
+    });
+    queue.add(server, () => {
+        rcon[server].command(`say '${message}'`).then(source => {
+            log.trace(`[RCON][${server}] Say: `, source);
             queue.complete(server);
         });
     });
@@ -238,6 +261,8 @@ const reset = (server) => {
 
     /**
      * Load default Server config
+     *
+     * todo server unresponsive after this command
      */
     queue.add(server, () => {
         rcon[server].command(`exec ${findServerRestoreConfig(server)}.cfg`).then(source => {

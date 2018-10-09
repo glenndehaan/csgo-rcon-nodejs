@@ -112,6 +112,15 @@ const init = (server) => {
                 db.push(`/match[${dataString.data.id}]/status`, 2);
                 const dbData = db.getData(`/match[${dataString.data.id}]`);
                 rcon.cmd(dbData.server, 'mp_unpause_match');
+
+                csgo_config.getConfigs((configs) => {
+                    informAllSockets('update', {
+                        matches: db.getData("/match"),
+                        servers: config.servers,
+                        maps: config.maps,
+                        configs
+                    });
+                });
             }
 
             if (dataString.instruction === "game_pause") {
@@ -120,6 +129,15 @@ const init = (server) => {
                 db.push(`/match[${dataString.data.id}]/status`, 50);
                 const dbData = db.getData(`/match[${dataString.data.id}]`);
                 rcon.cmd(dbData.server, 'mp_pause_match');
+
+                csgo_config.getConfigs((configs) => {
+                    informAllSockets('update', {
+                        matches: db.getData("/match"),
+                        servers: config.servers,
+                        maps: config.maps,
+                        configs
+                    });
+                });
             }
 
             if (dataString.instruction === "game_team_switch") {
@@ -127,6 +145,15 @@ const init = (server) => {
 
                 const dbData = db.getData(`/match[${dataString.data.id}]`);
                 rcon.cmd(dbData.server, 'mp_swapteams');
+
+                csgo_config.getConfigs((configs) => {
+                    informAllSockets('update', {
+                        matches: db.getData("/match"),
+                        servers: config.servers,
+                        maps: config.maps,
+                        configs
+                    });
+                });
             }
 
             if (dataString.instruction === "game_map_update") {
@@ -134,6 +161,15 @@ const init = (server) => {
 
                 const dbData = db.getData(`/match[${dataString.data.id}]`);
                 rcon.cmd(dbData.server, `map ${dataString.data.map}`);
+
+                csgo_config.getConfigs((configs) => {
+                    informAllSockets('update', {
+                        matches: db.getData("/match"),
+                        servers: config.servers,
+                        maps: config.maps,
+                        configs
+                    });
+                });
             }
 
             if (dataString.instruction === "game_restart") {
@@ -141,6 +177,15 @@ const init = (server) => {
 
                 const dbData = db.getData(`/match[${dataString.data.id}]`);
                 rcon.cmd(dbData.server, 'mp_restartgame 1');
+
+                csgo_config.getConfigs((configs) => {
+                    informAllSockets('update', {
+                        matches: db.getData("/match"),
+                        servers: config.servers,
+                        maps: config.maps,
+                        configs
+                    });
+                });
             }
         });
 
