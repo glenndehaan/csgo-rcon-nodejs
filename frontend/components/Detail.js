@@ -53,10 +53,12 @@ export default class Detail extends Component {
      * @param data
      */
     onUpdate(data) {
+        console.log('dataUpdate', data);
         this.setState({
             servers: data.servers,
             matches: data.matches,
-            maps: data.maps
+            maps: data.maps,
+            match: findByIdInObjectArray(data.matches, this.props.id)
         });
     }
 
