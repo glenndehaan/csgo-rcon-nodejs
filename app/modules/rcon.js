@@ -6,6 +6,7 @@ const config = require("../config");
 const log = require("./logger");
 const csgoConfig = require("./csgo-config");
 const queue = require("./queue");
+const {splitByByteLength} = require("../utils/Strings");
 
 /**
  * Create global vars
@@ -58,9 +59,11 @@ const initBroadcaster = (server) => {
  */
 const loadExternalCSGOConfig = (server, match_config, type = "main") => {
     csgoConfig.loadCSGOConfig(match_config, type, (config) => {
-        for(let item = 0; item < config.length; item++) {
+        const exported_lines = splitByByteLength(config, 1024, '; ');
+
+        for(let item = 0; item < exported_lines.length; item++) {
             queue.add(server, () => {
-                rcon[server].command(config[item]).then(() => {
+                rcon[server].command(exported_lines[item]).then(() => {
                     queue.complete(server);
                 });
             });
