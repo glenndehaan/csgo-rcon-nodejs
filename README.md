@@ -40,6 +40,19 @@ To make this as simple as it is I use a local Json database.
 
 Checkout `csgo-rcon.json` since this is the db file.
 
+## TODO's
+* Lock matches on same server when one match is running.
+* Readonly mode after first user opens the match admin panel.
+* Fix production PKG build.
+* Add say to admin interface.
+* Add broadcaster to config file.
+* Fix restore server config file.
+* Catch srcds error's. (Send cmd if rcon fails)
+* Create one cmd for rcon. (Use in startMatch, reset) Let others use that.
+* Rcon reconnect?
+* Rcon server/match status?
+* Challonge (API/Webhook) match import?
+
 ## License
 
 MIT
