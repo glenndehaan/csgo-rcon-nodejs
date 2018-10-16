@@ -59,9 +59,10 @@ const initBroadcaster = (server) => {
  */
 const loadExternalCSGOConfig = (server, match_config, type = "main") => {
     csgoConfig.loadCSGOConfig(match_config, type, (config) => {
-        const exported_lines = splitByByteLength(config, 1024, '; ');
+        const exported_lines = splitByByteLength(config, 512, '; ');
 
         for(let item = 0; item < exported_lines.length; item++) {
+            log.trace(`[RCON] Config Line: ${JSON.stringify(exported_lines[item])}`);
             queue.add(server, () => {
                 rcon[server].command(exported_lines[item]).then(() => {
                     queue.complete(server);
