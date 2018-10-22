@@ -48,10 +48,11 @@ Checkout `csgo-rcon.json` since this is the db file.
 * Add broadcaster to config file.
 * Fix restore server config file.
 * Catch srcds error's. (Send cmd if rcon fails)
-* Create one cmd for rcon. (Use in startMatch, reset) Let others use that.
+* ~~Create one cmd for rcon. (Use in startMatch, reset) Let others use that.~~ (Needs testing!)
 * Rcon reconnect?
 * Rcon server/match status?
 * Challonge (API/Webhook) match import?
+* Rewrite (server modules) to ES6 classes?
 
 ## License
 

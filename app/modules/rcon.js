@@ -41,12 +41,7 @@ const init = () => {
  */
 const initBroadcaster = (server) => {
     broadcasters[server] = setInterval(() => {
-        queue.add(server, () => {
-            rcon[server].command(`say "Welcome to the ${config.application.companyName} server"`).then(() => {
-                log.info(`[BROADCASTER][${server}] Message sending complete!`);
-                queue.complete(server);
-            });
-        });
+        cmd(server, `say "Welcome to the ${config.application.companyName} server"`, 'Message sending complete');
     }, 60000);
 };
 
@@ -63,11 +58,7 @@ const loadExternalCSGOConfig = (server, match_config, type = "main") => {
 
         for(let item = 0; item < exported_lines.length; item++) {
             log.trace(`[RCON] Config Line: ${JSON.stringify(exported_lines[item])}`);
-            queue.add(server, () => {
-                rcon[server].command(exported_lines[item]).then(() => {
-                    queue.complete(server);
-                });
-            });
+            cmd(server, exported_lines[item]);
         }
     });
 };
@@ -111,77 +102,33 @@ const startMatch = (server, matchInfo, type = "main") => {
     /**
      * Set hostname for match
      */
-    queue.add(server, () => {
-        rcon[server].command(`hostname "${config.application.companyName}: ${team1.name} vs ${team2.name}"`).then(source => {
-            log.trace(`[RCON][${server}] Hostname change: `, source);
-            queue.complete(server);
-        });
-    });
+    cmd(server, `hostname "${config.application.companyName}: ${team1.name} vs ${team2.name}"`, 'Hostname change');
 
     /**
      * Change teamnames
      */
-    queue.add(server, () => {
-        rcon[server].command(`mp_teamname_1 "${team1.name}"`).then(source => {
-            log.trace(`[RCON][${server}] Teamname 1 change: `, source);
-            queue.complete(server);
-        });
-    });
-    queue.add(server, () => {
-        rcon[server].command(`mp_teamname_2 "${team2.name}"`).then(source => {
-            log.trace(`[RCON][${server}] Teamname 2 change: `, source);
-            queue.complete(server);
-        });
-    });
+    cmd(server, `mp_teamname_1 "${team1.name}"`, 'Teamname 1 change');
+    cmd(server, `mp_teamname_2 "${team2.name}"`, 'Teamname 2 change');
 
     /**
      * Change team flags
      */
-    queue.add(server, () => {
-        rcon[server].command(`mp_teamflag_1 "${team1.country}"`).then(source => {
-            log.trace(`[RCON][${server}] Teamflag 1 change: `, source);
-            queue.complete(server);
-        });
-    });
-    queue.add(server, () => {
-        rcon[server].command(`mp_teamflag_2 "${team2.country}"`).then(source => {
-            log.trace(`[RCON][${server}] Teamflag 2 change: `, source);
-            queue.complete(server);
-        });
-    });
+    cmd(server, `mp_teamflag_1 "${team1.country}"`, 'Teamflag 1 change');
+    cmd(server, `mp_teamflag_2 "${team2.country}"`, 'Teamflag 2 change');
 
     /**
      * Restart game
      */
-    queue.add(server, () => {
-        rcon[server].command(`mp_restartgame 1`).then(source => {
-            log.trace(`[RCON][${server}] Restart game: `, source);
-            log.info(`[RCON][${server}] Match config ready and started!`);
-            queue.complete(server);
-        });
-    });
+    cmd(server, 'mp_restartgame 1', 'Restart game');
 
     /**
      * Inform players
      */
-    queue.add(server, () => {
-        rcon[server].command(`say '${message}'`).then(source => {
-            log.trace(`[RCON][${server}] Say: `, source);
-            queue.complete(server);
-        });
-    });
-    queue.add(server, () => {
-        rcon[server].command(`say '${message}'`).then(source => {
-            log.trace(`[RCON][${server}] Say: `, source);
-            queue.complete(server);
-        });
-    });
-    queue.add(server, () => {
-        rcon[server].command(`say '${message}'`).then(source => {
-            log.trace(`[RCON][${server}] Say: `, source);
-            queue.complete(server);
-        });
-    });
+    cmd(server, `say '${message}'`, 'Say');
+    cmd(server, `say '${message}'`, 'Say');
+    cmd(server, `say '${message}'`, 'Say');
+
+    log.info(`[RCON][${server}] Match config ready and started!`);
 };
 
 /**
@@ -193,87 +140,43 @@ const reset = (server) => {
     /**
      * Set hostname for match
      */
-    queue.add(server, () => {
-        rcon[server].command(`hostname ""`).then(source => {
-            log.trace(`[RCON][${server}] Hostname change: `, source);
-            queue.complete(server);
-        });
-    });
+    cmd(server, 'hostname ""', 'Hostname change');
 
     /**
      * Change teamnames
      */
-    queue.add(server, () => {
-        rcon[server].command(`mp_teamname_1 ""`).then(source => {
-            log.trace(`[RCON][${server}] Teamname 1 change: `, source);
-            queue.complete(server);
-        });
-    });
-    queue.add(server, () => {
-        rcon[server].command(`mp_teamname_2 ""`).then(source => {
-            log.trace(`[RCON][${server}] Teamname 2 change: `, source);
-            queue.complete(server);
-        });
-    });
+    cmd(server, 'mp_teamname_1 ""', 'Teamname 1 change');
+    cmd(server, 'mp_teamname_2 ""', 'Teamname 2 change');
 
     /**
      * Change team flags
      */
-    queue.add(server, () => {
-        rcon[server].command(`mp_teamflag_1 ""`).then(source => {
-            log.trace(`[RCON][${server}] Teamname 1 change: `, source);
-            queue.complete(server);
-        });
-    });
-    queue.add(server, () => {
-        rcon[server].command(`mp_teamflag_2 ""`).then(source => {
-            log.trace(`[RCON][${server}] Teamflag 2 change: `, source);
-            queue.complete(server);
-        });
-    });
+    cmd(server, 'mp_teamflag_1 ""', 'Teamflag 1 change');
+    cmd(server, 'mp_teamflag_2 ""', 'Teamflag 2 change');
 
     /**
      * Load default CSGO config
      */
-    queue.add(server, () => {
-        rcon[server].command('exec gamemode_competitive').then(source => {
-            log.trace(`[RCON][${server}] Gamemode update`, source);
-            queue.complete(server);
-        });
-    });
+    cmd(server, 'exec gamemode_competitive', 'Gamemode update');
 
     /**
      * Inform players
      */
-    queue.add(server, () => {
-        rcon[server].command('say "Resetting game settings to default..."').then(source => {
-            log.trace(`[RCON][${server}] Say reset`, source);
-            log.info(`[RCON][${server}] Resetting server to default settings and ending match!`);
-            queue.complete(server);
-        });
-    });
+    cmd(server, 'say "Resetting game settings to default..."', 'Resetting server to default settings and ending match!');
 
     /**
      * Restart game
      */
-    queue.add(server, () => {
-        rcon[server].command(`mp_restartgame 1`).then(source => {
-            log.trace(`[RCON][${server}] Restart game: `, source);
-            queue.complete(server);
-        });
-    });
+    cmd(server, 'mp_restartgame 1', 'Restart game');
 
     /**
      * Load default Server config
      *
      * todo server unresponsive after this command
      */
-    queue.add(server, () => {
-        rcon[server].command(`exec ${findServerRestoreConfig(server)}.cfg`).then(source => {
-            log.trace(`[RCON][${server}] Load default server config `, source);
-            queue.complete(server);
-        });
-    });
+    cmd(server, `exec ${findServerRestoreConfig(server)}.cfg`, 'Load default server config');
+
+    log.info(`[RCON][${server}] Has been reset to the default configuration!`);
 };
 
 /**
@@ -281,11 +184,12 @@ const reset = (server) => {
  *
  * @param server
  * @param cmd
+ * @param message
  */
-const cmd = (server, cmd) => {
+const cmd = (server, cmd, message = "CMD Send") => {
     queue.add(server, () => {
         rcon[server].command(cmd).then(source => {
-            log.trace(`[RCON][${server}] CMD Send: `, source);
+            log.trace(`[RCON][${server}] ${message}: `, source);
             queue.complete(server);
         });
     });
