@@ -182,7 +182,7 @@ export default class Detail extends Component {
                                     End Match & Restore Server
                                 </button>
                                 <br/>
-                            </div>
+                            </div><br/>
                             <h4>Server controls</h4>
                             <div>
                                 <div className="btn-group" role="group">
