@@ -9,7 +9,7 @@
     "host": "0.0.0.0"
   },
   "logger": {
-    "location": "/log/server.log",
+    "location": "./log",
     "level": "info"
   },
   "servers": [
