@@ -16,6 +16,7 @@
   },
   "pkg": {
     "assets": [
+      "_scripts/config/*",
       "app/src/**/*.js",
       "public/*"
     ]
