@@ -172,6 +172,22 @@ const init = (server) => {
                 });
             }
 
+            if (dataString.instruction === "game_say") {
+                log.info(`[SOCKET][${ws.id}][game_say] Match index: ${dataString.data.id}`);
+
+                const dbData = db.getData(`/match[${dataString.data.id}]`);
+                rcon.cmd(dbData.server, `say ${dataString.data.message}`);
+
+                csgo_config.getConfigs((configs) => {
+                    informAllSockets('update', {
+                        matches: db.getData("/match"),
+                        servers: config.servers,
+                        maps: config.maps,
+                        configs
+                    });
+                });
+            }
+
             if (dataString.instruction === "game_restart") {
                 log.info(`[SOCKET][${ws.id}][game_restart] Match index: ${dataString.data.id}`);
 

@@ -20,7 +20,8 @@ export default class Detail extends Component {
         };
 
         this.fields = {
-            map: null
+            map: null,
+            message: null
         };
     }
 
@@ -121,15 +122,34 @@ export default class Detail extends Component {
      */
     switchMap() {
         // Reset checks
-        this.fields.map.classList.remove("error");
+        this.fields.map.classList.remove("is-invalid");
 
         if(this.fields.map.value === "false" || this.fields.map.value === false) {
-            this.fields.map.classList.add("error");
+            this.fields.map.classList.add("is-invalid");
         } else {
             Socket.send("game_map_update", {
                 id: parseInt(this.state.match.index),
                 map: this.fields.map.value
             });
+        }
+    }
+
+    /**
+     * Sends a message to the server
+     */
+    sendMessage() {
+        // Reset checks
+        this.fields.message.classList.remove("is-invalid");
+
+        if(this.fields.message.value === "") {
+            this.fields.message.classList.add("is-invalid");
+        } else {
+            Socket.send("game_say", {
+                id: parseInt(this.state.match.index),
+                message: this.fields.message.value
+            });
+
+            this.fields.message.value = "";
         }
     }
 
@@ -198,7 +218,7 @@ export default class Detail extends Component {
                                     Switch team sides
                                 </button>
                                 <br/>
-                                <select name="map" id="map" title="map" ref={c => this.fields.map = c}>
+                                <select name="map" id="map" title="map" className="form-control" ref={c => this.fields.map = c}>
                                     <option selected disabled value="false">Select map</option>
                                     {this.state.maps.map((map, index) => (
                                         <option key={index} value={map}>{map}</option>
@@ -207,6 +227,12 @@ export default class Detail extends Component {
                                 &nbsp;
                                 <button type='button' className='btn btn-sm btn-primary btn-detail' onClick={() => this.switchMap()}>
                                     Switch map
+                                </button>
+                                <br/>
+                                <input type="text" className="form-control" name="message" id="message" title="message" ref={c => this.fields.message = c} />
+                                &nbsp;
+                                <button type='button' className='btn btn-sm btn-primary btn-detail' onClick={() => this.sendMessage()}>
+                                    Say
                                 </button>
                                 <br/>
                                 <button type='button' className='btn btn-sm btn-danger btn-detail' onClick={() => this.restartGame()}>

@@ -183,12 +183,12 @@ export default class Create extends Component {
                             <tbody>
                                 <tr>
                                     <td>Name</td>
-                                    <td><input type="text" name="team-name-1" id="team-name-1" title="team-name-1" ref={c => this.fields.team1.name = c} /></td>
+                                    <td><input type="text" name="team-name-1" id="team-name-1" title="team-name-1" className="form-control" ref={c => this.fields.team1.name = c} /></td>
                                 </tr>
                                 <tr>
                                     <td>Country Code</td>
                                     <td>
-                                        <select name="team-country-1" id="team-country-1" title="team-country-1" ref={c => this.fields.team1.country = c}>
+                                        <select name="team-country-1" id="team-country-1" title="team-country-1" className="form-control" ref={c => this.fields.team1.country = c}>
                                             <option selected disabled value="false">Select country</option>
                                             {getIsoCodes().map((code, index) => (
                                                 <option key={index} value={code.code}>{code.name}</option>
@@ -204,12 +204,12 @@ export default class Create extends Component {
                             <tbody>
                                 <tr>
                                     <td>Name</td>
-                                    <td><input type="text" name="team-name-2" id="team-name-2" title="team-name-2" ref={c => this.fields.team2.name = c} /></td>
+                                    <td><input type="text" name="team-name-2" id="team-name-2" title="team-name-2" className="form-control" ref={c => this.fields.team2.name = c} /></td>
                                 </tr>
                                 <tr>
                                     <td>Country Code</td>
                                     <td>
-                                        <select name="team-country-2" id="team-country-2" title="team-country-2" ref={c => this.fields.team2.country = c}>
+                                        <select name="team-country-2" id="team-country-2" title="team-country-2" className="form-control" ref={c => this.fields.team2.country = c}>
                                             <option selected disabled value="false">Select country</option>
                                             {getIsoCodes().map((code, index) => (
                                                 <option key={index} value={code.code}>{code.name}</option>
@@ -226,7 +226,7 @@ export default class Create extends Component {
                                 <tr>
                                     <td>Server</td>
                                     <td>
-                                        <select title="server" name="server" id="server" onChange={() => this.updateMapField()} ref={c => this.fields.server = c}>
+                                        <select title="server" name="server" id="server" className="form-control" onChange={() => this.updateMapField()} ref={c => this.fields.server = c}>
                                             <option selected disabled value="false">Select a server</option>
                                             {this.state.servers.map((server, index) => (
                                                 <option key={index} value={`${server.ip}:${server.port}`}>{`${server.ip}:${server.port}`}</option>
@@ -236,12 +236,12 @@ export default class Create extends Component {
                                 </tr>
                                 <tr>
                                     <td>Default Server Map</td>
-                                    <td><input type="text" name="map" title="map" id="map" value={this.state.map} ref={c => this.fields.map = c} disabled/></td>
+                                    <td><input type="text" name="map" title="map" id="map" className="form-control" value={this.state.map} ref={c => this.fields.map = c} disabled/></td>
                                 </tr>
                                 <tr>
                                     <td>CSGO Knife Config</td>
                                     <td>
-                                        <select title="csgo-knife-config" name="csgo-knife-config" id="csgo-knife-config" ref={c => this.fields.knife_config = c}>
+                                        <select title="csgo-knife-config" name="csgo-knife-config" id="csgo-knife-config" className="form-control" ref={c => this.fields.knife_config = c}>
                                             <option selected disabled value="false">Select a config</option>
                                             {this.state.configs.knife.map((config, index) => (
                                                 <option key={index} value={config}>{config}</option>
@@ -252,7 +252,7 @@ export default class Create extends Component {
                                 <tr>
                                     <td>CSGO Main Config</td>
                                     <td>
-                                        <select title="csgo-main-config" name="csgo-main-config" id="csgo-main-config" ref={c => this.fields.main_config = c}>
+                                        <select title="csgo-main-config" name="csgo-main-config" id="csgo-main-config" className="form-control" ref={c => this.fields.main_config = c}>
                                             <option selected disabled value="false">Select a config</option>
                                             {this.state.configs.main.map((config, index) => (
                                                 <option key={index} value={config}>{config}</option>
