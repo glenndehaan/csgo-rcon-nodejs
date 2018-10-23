@@ -3,7 +3,7 @@
  */
 const express = require('express');
 const router = express.Router();
-const routerUtils = require('../modules/Router');
+const routerUtils = require('../modules/router');
 
 /**
  * Define routes
