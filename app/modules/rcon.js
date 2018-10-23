@@ -171,10 +171,11 @@ const reset = (server) => {
 
     /**
      * Load default Server config
-     *
-     * todo server unresponsive after this command
      */
-    cmd(server, `exec ${findServerRestoreConfig(server)}.cfg`, 'Load default server config');
+    const restoreConfig = findServerRestoreConfig(server);
+    if(restoreConfig !== false) {
+        cmd(server, `exec ${findServerRestoreConfig(server)}.cfg`, 'Load default server config');
+    }
 
     log.info(`[RCON][${server}] Has been reset to the default configuration!`);
 };
