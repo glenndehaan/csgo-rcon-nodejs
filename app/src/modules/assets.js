@@ -1,5 +1,5 @@
 const fs = require("fs");
-const path = `${__dirname}/../../public/dist`;
+const path = `${__dirname}/../../../public/dist`;
 
 /**
  * Function to get the active asset files for the frontend

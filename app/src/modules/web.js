@@ -38,7 +38,7 @@ const init = () => {
     /**
      * Serve static public dir
      */
-    app.use(express.static(`${__dirname}/../../public`));
+    app.use(express.static(`${__dirname}/../../../public`));
 
     /**
      * Configure app to use bodyParser()

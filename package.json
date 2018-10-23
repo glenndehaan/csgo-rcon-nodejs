@@ -19,7 +19,7 @@
       "_scripts/config/*",
       "app/src/**/*.js",
       "app/src/**/*.ejs",
-      "public/*"
+      "public/**/*"
     ]
   },
   "bin": "app/src/bundle.js",
