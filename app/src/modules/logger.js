@@ -12,15 +12,15 @@ const dev = process.env.NODE_ENV !== 'production';
 /**
  * Create log dir if it doesn't exists
  */
-if (!fs.existsSync(`${dev ? __dirname + '/../' : '/' + process.cwd()}${config.logger.location}`)){
-    fs.mkdirSync(`${dev ? __dirname + '/../' : '/' + process.cwd()}${config.logger.location}`);
+if (!fs.existsSync(`${dev ? __dirname + '/../' : process.cwd() + '/'}${config.logger.location}`)){
+    fs.mkdirSync(`${dev ? __dirname + '/../' : process.cwd() + '/'}${config.logger.location}`);
 }
 
 /**
  * Setup logger
  */
 const log = require('simple-node-logger').createSimpleLogger({
-    logFilePath: `${dev ? __dirname + '/../' : '/' + process.cwd()}${config.logger.location}/server.log`,
+    logFilePath: `${dev ? __dirname + '/../' : process.cwd() + '/'}${config.logger.location}/server.log`,
     timestampFormat: 'YYYY-MM-DD HH:mm:ss.SSS'
 });
 
