@@ -2,6 +2,11 @@ const fs = require("fs");
 const config = require("../config");
 
 /**
+ * Check if we are using the dev version
+ */
+const dev = process.env.NODE_ENV !== 'production';
+
+/**
  * Grabs CSGO configs from file system
  *
  * @param config_name
@@ -9,7 +14,7 @@ const config = require("../config");
  * @param callback
  */
 const loadCSGOConfig = (config_name, type = "main", callback) => {
-    fs.readFile(`${__dirname}/../${config.application.csgoConfigFolder}/${type}/${config_name}.txt`, 'utf8', (err, data) => {
+    fs.readFile(`${dev ? __dirname + '/..' : process.cwd()}/${config.application.csgoConfigFolder}/${type}/${config_name}.txt`, 'utf8', (err, data) => {
         if (err) {
             throw err;
         }
@@ -48,7 +53,7 @@ const processConfig = (data) => {
  * @param callback
  */
 const getConfigs = (callback) => {
-    fs.readdir(`${__dirname}/../${config.application.csgoConfigFolder}/main`, (err, main_files) => {
+    fs.readdir(`${dev ? __dirname + '/..' : process.cwd()}/${config.application.csgoConfigFolder}/main`, (err, main_files) => {
         if (err) {
             throw err;
         }
@@ -57,7 +62,7 @@ const getConfigs = (callback) => {
             main_files[item] = main_files[item].replace(/\.[^/.]+$/, "");
         }
 
-        fs.readdir(`${__dirname}/../${config.application.csgoConfigFolder}/knife`, (err, knife_files) => {
+        fs.readdir(`${dev ? __dirname + '/..' : process.cwd()}/${config.application.csgoConfigFolder}/knife`, (err, knife_files) => {
             if (err) {
                 throw err;
             }
