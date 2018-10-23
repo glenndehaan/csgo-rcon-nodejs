@@ -1,12 +1,24 @@
 /**
+ * Import base packages
+ */
+const fs = require('fs');
+const config = require("../config");
+
+/**
  * Check if we are using the dev version
  */
 const dev = process.env.NODE_ENV !== 'production';
 
 /**
- * Import base packages
+ * Create log dir if it doesn't exists
  */
-const config = require("../config");
+if (!fs.existsSync(`${dev ? __dirname + '/../' : process.cwd()}${config.logger.location}`)){
+    fs.mkdirSync(`${dev ? __dirname + '/../' : process.cwd()}${config.logger.location}`);
+}
+
+/**
+ * Setup logger
+ */
 const log = require('simple-node-logger').createSimpleLogger({
     logFilePath: `${dev ? __dirname + '/../' : process.cwd()}${config.logger.location}/server.log`,
     timestampFormat: 'YYYY-MM-DD HH:mm:ss.SSS'
