@@ -43,7 +43,7 @@ Checkout `csgo-rcon.json` since this is the db file.
 ## TODO's
 * Lock matches on same server when one match is running.
 * Readonly mode after first user opens the match admin panel.
-* Fix production PKG build.
+* Fix production PKG build. (In progress)
 * ~~Add say to admin interface.~~ (Needs testing!)
 * ~~Add broadcaster to config file.~~ (Needs testing!)
 * ~~Fix restore server config file.~~ (Restore config is now optional)

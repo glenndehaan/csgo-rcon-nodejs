@@ -4,14 +4,23 @@
   "description": "NPM packages for csgo-rcon-nodejs",
   "private": true,
   "scripts": {
-    "start": "cd ./app && node ./server.js",
-    "dev": "cd ./app && nodemon -L --ignore csgo-rcon.json --watch ./ ./server.js",
+    "start": "cd ./app/src && node ./server.js",
+    "dev": "cd ./app/src && nodemon -L --ignore csgo-rcon.json --watch ./ ./server.js",
+    "server:build": "pkg ./package.json --targets latest-linux-x64,latest-macos-x64,latest-win-x64 --out-path ./app/dist",
     "prewebpack": "rimraf ./public/dist",
     "webpack": "webpack --watch --watch-poll --mode development --config ./_scripts/webpack/webpack.config.js",
     "prewebpack:production": "rimraf ./public/dist",
     "webpack:production": "cross-env NODE_ENV=production webpack --mode production --config ./_scripts/webpack/webpack.config.js",
+    "build": "npm run webpack:production && npm run server:build",
     "lint": "eslint -c ./package.json ./"
   },
+  "pkg": {
+    "assets": [
+      "app/src/**/*.js",
+      "public/*"
+    ]
+  },
+  "bin": "app/src/bundle.js",
   "author": "Glenn de Haan",
   "license": "MIT",
   "engines": {
@@ -74,6 +83,7 @@
     "node-json-db": "^0.9.0",
     "node-sass": "^4.9.1",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "pkg": "^4.3.4",
     "preact": "^8.3.1",
     "preact-router": "^2.6.1",
     "rimraf": "^2.6.2",
