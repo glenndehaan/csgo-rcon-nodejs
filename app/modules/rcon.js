@@ -27,7 +27,10 @@ const init = () => {
 
         rcon[`${config.servers[item].ip}:${config.servers[item].port}`].connect().then(() => {
             log.info(`[RCON INIT][${config.servers[item].ip}:${config.servers[item].port}] Server ready `);
-            // initBroadcaster(`${config.servers[item].ip}:${config.servers[item].port}`); //todo fix in next release
+
+            if(config.broadcaster.enabled) {
+                initBroadcaster(`${config.servers[item].ip}:${config.servers[item].port}`);
+            }
         }).catch(err => {
             log.error(`[RCON INIT][${config.servers[item].ip}:${config.servers[item].port}] Failed to connect to rcon: `, err);
         });
@@ -40,9 +43,17 @@ const init = () => {
  * @param server
  */
 const initBroadcaster = (server) => {
-    broadcasters[server] = setInterval(() => {
-        cmd(server, `say "Welcome to the ${config.application.companyName} server"`, 'Message sending complete');
-    }, 60000);
+    let currentMessage = 0;
+    if(config.broadcaster.messages.length > 0) {
+        broadcasters[server] = setInterval(() => {
+            cmd(server, `say "${config.broadcaster.messages[currentMessage]}"`, 'Message sending complete');
+            currentMessage++;
+
+            if((currentMessage + 1) > config.broadcaster.messages.length) {
+                currentMessage = 0;
+            }
+        }, (config.broadcaster.speed * 1000));
+    }
 };
 
 /**
@@ -201,4 +212,4 @@ const cmd = (server, cmd, message = "CMD Send") => {
  */
 init();
 
-module.exports = {startMatch, initBroadcaster, reset, cmd};
+module.exports = {startMatch, reset, cmd};

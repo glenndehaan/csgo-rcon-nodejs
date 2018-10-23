@@ -45,7 +45,7 @@ Checkout `csgo-rcon.json` since this is the db file.
 * Readonly mode after first user opens the match admin panel.
 * Fix production PKG build.
 * ~~Add say to admin interface.~~ (Needs testing!)
-* Add broadcaster to config file.
+* ~~Add broadcaster to config file.~~ (Needs testing!)
 * ~~Fix restore server config file.~~ (Restore config is now optional)
 * Catch srcds error's. (Send cmd if rcon fails)
 * ~~Create one cmd for rcon. (Use in startMatch, reset) Let others use that.~~ (Needs testing!)

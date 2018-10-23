@@ -29,5 +29,14 @@
     "de_overpass",
     "de_cache",
     "de_dust2"
-  ]
+  ],
+  "broadcaster": {
+    "enabled": true,
+    "speed": 120,
+    "messages": [
+      "This is message 1",
+      "This is message 2",
+      "This is message 3"
+    ]
+  }
 }
