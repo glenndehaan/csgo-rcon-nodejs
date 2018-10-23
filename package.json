@@ -18,6 +18,7 @@
     "assets": [
       "_scripts/config/*",
       "app/src/**/*.js",
+      "app/src/**/*.ejs",
       "public/*"
     ]
   },
