@@ -84,9 +84,9 @@ export default class Header extends Component {
                         <Link href="/match/create" activeClassName="active" className="nav-link">Create Match</Link>
                     </li>
                     <li className="nav-item settings-icon">
-                        <Link href="/settings" activeClassName="active" className="nav-link">
+                        <a href="/settings" className={`nav-link ${window.location.path === "/settings" ? 'active': ''}`} native>
                             <Settings/>
-                        </Link>
+                        </a>
                     </li>
                 </ul>
                 <span className={`navbar-text ml-auto ${this.state.connection.className}`}>

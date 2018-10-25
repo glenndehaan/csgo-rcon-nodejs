@@ -31,7 +31,8 @@ const routes = [
         route: '/settings',
         method: 'get',
         controller: 'Index',
-        action: 'index'
+        action: 'index',
+        secured: true
     }
 ];
 

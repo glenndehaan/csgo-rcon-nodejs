@@ -80,6 +80,7 @@
     "css-loader": "^0.28.11",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
+    "express-basic-auth": "^1.1.5",
     "express-ws": "^4.0.0",
     "mini-css-extract-plugin": "^0.4.1",
     "node-fetch": "^2.2.0",
