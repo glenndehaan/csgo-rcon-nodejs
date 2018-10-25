@@ -9,17 +9,12 @@ const config = require("../config");
 class challonge {
     constructor() {
         this.tournaments = [];
-        this.socket = null;
     }
 
     /**
      * Get all tournaments from Challonge
-     *
-     * @param socket
      */
-    init(socket) {
-        this.socket = socket;
-
+    init() {
         fetch(`https://${config.integrations.challonge.username}:${config.integrations.challonge.key}@api.challonge.com/v1/tournaments.json`)
             .then(res => res.json())
             .then(body => {
@@ -43,8 +38,9 @@ class challonge {
      * @param server
      * @param knifeConfig
      * @param mainConfig
+     * @param callback
      */
-    importMatches(tournamentId, server, knifeConfig, mainConfig) {
+    importMatches(tournamentId, server, knifeConfig, mainConfig, callback) {
         fetch(`https://${config.integrations.challonge.username}:${config.integrations.challonge.key}@api.challonge.com/v1/tournaments/${tournamentId}/matches.json`)
             .then(res => res.json())
             .then(body => {
@@ -86,7 +82,7 @@ class challonge {
                                     completed++;
 
                                     if(imported === completed) {
-                                        this.socket.sendGeneralUpdate();
+                                        callback();
                                         log.info(`[CHALLONGE] ${body.length} Matches(s) found! ${imported} Matches(s) imported!`);
                                     }
                                 });

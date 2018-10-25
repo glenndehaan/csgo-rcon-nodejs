@@ -6,7 +6,6 @@ const log = require("./modules/logger");
 const database = require("./modules/database");
 const queue = require("./modules/queue");
 const web = require("./modules/web");
-const socket = require("./modules/socket");
 const challonge = require("./modules/challonge");
 
 /**
@@ -21,7 +20,7 @@ database.init();
 queue.init();
 web.init();
 if(config.integrations.challonge.enabled) {
-    challonge.init(socket);
+    challonge.init();
 }
 
 log.info("[SYSTEM] App running");

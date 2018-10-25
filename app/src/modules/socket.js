@@ -52,14 +52,7 @@ class socket {
                     dataString.data.challonge = false;
                     db.push("/match[]", dataString.data);
 
-                    csgo_config.getConfigs((configs) => {
-                        this.informAllSockets('update', {
-                            matches: db.getData("/match"),
-                            servers: config.servers,
-                            maps: config.maps,
-                            configs
-                        });
-                    });
+                    this.sendGeneralUpdate();
                 }
 
                 if (dataString.instruction === "match_start_knife") {
@@ -69,14 +62,7 @@ class socket {
                     rcon.startMatch(dbData.server, dbData, "knife");
 
                     db.push(`/match[${dataString.data.id}]/status`, 1);
-                    csgo_config.getConfigs((configs) => {
-                        this.informAllSockets('update', {
-                            matches: db.getData("/match"),
-                            servers: config.servers,
-                            maps: config.maps,
-                            configs
-                        });
-                    });
+                    this.sendGeneralUpdate();
                 }
 
                 if (dataString.instruction === "match_start_main") {
@@ -86,14 +72,7 @@ class socket {
                     rcon.startMatch(dbData.server, dbData, "main");
 
                     db.push(`/match[${dataString.data.id}]/status`, 2);
-                    csgo_config.getConfigs((configs) => {
-                        this.informAllSockets('update', {
-                            matches: db.getData("/match"),
-                            servers: config.servers,
-                            maps: config.maps,
-                            configs
-                        });
-                    });
+                    this.sendGeneralUpdate();
                 }
 
                 if (dataString.instruction === "match_end") {
@@ -103,48 +82,27 @@ class socket {
                     rcon.reset(dbData.server);
 
                     db.push(`/match[${dataString.data.id}]/status`, 99);
-                    csgo_config.getConfigs((configs) => {
-                        this.informAllSockets('update', {
-                            matches: db.getData("/match"),
-                            servers: config.servers,
-                            maps: config.maps,
-                            configs
-                        });
-                    });
+                    this.sendGeneralUpdate();
                 }
 
                 if (dataString.instruction === "game_resume") {
                     log.info(`[SOCKET][${ws.id}][game_resume] Match index: ${dataString.data.id}`);
 
-                    db.push(`/match[${dataString.data.id}]/status`, 2);
                     const dbData = db.getData(`/match[${dataString.data.id}]`);
                     rcon.cmd(dbData.server, 'mp_unpause_match');
 
-                    csgo_config.getConfigs((configs) => {
-                        this.informAllSockets('update', {
-                            matches: db.getData("/match"),
-                            servers: config.servers,
-                            maps: config.maps,
-                            configs
-                        });
-                    });
+                    db.push(`/match[${dataString.data.id}]/status`, 2);
+                    this.sendGeneralUpdate();
                 }
 
                 if (dataString.instruction === "game_pause") {
                     log.info(`[SOCKET][${ws.id}][game_pause] Match index: ${dataString.data.id}`);
 
-                    db.push(`/match[${dataString.data.id}]/status`, 50);
                     const dbData = db.getData(`/match[${dataString.data.id}]`);
                     rcon.cmd(dbData.server, 'mp_pause_match');
 
-                    csgo_config.getConfigs((configs) => {
-                        this.informAllSockets('update', {
-                            matches: db.getData("/match"),
-                            servers: config.servers,
-                            maps: config.maps,
-                            configs
-                        });
-                    });
+                    db.push(`/match[${dataString.data.id}]/status`, 50);
+                    this.sendGeneralUpdate();
                 }
 
                 if (dataString.instruction === "game_team_switch") {
@@ -153,14 +111,7 @@ class socket {
                     const dbData = db.getData(`/match[${dataString.data.id}]`);
                     rcon.cmd(dbData.server, 'mp_swapteams');
 
-                    csgo_config.getConfigs((configs) => {
-                        this.informAllSockets('update', {
-                            matches: db.getData("/match"),
-                            servers: config.servers,
-                            maps: config.maps,
-                            configs
-                        });
-                    });
+                    this.sendGeneralUpdate();
                 }
 
                 if (dataString.instruction === "game_map_update") {
@@ -169,14 +120,7 @@ class socket {
                     const dbData = db.getData(`/match[${dataString.data.id}]`);
                     rcon.cmd(dbData.server, `map ${dataString.data.map}`);
 
-                    csgo_config.getConfigs((configs) => {
-                        this.informAllSockets('update', {
-                            matches: db.getData("/match"),
-                            servers: config.servers,
-                            maps: config.maps,
-                            configs
-                        });
-                    });
+                    this.sendGeneralUpdate();
                 }
 
                 if (dataString.instruction === "game_say") {
@@ -185,14 +129,7 @@ class socket {
                     const dbData = db.getData(`/match[${dataString.data.id}]`);
                     rcon.cmd(dbData.server, `say ${dataString.data.message}`);
 
-                    csgo_config.getConfigs((configs) => {
-                        this.informAllSockets('update', {
-                            matches: db.getData("/match"),
-                            servers: config.servers,
-                            maps: config.maps,
-                            configs
-                        });
-                    });
+                    this.sendGeneralUpdate();
                 }
 
                 if (dataString.instruction === "game_restart") {
@@ -201,20 +138,15 @@ class socket {
                     const dbData = db.getData(`/match[${dataString.data.id}]`);
                     rcon.cmd(dbData.server, 'mp_restartgame 1');
 
-                    csgo_config.getConfigs((configs) => {
-                        this.informAllSockets('update', {
-                            matches: db.getData("/match"),
-                            servers: config.servers,
-                            maps: config.maps,
-                            configs
-                        });
-                    });
+                    this.sendGeneralUpdate();
                 }
 
                 if(config.integrations.challonge.enabled) {
                     if (dataString.instruction === "integrations_challonge_import") {
                         log.info(`[SOCKET][${ws.id}][integrations_challonge_import] Starting challonge import`);
-                        challonge.importMatches(dataString.data.tournament, dataString.data.server, dataString.data.knife_config, dataString.data.main_config)
+                        challonge.importMatches(dataString.data.tournament, dataString.data.server, dataString.data.knife_config, dataString.data.main_config, () => {
+                            this.sendGeneralUpdate();
+                        });
                     }
                 }
             });
