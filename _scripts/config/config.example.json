@@ -38,5 +38,12 @@
       "This is message 2",
       "This is message 3"
     ]
+  },
+  "integrations": {
+    "challonge": {
+      "enabled": false,
+      "username": "challonge username",
+      "key": "api key"
+    }
   }
 }

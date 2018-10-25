@@ -7,6 +7,7 @@ const atob = require('atob');
 const log = require("./logger");
 const db = require("./database").db;
 const rcon = require("./rcon");
+const challonge = require("./challonge");
 const csgo_config = require("./csgo-config");
 const config = require("../config");
 
@@ -43,6 +44,7 @@ const init = (server) => {
 
             if (dataString.instruction === "match_create") {
                 log.info(`[SOCKET][${ws.id}] Created a new match! RAW: ${JSON.stringify(dataString.data)}`);
+                dataString.data.challonge = false;
                 db.push("/match[]", dataString.data);
 
                 csgo_config.getConfigs((configs) => {
@@ -203,6 +205,13 @@ const init = (server) => {
                     });
                 });
             }
+
+            if(config.integrations.challonge.enabled) {
+                if (dataString.instruction === "integrations_challonge_import") {
+                    log.info(`[SOCKET][${ws.id}][integrations_challonge_import] Starting challonge import`);
+                    challonge.importMatches(dataString.data.tournament, dataString.data.server, dataString.data.knife_config, dataString.data.main_config)
+                }
+            }
         });
 
         /**
@@ -222,7 +231,8 @@ const init = (server) => {
                     matches: db.getData("/match"),
                     servers: config.servers,
                     maps: config.maps,
-                    configs
+                    configs,
+                    challonge: challonge.tournaments
                 }
             }));
         });

@@ -51,8 +51,14 @@ Checkout `csgo-rcon.json` since this is the db file.
 * ~~Create one cmd for rcon. (Use in startMatch, reset) Let others use that.~~
 * Rcon reconnect?
 * Rcon server/match status?
-* Challonge (API/Webhook) match import?
+* Challonge (API/Webhook) match import? (In progress)
 * Rewrite (server modules) to ES6 classes?
+* Bootstrap Notification bar. (Showing that we are sending something)
+* Add match groups
+* Edit match
+* Add native system notifications
+* Add SVG's to replace bulky buttons
+* Protect /settings page with basic auth (Username/Password in config file)
 
 ## License
 

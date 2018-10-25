@@ -26,7 +26,8 @@ export default new class Socket {
             servers: [],
             matches: [],
             maps: [],
-            configs: {}
+            configs: {},
+            challonge: []
         };
 
         this.setup();
@@ -73,6 +74,7 @@ export default new class Socket {
             this.data.matches = message.data.matches;
             this.data.maps = message.data.maps;
             this.data.configs = message.data.configs;
+            this.data.challonge = message.data.challonge;
 
             this.connectedCallback();
         }

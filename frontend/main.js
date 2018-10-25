@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import Home from './components/Home'
 import Create from './components/Create'
 import Detail from './components/Detail'
+import Settings from './components/Settings'
 
 class App extends Component {
     /**
@@ -78,6 +79,7 @@ class App extends Component {
                 <Home path="/"/>
                 <Create path="/match/create"/>
                 <Detail path="/match/:id"/>
+                <Settings path="/settings"/>
             </Router>
         )
     }

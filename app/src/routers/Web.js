@@ -26,6 +26,12 @@ const routes = [
         method: 'get',
         controller: 'Index',
         action: 'index'
+    },
+    {
+        route: '/settings',
+        method: 'get',
+        controller: 'Index',
+        action: 'index'
     }
 ];
 

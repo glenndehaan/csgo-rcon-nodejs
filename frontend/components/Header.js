@@ -1,5 +1,6 @@
 import {h, Component} from 'preact';
 import { Link } from 'preact-router/match';
+import Settings from './icons/Settings';
 
 export default class Header extends Component {
     /**
@@ -81,6 +82,11 @@ export default class Header extends Component {
                     </li>
                     <li className="nav-item">
                         <Link href="/match/create" activeClassName="active" className="nav-link">Create Match</Link>
+                    </li>
+                    <li className="nav-item settings-icon">
+                        <Link href="/settings" activeClassName="active" className="nav-link">
+                            <Settings/>
+                        </Link>
                     </li>
                 </ul>
                 <span className={`navbar-text ml-auto ${this.state.connection.className}`}>

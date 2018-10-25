@@ -1,0 +1,15 @@
+.settings-icon {
+  margin-left: auto;
+
+  a {
+    path {
+      fill: rgba(255, 255, 255, 0.5);
+    }
+
+    &.active {
+      path {
+        fill: white;
+      }
+    }
+  }
+}
