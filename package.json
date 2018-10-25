@@ -12,7 +12,8 @@
     "prewebpack:production": "rimraf ./public/dist",
     "webpack:production": "cross-env NODE_ENV=production webpack --mode production --config ./_scripts/webpack/webpack.config.js",
     "build": "npm run webpack:production && npm run server:build",
-    "lint": "eslint -c ./package.json ./"
+    "lint": "eslint -c ./package.json ./",
+    "madge": "madge ./app/src && madge ./app/src --circular"
   },
   "pkg": {
     "assets": [
@@ -104,9 +105,10 @@
     "webpack-manifest-plugin": "^2.0.3"
   },
   "devDependencies": {
-    "nodemon": "^1.17.3",
     "eslint": "^5.0.1",
     "eslint-loader": "^2.0.0",
-    "eslint-plugin-react": "^7.10.0"
+    "eslint-plugin-react": "^7.10.0",
+    "madge": "^3.2.0",
+    "nodemon": "^1.17.3"
   }
 }
