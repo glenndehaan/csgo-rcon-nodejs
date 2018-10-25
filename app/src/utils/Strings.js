@@ -1,3 +1,5 @@
+const config = require("../config");
+
 /**
  * Function to split the string by byte length
  *
@@ -40,4 +42,22 @@ function splitByLinkBreak(data) {
     return data.split('\n');
 }
 
-module.exports = {splitByByteLength, splitByLinkBreak};
+/**
+ * Function find the server config that belongs to the server name
+ *
+ * @param server
+ * @return object
+ */
+function findServerConfig(server) {
+    for(let item = 0; item < config.servers.length; item++) {
+        const splitted = server.split(":");
+
+        if(config.servers[item].ip === splitted[0] && config.servers[item].port === parseInt(splitted[1])) {
+            return config.servers[item];
+        }
+    }
+
+    return {};
+}
+
+module.exports = {splitByByteLength, splitByLinkBreak, findServerConfig};

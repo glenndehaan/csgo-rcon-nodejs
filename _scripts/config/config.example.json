@@ -43,7 +43,8 @@
     "challonge": {
       "enabled": false,
       "username": "challonge username",
-      "key": "api key"
+      "key": "api key",
+      "default_country": "NL"
     }
   }
 }
