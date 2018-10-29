@@ -1,12 +1,15 @@
 import {h, Component, render} from 'preact';
 import Router from 'preact-router';
+import mitt from 'mitt';
 import Socket from './modules/socket';
 
 import Header from "./components/Header";
-import Home from './components/Home'
-import Create from './components/Create'
-import Detail from './components/Detail'
-import Settings from './components/Settings'
+import Home from './components/Home';
+import Create from './components/Create';
+import Detail from './components/Detail';
+import Settings from './components/Settings';
+
+import Notification from './components/Notification';
 
 class App extends Component {
     /**
@@ -21,6 +24,7 @@ class App extends Component {
         };
 
         Socket.initialize(window.location.host, () => this.connected(), () => this.disconnected() , () => this.reconnecting());
+        window.events = mitt();
     }
 
     /**
@@ -62,6 +66,7 @@ class App extends Component {
             <div id="root">
                 <Header connected={this.state.connected} reconnecting={this.state.reconnecting}/>
                 <div className="container">
+                    <Notification/>
                     {this.state.connected && this.mainRender()}
                 </div>
             </div>

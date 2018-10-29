@@ -1,0 +1,9 @@
+#notifications {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  width: 80%;
+  margin-top: 10px;
+  z-index: 999;
+  transform: translate(-50%);
+}

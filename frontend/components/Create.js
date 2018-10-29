@@ -108,6 +108,11 @@ export default class Create extends Component {
             this.fields.knife_config.selectedIndex = 0;
             this.fields.main_config.selectedIndex = 0;
 
+            window.events.emit("notification", {
+                title: "Match created!",
+                color: "success"
+            });
+
             route('/');
         }
     }

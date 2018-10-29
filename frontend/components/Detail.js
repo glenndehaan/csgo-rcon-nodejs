@@ -67,6 +67,11 @@ export default class Detail extends Component {
      * Starts the knife round
      */
     startKnife() {
+        window.events.emit("notification", {
+            title: "Knife round starting...",
+            color: "primary"
+        });
+
         Socket.send("match_start_knife", {
             id: parseInt(this.state.match.index)
         });
@@ -76,6 +81,11 @@ export default class Detail extends Component {
      * Starts the match
      */
     startMatch() {
+        window.events.emit("notification", {
+            title: "Match starting...",
+            color: "primary"
+        });
+
         Socket.send("match_start_main", {
             id: parseInt(this.state.match.index)
         });
@@ -85,6 +95,11 @@ export default class Detail extends Component {
      * Ends the match
      */
     endMatch() {
+        window.events.emit("notification", {
+            title: "Ending match...",
+            color: "primary"
+        });
+
         Socket.send("match_end", {
             id: parseInt(this.state.match.index)
         });
@@ -94,6 +109,11 @@ export default class Detail extends Component {
      * Resumes the game
      */
     resumeGame() {
+        window.events.emit("notification", {
+            title: "Resuming game...",
+            color: "primary"
+        });
+
         Socket.send("game_resume", {
             id: parseInt(this.state.match.index)
         });
@@ -103,6 +123,11 @@ export default class Detail extends Component {
      * Pauses the game
      */
     pauseGame() {
+        window.events.emit("notification", {
+            title: "Pausing game...",
+            color: "primary"
+        });
+
         Socket.send("game_pause", {
             id: parseInt(this.state.match.index)
         });
@@ -112,6 +137,11 @@ export default class Detail extends Component {
      * Switches the teams in game
      */
     switchTeamSides() {
+        window.events.emit("notification", {
+            title: "Switching team sides...",
+            color: "primary"
+        });
+
         Socket.send("game_team_switch", {
             id: parseInt(this.state.match.index)
         });
@@ -121,6 +151,11 @@ export default class Detail extends Component {
      * Switches the map
      */
     switchMap() {
+        window.events.emit("notification", {
+            title: "Switching map...",
+            color: "primary"
+        });
+
         // Reset checks
         this.fields.map.classList.remove("is-invalid");
 
@@ -138,6 +173,11 @@ export default class Detail extends Component {
      * Sends a message to the server
      */
     sendMessage() {
+        window.events.emit("notification", {
+            title: "Sending message...",
+            color: "primary"
+        });
+
         // Reset checks
         this.fields.message.classList.remove("is-invalid");
 
@@ -157,6 +197,11 @@ export default class Detail extends Component {
      * Restart the game
      */
     restartGame() {
+        window.events.emit("notification", {
+            title: "Game restarting...",
+            color: "primary"
+        });
+
         Socket.send("game_restart", {
             id: parseInt(this.state.match.index)
         });

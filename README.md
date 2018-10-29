@@ -53,7 +53,7 @@ Checkout `csgo-rcon.json` since this is the db file.
 * Rcon server/match status?
 * ~~Challonge (API/Webhook) match import?~~
 * Rewrite (server modules) to ES6 classes?
-* Bootstrap Notification bar. (Showing that we are sending something)
+* ~~Bootstrap Notification bar. (Showing that we are sending something)~~
 * Add match groups
 * Edit match
 * Add native system notifications

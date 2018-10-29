@@ -69,6 +69,11 @@ export default class Challonge extends Component {
             this.fields.knife_config.selectedIndex = 0;
             this.fields.main_config.selectedIndex = 0;
 
+            window.events.emit("notification", {
+                title: "Challonge import started...",
+                color: "primary"
+            });
+
             route('/');
         }
     }
