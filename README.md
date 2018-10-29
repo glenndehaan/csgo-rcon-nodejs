@@ -59,6 +59,8 @@ Checkout `csgo-rcon.json` since this is the db file.
 * Add native system notifications
 * ~~Add SVG's to replace bulky buttons~~
 * ~~Protect /settings page with basic auth (Username/Password in config file)~~
+* Challonge import server option: Next available server
+* Challonge import complete notification update
 
 ## License
 
