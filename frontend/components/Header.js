@@ -1,5 +1,7 @@
 import {h, Component} from 'preact';
 import { Link } from 'preact-router/match';
+import Home from './icons/Home';
+import Add from './icons/Add';
 import Settings from './icons/Settings';
 
 export default class Header extends Component {
@@ -75,16 +77,20 @@ export default class Header extends Component {
     render() {
         return (
             <nav className="navbar navbar-expand navbar-dark">
-                <Link href="/" className="navbar-brand">CSGO Remote</Link>
+                <Link href="/" className="navbar-brand" title="Home / Logo">CSGO Remote</Link>
                 <ul className="navbar-nav">
-                    <li className="nav-item">
-                        <Link href="/" activeClassName="active" className="nav-link">Home</Link>
+                    <li className="nav-item home-icon">
+                        <Link href="/" activeClassName="active" className="nav-link" title="Home">
+                            <Home/>
+                        </Link>
                     </li>
-                    <li className="nav-item">
-                        <Link href="/match/create" activeClassName="active" className="nav-link">Create Match</Link>
+                    <li className="nav-item add-icon">
+                        <Link href="/match/create" activeClassName="active" className="nav-link" title="Create match">
+                            <Add/>
+                        </Link>
                     </li>
                     <li className="nav-item settings-icon">
-                        <a href="/settings" className={`nav-link ${window.location.pathname === "/settings" ? 'active': ''}`} native>
+                        <a href="/settings" className={`nav-link ${window.location.pathname === "/settings" ? 'active': ''}`} title="Settings" native>
                             <Settings/>
                         </a>
                     </li>

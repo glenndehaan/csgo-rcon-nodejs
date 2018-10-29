@@ -57,7 +57,7 @@ Checkout `csgo-rcon.json` since this is the db file.
 * Add match groups
 * Edit match
 * Add native system notifications
-* Add SVG's to replace bulky buttons
+* ~~Add SVG's to replace bulky buttons~~
 * ~~Protect /settings page with basic auth (Username/Password in config file)~~
 
 ## License
