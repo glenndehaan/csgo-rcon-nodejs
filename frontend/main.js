@@ -2,7 +2,6 @@ import {h, Component, render} from 'preact';
 import Router from 'preact-router';
 import mitt from 'mitt';
 import Socket from './modules/socket';
-import systemNotification from './modules/systemNotification';
 
 import Header from "./components/Header";
 import Home from './components/Home';
@@ -26,9 +25,6 @@ class App extends Component {
 
         Socket.initialize(window.location.host, () => this.connected(), () => this.disconnected() , () => this.reconnecting());
         window.events = mitt();
-
-        systemNotification.requestPermission();
-        systemNotification.sendNotification("Hoi");
     }
 
     /**

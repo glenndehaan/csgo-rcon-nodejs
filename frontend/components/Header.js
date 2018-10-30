@@ -1,8 +1,11 @@
 import {h, Component} from 'preact';
-import { Link } from 'preact-router/match';
+import {Link} from 'preact-router/match';
+import systemNotification from '../modules/systemNotification';
+
 import Home from './icons/Home';
 import Add from './icons/Add';
 import Settings from './icons/Settings';
+import Notification from './icons/Notification';
 
 export default class Header extends Component {
     /**
@@ -15,7 +18,8 @@ export default class Header extends Component {
             connection: {
                 className: "text-danger",
                 text: "Disconnected"
-            }
+            },
+            notificationEnabled: systemNotification.currentPermissionStatus()
         };
     }
 
@@ -24,6 +28,10 @@ export default class Header extends Component {
      */
     componentDidMount() {
         this.updateConnectionStatus();
+
+        setInterval(() => {
+            systemNotification.sendNotification("Hoi");
+        }, 2000);
     }
 
     /**
@@ -32,7 +40,7 @@ export default class Header extends Component {
      * @param prevProps
      */
     componentDidUpdate(prevProps) {
-        if(prevProps.connected !== this.props.connected || prevProps.reconnecting !== this.props.reconnecting) {
+        if (prevProps.connected !== this.props.connected || prevProps.reconnecting !== this.props.reconnecting) {
             this.updateConnectionStatus();
         }
     }
@@ -70,6 +78,17 @@ export default class Header extends Component {
     }
 
     /**
+     * Enables or disables the notifications
+     */
+    toggleNotification() {
+        systemNotification.toggleNotifications((status) => {
+            this.setState({
+                notificationEnabled: status
+            })
+        })
+    }
+
+    /**
      * Preact render function
      *
      * @returns {*}
@@ -90,9 +109,14 @@ export default class Header extends Component {
                         </Link>
                     </li>
                     <li className="nav-item settings-icon">
-                        <a href="/settings" className={`nav-link ${window.location.pathname === "/settings" ? 'active': ''}`} title="Settings" native>
+                        <a href="/settings" className={`nav-link ${window.location.pathname === "/settings" ? 'active' : ''}`} title="Settings" native>
                             <Settings/>
                         </a>
+                    </li>
+                    <li className="nav-item notification-icon">
+                        <div className="nav-link" onClick={() => this.toggleNotification()}>
+                            <Notification enabled={this.state.notificationEnabled}/>
+                        </div>
                     </li>
                 </ul>
                 <span className={`navbar-text ml-auto ${this.state.connection.className}`}>

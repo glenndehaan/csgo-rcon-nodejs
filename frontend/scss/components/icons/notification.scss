@@ -1,0 +1,15 @@
+.notification-icon {
+  div {
+    cursor: pointer;
+
+    path {
+      fill: rgba(255, 255, 255, 0.5);
+    }
+
+    &.active {
+      path {
+        fill: white;
+      }
+    }
+  }
+}
