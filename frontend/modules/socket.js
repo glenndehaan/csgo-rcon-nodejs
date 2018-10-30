@@ -1,4 +1,5 @@
 import Sockette from 'sockette';
+import systemNotification from './systemNotification';
 
 export default new class Socket {
     /**
@@ -89,6 +90,12 @@ export default new class Socket {
             this.data.configs = message.data.configs;
 
             this.runBoundFunctions("update", message.data);
+        }
+
+        if(message.instruction === "notification") {
+            console.log(`[SOCKET] Notification: ${JSON.stringify(message.data)}`);
+
+            systemNotification.sendNotification(message.data.message);
         }
     }
 

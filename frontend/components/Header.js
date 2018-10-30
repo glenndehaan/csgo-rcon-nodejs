@@ -28,10 +28,6 @@ export default class Header extends Component {
      */
     componentDidMount() {
         this.updateConnectionStatus();
-
-        setInterval(() => {
-            systemNotification.sendNotification("Hoi");
-        }, 2000);
     }
 
     /**

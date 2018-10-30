@@ -53,6 +53,9 @@ class socket {
                     db.push("/match[]", dataString.data);
 
                     this.sendGeneralUpdate();
+                    this.informAllSockets("notification", {
+                        message: `New match available: ${dataString.data.team1.name} v/s ${dataString.data.team2.name}`
+                    });
                 }
 
                 if (dataString.instruction === "match_start_knife") {
@@ -63,6 +66,9 @@ class socket {
 
                     db.push(`/match[${dataString.data.id}]/status`, 1);
                     this.sendGeneralUpdate();
+                    this.informAllSockets("notification", {
+                        message: `Knife round started! Match: ${dataString.data.team1.name} v/s ${dataString.data.team2.name}`
+                    });
                 }
 
                 if (dataString.instruction === "match_start_main") {
@@ -73,6 +79,9 @@ class socket {
 
                     db.push(`/match[${dataString.data.id}]/status`, 2);
                     this.sendGeneralUpdate();
+                    this.informAllSockets("notification", {
+                        message: `Match started! Match: ${dataString.data.team1.name} v/s ${dataString.data.team2.name}`
+                    });
                 }
 
                 if (dataString.instruction === "match_end") {
@@ -83,6 +92,9 @@ class socket {
 
                     db.push(`/match[${dataString.data.id}]/status`, 99);
                     this.sendGeneralUpdate();
+                    this.informAllSockets("notification", {
+                        message: `Match ended! Match: ${dataString.data.team1.name} v/s ${dataString.data.team2.name}`
+                    });
                 }
 
                 if (dataString.instruction === "game_resume") {
