@@ -7,6 +7,7 @@ export default new class Socket {
      * @param url
      * @param connectedCallback
      * @param disconnectedCallback
+     * @param reconnectingCallback
      */
     initialize(url, connectedCallback, disconnectedCallback, reconnectingCallback) {
         this.config = {
