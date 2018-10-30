@@ -4,6 +4,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const compression = require('compression');
 
 /**
  * Import own packages
@@ -34,6 +35,11 @@ const init = () => {
      * Setup socket
      */
     socket.init(app);
+
+    /**
+     * Enable compression
+     */
+    app.use(compression({ threshold: 0 }));
 
     /**
      * Serve static public dir

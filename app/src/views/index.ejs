@@ -4,6 +4,12 @@
         <% include ./partials/head.ejs %>
     </head>
     <body>
+        <noscript>
+            <strong>
+                Woops! Houston we got a problem. This page only works with JavaScript enabled.<br/>
+                Please enable JavaScript!
+            </strong>
+        </noscript>
         <script>
             window.expressConfig = {protocol: '<%= protocol %>', hostname: '<%= hostname %>', baseUrl: '<%= baseUrl %>'};
         </script>
