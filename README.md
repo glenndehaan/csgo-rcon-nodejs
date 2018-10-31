@@ -62,6 +62,7 @@ Checkout `csgo-rcon.json` since this is the db file.
 * Challonge import server option: Next available server
 * Challonge import complete notification update
 * Settings icon active state stuck
+* Restart game implement are you sure dialog
 
 ## License
 

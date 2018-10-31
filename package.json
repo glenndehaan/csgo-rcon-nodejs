@@ -4,6 +4,7 @@
   "description": "NPM packages for csgo-rcon-nodejs",
   "private": true,
   "scripts": {
+    "debug": "cd ./app/src && node --inspect-brk=0.0.0.0:5858 ./server.js",
     "start": "cd ./app/src && node ./server.js",
     "dev": "cd ./app/src && nodemon -L --ignore csgo-rcon.json --watch ./ ./server.js",
     "server:build": "pkg ./package.json --targets latest-linux-x64,latest-macos-x64,latest-win-x64 --out-path ./app/dist",
