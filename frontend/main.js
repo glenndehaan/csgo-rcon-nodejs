@@ -57,6 +57,17 @@ class App extends Component {
     }
 
     /**
+     * Catches the router events
+     *
+     * @param e
+     */
+    routerUpdate(e) {
+        window.events.emit("router", {
+            route: e.url
+        });
+    }
+
+    /**
      * Preact render function
      *
      * @returns {*}
@@ -80,7 +91,7 @@ class App extends Component {
      */
     mainRender() {
         return (
-            <Router>
+            <Router onChange={this.routerUpdate}>
                 <Home path="/"/>
                 <Create path="/match/create"/>
                 <Detail path="/match/:id"/>

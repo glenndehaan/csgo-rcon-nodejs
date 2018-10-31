@@ -21,6 +21,14 @@ export default class Header extends Component {
             },
             notificationEnabled: systemNotification.currentPermissionStatus()
         };
+
+        this.settings = null;
+        
+        window.events.on('router', (e) => {
+            if(e.route !== "/settings") {
+                this.settings.classList.remove("active");
+            }
+        });
     }
 
     /**
@@ -105,7 +113,7 @@ export default class Header extends Component {
                         </Link>
                     </li>
                     <li className="nav-item settings-icon">
-                        <a href="/settings" className={`nav-link ${window.location.pathname === "/settings" ? 'active' : ''}`} title="Settings" native>
+                        <a href="/settings" className={`nav-link ${window.location.pathname === "/settings" ? 'active' : ''}`} ref={c => this.settings = c} title="Settings" native>
                             <Settings/>
                         </a>
                     </li>
