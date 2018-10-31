@@ -82,7 +82,7 @@ class challonge {
                                     completed++;
 
                                     if(imported === completed) {
-                                        callback();
+                                        callback(imported);
                                         log.info(`[CHALLONGE] ${body.length} Matches(s) found! ${imported} Matches(s) imported!`);
                                     }
                                 });
@@ -92,6 +92,7 @@ class challonge {
                 }
 
                 if(imported === 0) {
+                    callback(imported);
                     log.info(`[CHALLONGE] No new matches(s) found!`);
                 }
             })

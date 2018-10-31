@@ -95,7 +95,14 @@ export default new class Socket {
         if(message.instruction === "notification") {
             console.log(`[SOCKET] Notification: ${JSON.stringify(message.data)}`);
 
-            systemNotification.sendNotification(message.data.message);
+            if(message.data.system) {
+                systemNotification.sendNotification(message.data.message);
+            } else {
+                window.events.emit("notification", {
+                    title: message.data.message,
+                    color: message.data.color
+                });
+            }
         }
     }
 

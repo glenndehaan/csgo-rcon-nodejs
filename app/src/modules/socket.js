@@ -54,6 +54,7 @@ class socket {
 
                     this.sendGeneralUpdate();
                     this.informAllSockets("notification", {
+                        system: true,
                         message: `New match available: ${dataString.data.team1.name} v/s ${dataString.data.team2.name}`
                     });
                 }
@@ -67,6 +68,7 @@ class socket {
                     db.push(`/match[${dataString.data.id}]/status`, 1);
                     this.sendGeneralUpdate();
                     this.informAllSockets("notification", {
+                        system: true,
                         message: `Knife round started! Match: ${dataString.data.team1.name} v/s ${dataString.data.team2.name}`
                     });
                 }
@@ -80,6 +82,7 @@ class socket {
                     db.push(`/match[${dataString.data.id}]/status`, 2);
                     this.sendGeneralUpdate();
                     this.informAllSockets("notification", {
+                        system: true,
                         message: `Match started! Match: ${dataString.data.team1.name} v/s ${dataString.data.team2.name}`
                     });
                 }
@@ -93,6 +96,7 @@ class socket {
                     db.push(`/match[${dataString.data.id}]/status`, 99);
                     this.sendGeneralUpdate();
                     this.informAllSockets("notification", {
+                        system: true,
                         message: `Match ended! Match: ${dataString.data.team1.name} v/s ${dataString.data.team2.name}`
                     });
                 }
@@ -156,8 +160,19 @@ class socket {
                 if(config.integrations.challonge.enabled) {
                     if (dataString.instruction === "integrations_challonge_import") {
                         log.info(`[SOCKET][${ws.id}][integrations_challonge_import] Starting challonge import`);
-                        challonge.importMatches(dataString.data.tournament, dataString.data.server, dataString.data.knife_config, dataString.data.main_config, () => {
-                            this.sendGeneralUpdate();
+                        challonge.importMatches(dataString.data.tournament, dataString.data.server, dataString.data.knife_config, dataString.data.main_config, (imported) => {
+                            if(imported > 0) {
+                                this.sendGeneralUpdate();
+                            }
+
+                            ws.send(this.encrypt({
+                                instruction: 'notification',
+                                data: {
+                                    system: false,
+                                    message: `Challonge import complete! Imported ${imported} new matches`,
+                                    color: 'success'
+                                }
+                            }));
                         });
                     }
                 }
