@@ -6,6 +6,7 @@ import Socket from './modules/socket';
 import Header from "./components/Header";
 import Home from './components/Home';
 import Create from './components/Create';
+import Edit from './components/Edit';
 import Detail from './components/Detail';
 import Settings from './components/Settings';
 import NotFound from './components/NotFound';
@@ -96,6 +97,7 @@ class App extends Component {
                 <Home path="/"/>
                 <Create path="/match/create"/>
                 <Detail path="/match/:id"/>
+                <Edit path="/match/:id/edit"/>
                 <Settings path="/settings"/>
                 <NotFound default/>
             </Router>
@@ -104,3 +106,4 @@ class App extends Component {
 }
 
 render(<App/>, document.body);
+require('preact/debug');

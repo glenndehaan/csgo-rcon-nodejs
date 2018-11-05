@@ -28,6 +28,12 @@ const routes = [
         action: 'index'
     },
     {
+        route: '/match/:id/edit',
+        method: 'get',
+        controller: 'Index',
+        action: 'index'
+    },
+    {
         route: '/settings',
         method: 'get',
         controller: 'Index',

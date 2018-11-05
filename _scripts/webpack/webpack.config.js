@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -67,6 +68,11 @@ const config = {
         }),
         new ManifestPlugin({
             fileName: 'rev-manifest.json'
+        }),
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': !prod ? JSON.stringify("development") : JSON.stringify("production")
+            }
         }),
         new SizePlugin()
     ]

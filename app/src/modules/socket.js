@@ -59,6 +59,28 @@ class socket {
                     });
                 }
 
+                if (dataString.instruction === "match_edit") {
+                    log.info(`[SOCKET][${ws.id}] Edited a match! RAW: ${JSON.stringify(dataString.data)}`);
+                    dataString.data.challonge = false;
+
+                    const matches = db.getData("/match");
+                    let index = 0;
+
+                    for(let item = 0; item < matches.length; item++) {
+                        if(matches[item].id === dataString.data.id) {
+                            index = item;
+                        }
+                    }
+
+                    db.push(`/match[${index}]`, dataString.data);
+
+                    this.sendGeneralUpdate();
+                    this.informAllSockets("notification", {
+                        system: true,
+                        message: `New match available: ${dataString.data.team1.name} v/s ${dataString.data.team2.name}`
+                    });
+                }
+
                 if (dataString.instruction === "match_start_knife") {
                     log.info(`[SOCKET][${ws.id}] Starts match ID: ${dataString.data.id}`);
 
