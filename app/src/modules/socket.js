@@ -198,6 +198,19 @@ class socket {
                         });
                     }
                 }
+
+                if (dataString.instruction === "integrations_archive") {
+                    log.info(`[SOCKET][${ws.id}][integrations_archive] Starting archive process`);
+                    const matches = db.getData("/match");
+
+                    for(let item = 0; item < matches.length; item++) {
+                        if(matches[item].status === 99) {
+                            db.push(`/match[${item}]/status`, 100);
+                        }
+                    }
+
+                    this.sendGeneralUpdate();
+                }
             });
 
             /**

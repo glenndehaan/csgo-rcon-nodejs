@@ -65,7 +65,7 @@ Checkout `csgo-rcon.json` since this is the db file.
 * Restart game implement are you sure dialog
 * Rewrite queue module
 * Filter matches on homepage (Not started, Running, Completed)
-* /settings add archive complete matches function
+* ~~/settings add archive complete matches function~~
 
 ## License
 

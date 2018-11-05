@@ -1,6 +1,7 @@
 import {h, Component} from 'preact';
 
 import Challonge from "./integrations/Challonge";
+import Archive from "./integrations/Archive";
 
 export default class Settings extends Component {
     /**
@@ -14,6 +15,8 @@ export default class Settings extends Component {
                 <h3>Settings</h3>
                 <hr/>
                 <Challonge/>
+                <hr/>
+                <Archive/>
             </div>
         );
     }

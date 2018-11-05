@@ -54,6 +54,10 @@ function statusResolver(statusCode) {
         return "Match ended";
     }
 
+    if (statusCode === 100) {
+        return "Match archived";
+    }
+
     return "Unknown Status";
 }
 

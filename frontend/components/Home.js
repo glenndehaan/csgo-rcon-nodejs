@@ -69,16 +69,21 @@ export default class Home extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.matches.map((match, index) => (
-                                <tr key={index}>
-                                    <td>{match.server}</td>
-                                    <td>{match.map}</td>
-                                    <td>{match.team1.name}</td>
-                                    <td>{match.team2.name}</td>
-                                    <td>{`${statusResolver(match.status)} (${match.status})`}</td>
-                                    <td><Link href={`/match/${match.id}/edit`} title="Edit match"><Edit/></Link>&nbsp;&nbsp;<Link href={`/match/${match.id}`} title="Match details"><Details/></Link></td>
-                                </tr>
-                            ))}
+                            {this.state.matches.map((match, index) => {
+                                if(match.status < 100) {
+                                    return (
+                                        <tr key={index}>
+                                            <td>{match.server}</td>
+                                            <td>{match.map}</td>
+                                            <td>{match.team1.name}</td>
+                                            <td>{match.team2.name}</td>
+                                            <td>{`${statusResolver(match.status)} (${match.status})`}</td>
+                                            <td><Link href={`/match/${match.id}/edit`} title="Edit match"><Edit/></Link>&nbsp;&nbsp;<Link
+                                                href={`/match/${match.id}`} title="Match details"><Details/></Link></td>
+                                        </tr>
+                                    )
+                                }
+                            })}
                         </tbody>
                     </table>
                 </div>
