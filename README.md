@@ -63,6 +63,7 @@ Checkout `csgo-rcon.json` since this is the db file.
 * ~~Challonge import complete notification update~~
 * ~~Settings icon active state stuck~~
 * Restart game implement are you sure dialog
+* Rewrite queue module
 
 ## License
 
