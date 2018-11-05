@@ -1,7 +1,6 @@
 const config = require("../config");
 
 class router {
-
     /**
      * An easy to use function to add multiple routes to the Express router
      *

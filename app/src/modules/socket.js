@@ -8,7 +8,7 @@ const log = require("./logger");
 const db = require("./database").db;
 const rcon = require("./rcon");
 const challonge = require("./challonge");
-const csgo_config = require("./csgo-config");
+const csgoConfig = require("./csgoConfig");
 const config = require("../config");
 
 class socket {
@@ -188,7 +188,7 @@ class socket {
             /**
              * Send init data
              */
-            csgo_config.getConfigs((configs) => {
+            csgoConfig.index((configs) => {
                 ws.send(this.encrypt({
                     instruction: 'init',
                     data: {
@@ -229,7 +229,7 @@ class socket {
      * Send an update with general data to all sockets
      */
     sendGeneralUpdate() {
-        csgo_config.getConfigs((configs) => {
+        csgoConfig.index((configs) => {
             this.informAllSockets('update', {
                 matches: db.getData("/match"),
                 servers: config.servers,

@@ -4,7 +4,7 @@
 const Rcon = require('srcds-rcon');
 const config = require("../config");
 const log = require("./logger");
-const csgoConfig = require("./csgo-config");
+const csgoConfig = require("./csgoConfig");
 const queue = require("./queue");
 const {splitByByteLength} = require("../utils/Strings");
 
@@ -64,7 +64,7 @@ const initBroadcaster = (server) => {
  * @param type
  */
 const loadExternalCSGOConfig = (server, match_config, type = "main") => {
-    csgoConfig.loadCSGOConfig(match_config, type, (config) => {
+    csgoConfig.load(match_config, type, (config) => {
         const exported_lines = splitByByteLength(config, 512, '; ');
 
         for(let item = 0; item < exported_lines.length; item++) {
