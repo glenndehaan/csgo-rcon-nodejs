@@ -3,7 +3,7 @@ import Router from 'preact-router';
 import mitt from 'mitt';
 import Socket from './modules/socket';
 
-import Header from "./components/Header";
+import Header from "./components/partials/Header";
 import Home from './components/Home';
 import Create from './components/Create';
 import Edit from './components/Edit';
@@ -11,7 +11,7 @@ import Detail from './components/Detail';
 import Settings from './components/Settings';
 import NotFound from './components/NotFound';
 
-import Notification from './components/Notification';
+import Notification from './components/partials/Notification';
 
 class App extends Component {
     /**

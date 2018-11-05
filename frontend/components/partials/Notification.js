@@ -1,5 +1,5 @@
 import {h, Component} from 'preact';
-import Close from "./icons/Close";
+import Close from "../icons/Close";
 
 export default class Notification extends Component {
     /**
@@ -27,7 +27,7 @@ export default class Notification extends Component {
             title,
             color
         });
-        
+
         setTimeout(() => {
             this.close((length - 1));
         }, 5000);
@@ -45,7 +45,7 @@ export default class Notification extends Component {
     close(index) {
         const tempState = this.state.notifications;
         delete tempState[index];
-        
+
         this.setState({
             notifications: tempState
         });

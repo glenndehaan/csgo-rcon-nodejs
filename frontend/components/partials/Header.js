@@ -1,11 +1,11 @@
 import {h, Component} from 'preact';
 import {Link} from 'preact-router/match';
-import systemNotification from '../modules/systemNotification';
+import systemNotification from '../../modules/systemNotification';
 
-import Home from './icons/Home';
-import Add from './icons/Add';
-import Settings from './icons/Settings';
-import Notification from './icons/Notification';
+import Home from '../icons/Home';
+import Add from '../icons/Add';
+import Settings from '../icons/Settings';
+import Notification from '../icons/Notification';
 
 export default class Header extends Component {
     /**
@@ -23,7 +23,7 @@ export default class Header extends Component {
         };
 
         this.settings = null;
-        
+
         window.events.on('router', (e) => {
             if(e.route !== "/settings") {
                 this.settings.classList.remove("active");
