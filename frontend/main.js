@@ -8,6 +8,7 @@ import Home from './components/Home';
 import Create from './components/Create';
 import Detail from './components/Detail';
 import Settings from './components/Settings';
+import NotFound from './components/NotFound';
 
 import Notification from './components/Notification';
 
@@ -96,6 +97,7 @@ class App extends Component {
                 <Create path="/match/create"/>
                 <Detail path="/match/:id"/>
                 <Settings path="/settings"/>
+                <NotFound default/>
             </Router>
         )
     }
