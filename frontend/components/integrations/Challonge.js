@@ -99,6 +99,7 @@ export default class Challonge extends Component {
                 <strong>Server</strong>
                 <select title="server" name="server" id="server" className="form-control" ref={c => this.fields.server = c}>
                     <option selected disabled value="false">Select a server</option>
+                    <option value="next">Autoselect next available server</option>
                     {Socket.data.servers.map((server, index) => (
                         <option key={index} value={`${server.ip}:${server.port}`}>{`${server.ip}:${server.port}`}</option>
                     ))}

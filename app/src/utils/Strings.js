@@ -60,4 +60,22 @@ function findServerConfig(server) {
     return {};
 }
 
-module.exports = {splitByByteLength, splitByLinkBreak, findServerConfig};
+/**
+ * Function find the server config that belongs to the server name
+ *
+ * @param server
+ * @return int
+ */
+function findServerConfigIndex(server) {
+    for(let item = 0; item < config.servers.length; item++) {
+        const splitted = server.split(":");
+
+        if(config.servers[item].ip === splitted[0] && config.servers[item].port === parseInt(splitted[1])) {
+            return item;
+        }
+    }
+
+    return 0;
+}
+
+module.exports = {splitByByteLength, splitByLinkBreak, findServerConfig, findServerConfigIndex};

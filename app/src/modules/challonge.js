@@ -2,8 +2,8 @@ const uuidv4 = require('uuid/v4');
 const fetch = require("node-fetch");
 const log = require("../modules/logger");
 const db = require("../modules/database").db;
-const {findByChallonge} = require("../utils/Arrays");
-const {findServerConfig} = require("../utils/Strings");
+const {findByChallonge, getAllChallonge} = require("../utils/Arrays");
+const {findServerConfig, findServerConfigIndex} = require("../utils/Strings");
 const config = require("../config");
 
 class challonge {
@@ -49,7 +49,6 @@ class challonge {
                 let completed = 0;
 
                 for (let item = 0; item < body.length; item++) {
-                    const serverDetails = findServerConfig(server);
                     const exists = findByChallonge(dbData, body[item].match.id);
                     const matchId = body[item].match.id;
                     const teamId1 = body[item].match.player1_id;
@@ -61,6 +60,27 @@ class challonge {
 
                             this.getTeamName(tournamentId, teamId1, (teamName1) => {
                                 this.getTeamName(tournamentId, teamId2, (teamName2) => {
+                                    let serverDetails = false;
+
+                                    if(server !== "next") {
+                                        serverDetails = findServerConfig(server);
+                                    } else {
+                                        const dbMatches = getAllChallonge();
+
+                                        if(dbMatches.length > 0) {
+                                            const server = findServerConfigIndex(dbMatches[dbMatches.length - 1].server);
+                                            let serverIndex = 0;
+
+                                            if((server + 1) < config.servers.length) {
+                                                serverIndex = server + 1;
+                                            }
+
+                                            serverDetails = findServerConfig(`${config.servers[serverIndex].ip}:${config.servers[serverIndex].port}`);
+                                        } else {
+                                            serverDetails = findServerConfig(`${config.servers[0].ip}:${config.servers[0].port}`);
+                                        }
+                                    }
+
                                     db.push("/match[]", {
                                         id: uuidv4(),
                                         team1: {
@@ -74,7 +94,7 @@ class challonge {
                                         map: serverDetails.default_map,
                                         knife_config: knifeConfig,
                                         match_config: mainConfig,
-                                        server: server,
+                                        server: `${serverDetails.ip}:${serverDetails.port}`,
                                         status: 0,
                                         challonge: matchId
                                     });
