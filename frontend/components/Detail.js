@@ -4,6 +4,7 @@ import Socket from "../modules/socket";
 
 import {statusResolver} from "../utils/Strings";
 import {findByIdInObjectArray} from "../utils/Arrays";
+import Alert from "./partials/Alert";
 
 export default class Detail extends Component {
     /**
@@ -16,7 +17,8 @@ export default class Detail extends Component {
             servers: Socket.data.servers,
             matches: Socket.data.matches,
             maps: Socket.data.maps,
-            match: false
+            match: false,
+            showDialog: false
         };
 
         this.fields = {
@@ -197,6 +199,8 @@ export default class Detail extends Component {
      * Restart the game
      */
     restartGame() {
+        this.closeRestartGameDialog();
+
         window.events.emit("notification", {
             title: "Game restarting...",
             color: "primary"
@@ -204,6 +208,24 @@ export default class Detail extends Component {
 
         Socket.send("game_restart", {
             id: parseInt(this.state.match.index)
+        });
+    }
+
+    /**
+     * Shows the restart game dialog
+     */
+    showRestartGameDialog() {
+        this.setState({
+            showDialog: true
+        });
+    }
+
+    /**
+     * Hide the restart game dialog
+     */
+    closeRestartGameDialog() {
+        this.setState({
+            showDialog: false
         });
     }
 
@@ -216,6 +238,7 @@ export default class Detail extends Component {
         if(this.state.match) {
             return (
                 <div className="starter-template">
+                    {this.state.showDialog ? <Alert yes={() => this.restartGame()} no={() => this.closeRestartGameDialog()} title="Restart game?" body="Warning! This will set all scores to 0 and restart the complete match!"/> : null}
                     <h3>Match {this.state.match.team1.name} v/s {this.state.match.team2.name}</h3>
                     <div className="row">
                         <div className="col-md-8">
@@ -280,7 +303,7 @@ export default class Detail extends Component {
                                     Say
                                 </button>
                                 <br/>
-                                <button type='button' className='btn btn-sm btn-danger btn-detail' onClick={() => this.restartGame()}>
+                                <button type='button' className='btn btn-sm btn-danger btn-detail' onClick={() => this.showRestartGameDialog()}>
                                     Restart game
                                 </button>
                             </div>

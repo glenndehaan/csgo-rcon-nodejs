@@ -62,7 +62,7 @@ Checkout `csgo-rcon.json` since this is the db file.
 * ~~Challonge import server option: Next available server~~
 * ~~Challonge import complete notification update~~
 * ~~Settings icon active state stuck~~
-* Restart game implement are you sure dialog
+* ~~Restart game implement are you sure dialog~~
 * Rewrite queue module
 * Filter matches on homepage (Not started, Running, Completed)
 * ~~/settings add archive complete matches function~~
