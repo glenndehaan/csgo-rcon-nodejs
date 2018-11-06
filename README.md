@@ -64,7 +64,7 @@ Checkout `csgo-rcon.json` since this is the db file.
 * ~~Settings icon active state stuck~~
 * ~~Restart game implement are you sure dialog~~
 * Rewrite queue module
-* Filter matches on homepage (Not started, Running, Completed)
+* ~~Filter matches on homepage (Not started, Running, Completed)~~
 * ~~/settings add archive complete matches function~~
 
 ## License
