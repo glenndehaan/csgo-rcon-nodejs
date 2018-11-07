@@ -16,6 +16,7 @@ export default new class Socket {
         };
         this.ws = null;
         this.id = "";
+        this.initialConnect = true;
         this.connectedCallback = connectedCallback;
         this.disconnectedCallback = disconnectedCallback;
         this.reconnectingCallback = reconnectingCallback;
@@ -44,6 +45,12 @@ export default new class Socket {
             timeout: 5e3,
             maxAttempts: 10,
             onopen: () => {
+                if(this.initialConnect) {
+                    this.initialConnect = false;
+                } else {
+                    this.send("general_wants_update", {})
+                }
+
                 console.log('[SOCKET] Connected!');
             },
             onmessage: (e) => this.message(e.data),

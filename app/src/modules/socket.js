@@ -47,6 +47,31 @@ class socket {
                     return;
                 }
 
+                if (dataString.instruction === "general_wants_update") {
+                    log.info(`[SOCKET][${ws.id}] Requests an update! RAW: ${JSON.stringify(dataString.data)}`);
+
+                    csgoConfig.index((configs) => {
+                        ws.send(this.encrypt({
+                            instruction: 'update',
+                            data: {
+                                matches: db.getData("/match"),
+                                groups: db.getData("/group"),
+                                servers: config.servers,
+                                maps: config.maps,
+                                configs,
+                                challonge: challonge.tournaments
+                            }
+                        }));
+                    });
+                }
+
+                if (dataString.instruction === "group_create") {
+                    log.info(`[SOCKET][${ws.id}] Created a new group! RAW: ${JSON.stringify(dataString.data)}`);
+                    db.push("/group[]", dataString.data.group);
+
+                    this.sendGeneralUpdate();
+                }
+
                 if (dataString.instruction === "match_create") {
                     log.info(`[SOCKET][${ws.id}] Created a new match! RAW: ${JSON.stringify(dataString.data)}`);
                     dataString.data.challonge = false;
