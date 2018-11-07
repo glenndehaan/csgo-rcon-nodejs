@@ -26,6 +26,7 @@ export default new class Socket {
 
         this.data = {
             servers: [],
+            groups: [],
             matches: [],
             maps: [],
             configs: {},
@@ -73,6 +74,7 @@ export default new class Socket {
             console.log(`[SOCKET] Init: ${JSON.stringify(message.data)}`);
 
             this.data.servers = message.data.servers;
+            this.data.groups = message.data.groups;
             this.data.matches = message.data.matches;
             this.data.maps = message.data.maps;
             this.data.configs = message.data.configs;
@@ -85,6 +87,7 @@ export default new class Socket {
             console.log(`[SOCKET] Update: ${JSON.stringify(message.data)}`);
 
             this.data.servers = message.data.servers;
+            this.data.groups = message.data.groups;
             this.data.matches = message.data.matches;
             this.data.maps = message.data.maps;
             this.data.configs = message.data.configs;

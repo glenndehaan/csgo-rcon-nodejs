@@ -228,6 +228,7 @@ class socket {
                     instruction: 'init',
                     data: {
                         matches: db.getData("/match"),
+                        groups: db.getData("/group"),
                         servers: config.servers,
                         maps: config.maps,
                         configs,
@@ -266,6 +267,7 @@ class socket {
     sendGeneralUpdate() {
         csgoConfig.index((configs) => {
             this.informAllSockets('update', {
+                groups: db.getData("/group"),
                 matches: db.getData("/match"),
                 servers: config.servers,
                 maps: config.maps,

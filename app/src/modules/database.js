@@ -21,6 +21,7 @@ class database {
          */
         if(Object.keys(this.db.getData("/")).length === 0 && this.db.getData("/").constructor === Object){
             this.db.push("/match", []);
+            this.db.push("/group", []);
 
             log.info("[DATABASE] Initialize database for the first time!");
         }
