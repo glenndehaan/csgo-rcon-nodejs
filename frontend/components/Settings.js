@@ -2,6 +2,7 @@ import {h, Component} from 'preact';
 
 import Challonge from "./integrations/Challonge";
 import Archive from "./integrations/Archive";
+import MatchGroups from "./integrations/MatchGroups";
 
 export default class Settings extends Component {
     /**
@@ -13,6 +14,8 @@ export default class Settings extends Component {
         return (
             <div className="starter-template">
                 <h3>Settings</h3>
+                <hr/>
+                <MatchGroups/>
                 <hr/>
                 <Challonge/>
                 <hr/>
