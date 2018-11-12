@@ -12,6 +12,7 @@ import Settings from './components/Settings';
 import NotFound from './components/NotFound';
 
 import Notification from './components/partials/Notification';
+import Servers from "./components/Servers";
 
 class App extends Component {
     /**
@@ -95,6 +96,7 @@ class App extends Component {
         return (
             <Router onChange={this.routerUpdate}>
                 <Home path="/"/>
+                <Servers path="/servers"/>
                 <Create path="/match/create"/>
                 <Detail path="/match/:id"/>
                 <Edit path="/match/:id/edit"/>

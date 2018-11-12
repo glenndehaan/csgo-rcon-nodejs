@@ -16,6 +16,12 @@ const routes = [
         action: 'index'
     },
     {
+        route: '/servers',
+        method: 'get',
+        controller: 'Index',
+        action: 'index'
+    },
+    {
         route: '/match/create',
         method: 'get',
         controller: 'Index',
