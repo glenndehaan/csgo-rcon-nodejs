@@ -8,6 +8,8 @@ class BaseController {
             protocol: '',
             hostname: '',
             baseUrl: '',
+            appName: '',
+            env: '',
             assets: {
                 js: false,
                 css: false
@@ -27,6 +29,8 @@ class BaseController {
         this.baseConfig.hostname = request.get('host');
         this.baseConfig.protocol = request.protocol;
         this.baseConfig.baseUrl = `${request.protocol}://${request.get('host')}${config.application.basePath}`;
+        this.baseConfig.appName = config.application.name;
+        this.baseConfig.env = config.application.env;
 
         this.baseConfig.assets.js = files["main.js"];
         this.baseConfig.assets.css = files["main.css"];

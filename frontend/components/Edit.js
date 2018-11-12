@@ -68,8 +68,23 @@ export default class Edit extends Component {
 
             route('/');
         }
-
         console.log('this.state.match', this.state.match);
+
+        document.title = `Edit match ${this.state.match.team1.name} v/s ${this.state.match.team2.name} | ${window.expressConfig.appName} ${window.expressConfig.env}`;
+        window.events.emit('breadcrumbs', [
+            {
+                "name": "Home",
+                "url": "/"
+            },
+            {
+                "name": `Match ${this.state.match.team1.name} v/s ${this.state.match.team2.name}`,
+                "url": `/match/${this.state.match.id}`
+            },
+            {
+                "name": "Edit",
+                "url": false
+            }
+        ]);
     }
 
     /**

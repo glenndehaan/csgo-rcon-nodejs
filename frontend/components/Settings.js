@@ -6,6 +6,23 @@ import MatchGroups from "./integrations/MatchGroups";
 
 export default class Settings extends Component {
     /**
+     * Runs then component mounts
+     */
+    componentDidMount() {
+        document.title = `Settings | ${window.expressConfig.appName} ${window.expressConfig.env}`;
+        window.events.emit('breadcrumbs', [
+            {
+                "name": "Home",
+                "url": "/"
+            },
+            {
+                "name": "Settings",
+                "url": false
+            }
+        ]);
+    }
+
+    /**
      * Preact render function
      *
      * @returns {*}

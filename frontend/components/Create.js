@@ -41,6 +41,22 @@ export default class Create extends Component {
      * Runs then component mounts
      */
     componentDidMount() {
+        document.title = `Create new match | ${window.expressConfig.appName} ${window.expressConfig.env}`;
+        window.events.emit('breadcrumbs', [
+            {
+                "name": "Home",
+                "url": "/"
+            },
+            {
+                "name": "Match",
+                "url": "/"
+            },
+            {
+                "name": "Create",
+                "url": false
+            }
+        ]);
+
         Socket.on("update", (data) => this.onUpdate(data));
     }
 

@@ -5,6 +5,7 @@ import Socket from './modules/socket';
 
 import Header from "./components/partials/Header";
 import Home from './components/Home';
+import Servers from "./components/Servers";
 import Create from './components/Create';
 import Edit from './components/Edit';
 import Detail from './components/Detail';
@@ -12,7 +13,7 @@ import Settings from './components/Settings';
 import NotFound from './components/NotFound';
 
 import Notification from './components/partials/Notification';
-import Servers from "./components/Servers";
+import Breadcrumbs from "./components/partials/Breadcrumbs";
 
 class App extends Component {
     /**
@@ -81,6 +82,7 @@ class App extends Component {
                 <Header connected={this.state.connected} reconnecting={this.state.reconnecting}/>
                 <div className="container">
                     <Notification/>
+                    <Breadcrumbs/>
                     {this.state.connected && this.mainRender()}
                 </div>
             </div>

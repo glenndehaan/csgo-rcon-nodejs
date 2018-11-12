@@ -18,6 +18,18 @@ export default class Servers extends Component {
      * Runs then component mounts
      */
     componentDidMount() {
+        document.title = `Servers | ${window.expressConfig.appName} ${window.expressConfig.env}`;
+        window.events.emit('breadcrumbs', [
+            {
+                "name": "Home",
+                "url": "/"
+            },
+            {
+                "name": "Servers",
+                "url": false
+            }
+        ]);
+
         Socket.on("update", (data) => this.onUpdate(data));
     }
 

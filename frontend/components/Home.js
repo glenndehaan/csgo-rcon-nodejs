@@ -41,6 +41,14 @@ export default class Home extends Component {
      * Runs then component mounts
      */
     componentDidMount() {
+        document.title = `Home | ${window.expressConfig.appName} ${window.expressConfig.env}`;
+        window.events.emit('breadcrumbs', [
+            {
+                "name": "Home",
+                "url": false
+            }
+        ]);
+
         this.splitMatchesToGroups();
         Socket.on("update", (data) => this.onUpdate(data));
     }
@@ -226,7 +234,7 @@ export default class Home extends Component {
     renderGroup(matches) {
         return (
             <div className="table-responsive">
-                <table id="view-table" className="table table-striped">
+                <table className="table table-striped">
                     <thead className="thead-dark">
                         <tr>
                             <th>Server</th>

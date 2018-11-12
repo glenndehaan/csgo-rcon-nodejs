@@ -2,6 +2,19 @@ import {h, Component} from 'preact';
 
 export default class NotFound extends Component {
     /**
+     * Runs then component mounts
+     */
+    componentDidMount() {
+        document.title = `Not Found | ${window.expressConfig.appName} ${window.expressConfig.env}`;
+        window.events.emit('breadcrumbs', [
+            {
+                "name": "Home",
+                "url": "/"
+            }
+        ]);
+    }
+
+    /**
      * Preact render function
      *
      * @returns {*}

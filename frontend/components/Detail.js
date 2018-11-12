@@ -41,6 +41,18 @@ export default class Detail extends Component {
             route('/');
         }
         console.log('this.state.match', this.state.match);
+
+        document.title = `Match ${this.state.match.team1.name} v/s ${this.state.match.team2.name} | ${window.expressConfig.appName} ${window.expressConfig.env}`;
+        window.events.emit('breadcrumbs', [
+            {
+                "name": "Home",
+                "url": "/"
+            },
+            {
+                "name": `Match ${this.state.match.team1.name} v/s ${this.state.match.team2.name}`,
+                "url": false
+            }
+        ]);
     }
 
     /**
