@@ -49,12 +49,24 @@ export default class Servers extends Component {
         return (
             <div className="starter-template">
                 <h3>Servers</h3>
-                {this.state.servers.map((server, index) => (
-                    <div className="server" key={index}>
-                        {server.ip}:{server.port}&nbsp;&nbsp;
-                        <span className="badge badge-success">Available</span><br/>
-                    </div>
-                ))}
+                <div className="table-responsive">
+                    <table id="view-table" className="table table-striped">
+                        <thead className="thead-dark">
+                            <tr>
+                                <th>Server</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.servers.map((server, index) => (
+                                <tr key={index}>
+                                    <td>{`${server.ip}:${server.port}`}</td>
+                                    <td><span className="badge badge-success">Available</span></td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         );
     }
