@@ -15,6 +15,7 @@ export default class Create extends Component {
         this.state = {
             servers: Socket.data.servers,
             matches: Socket.data.matches,
+            groups: Socket.data.groups,
             configs: Socket.data.configs,
             map: ""
         };
@@ -28,6 +29,7 @@ export default class Create extends Component {
                 name: null,
                 country: null
             },
+            match_group: null,
             server: null,
             map: null,
             main_config: null,
@@ -58,7 +60,8 @@ export default class Create extends Component {
         this.setState({
             servers: data.servers,
             matches: data.matches,
-            configs: data.configs
+            configs: data.configs,
+            groups: data.groups
         });
     }
 
@@ -92,6 +95,7 @@ export default class Create extends Component {
                     name: this.fields.team2.name.value,
                     country: this.fields.team2.country.value
                 },
+                match_group: this.fields.match_group.value,
                 map: this.fields.map.value,
                 knife_config: this.fields.knife_config.value,
                 match_config: this.fields.main_config.value,
@@ -103,6 +107,7 @@ export default class Create extends Component {
             this.fields.team1.country.selectedIndex = 0;
             this.fields.team2.name.value = "";
             this.fields.team2.country.selectedIndex = 0;
+            this.fields.match_group.selectedIndex = 0;
             this.fields.server.selectedIndex = 0;
             this.fields.map.value = "";
             this.fields.knife_config.selectedIndex = 0;
@@ -130,6 +135,7 @@ export default class Create extends Component {
         this.fields.team1.country.classList.remove("error");
         this.fields.team2.name.classList.remove("error");
         this.fields.team2.country.classList.remove("error");
+        this.fields.match_group.classList.remove("error");
         this.fields.server.classList.remove("error");
         this.fields.map.classList.remove("error");
         this.fields.knife_config.classList.remove("error");
@@ -150,6 +156,10 @@ export default class Create extends Component {
         if(this.fields.team2.country.value === "false" || this.fields.team2.country.value === false) {
             errors = true;
             this.fields.team2.country.classList.add("error");
+        }
+        if(this.fields.match_group.value === "false" || this.fields.match_group.value === false) {
+            errors = true;
+            this.fields.match_group.classList.add("error");
         }
         if(this.fields.server.value === "false" || this.fields.server.value === false) {
             errors = true;
@@ -228,6 +238,17 @@ export default class Create extends Component {
                         <h4>General Match Settings</h4>
                         <table className="table table-striped">
                             <tbody>
+                                <tr>
+                                    <td>Match Group</td>
+                                    <td>
+                                        <select title="match-group" name="match-group" id="match-group" className="form-control" ref={c => this.fields.match_group = c}>
+                                            <option selected disabled value="false">Select a group</option>
+                                            {this.state.groups.map((group, index) => (
+                                                <option key={index} value={group}>{group}</option>
+                                            ))}
+                                        </select>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td>Server</td>
                                     <td>

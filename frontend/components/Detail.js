@@ -243,6 +243,8 @@ export default class Detail extends Component {
                     <div className="row">
                         <div className="col-md-8">
                             <h4>Match details</h4>
+                            Match Group: {this.state.match.match_group}<br/>
+                            <br/>
                             Team 1 Name: {this.state.match.team1.name}<br/>
                             Team 1 Country: {this.state.match.team1.country}<br/>
                             <br/>
