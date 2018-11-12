@@ -38,9 +38,10 @@ class challonge {
      * @param server
      * @param knifeConfig
      * @param mainConfig
+     * @param matchGroup
      * @param callback
      */
-    importMatches(tournamentId, server, knifeConfig, mainConfig, callback) {
+    importMatches(tournamentId, server, knifeConfig, mainConfig, matchGroup, callback) {
         fetch(`https://${config.integrations.challonge.username}:${config.integrations.challonge.key}@api.challonge.com/v1/tournaments/${tournamentId}/matches.json`)
             .then(res => res.json())
             .then(body => {
@@ -91,6 +92,7 @@ class challonge {
                                             name: teamName2,
                                             country: config.integrations.challonge.default_country
                                         },
+                                        match_group: matchGroup,
                                         map: serverDetails.default_map,
                                         knife_config: knifeConfig,
                                         match_config: mainConfig,

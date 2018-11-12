@@ -14,7 +14,8 @@ export default class Challonge extends Component {
             tournament: null,
             server: null,
             knife_config: null,
-            main_config: null
+            main_config: null,
+            match_group: null
         };
     }
 
@@ -31,6 +32,7 @@ export default class Challonge extends Component {
         this.fields.knife_config.classList.remove("error");
         this.fields.main_config.classList.remove("error");
         this.fields.server.classList.remove("error");
+        this.fields.match_group.classList.remove("error");
 
         if(this.fields.tournament.value === "false" || this.fields.tournament.value === false) {
             errors = true;
@@ -48,6 +50,10 @@ export default class Challonge extends Component {
             errors = true;
             this.fields.main_config.classList.add("error");
         }
+        if(this.fields.match_group.value === "false" || this.fields.match_group.value === false) {
+            errors = true;
+            this.fields.match_group.classList.add("error");
+        }
 
         return errors;
     }
@@ -61,13 +67,15 @@ export default class Challonge extends Component {
                 knife_config: this.fields.knife_config.value,
                 match_config: this.fields.main_config.value,
                 server: this.fields.server.value,
-                tournament: this.fields.tournament.value
+                tournament: this.fields.tournament.value,
+                match_group: this.fields.match_group.value
             });
 
             this.fields.tournament.selectedIndex = 0;
             this.fields.server.selectedIndex = 0;
             this.fields.knife_config.selectedIndex = 0;
             this.fields.main_config.selectedIndex = 0;
+            this.fields.match_group.selectedIndex = 0;
 
             window.events.emit("notification", {
                 title: "Challonge import started...",
@@ -94,6 +102,13 @@ export default class Challonge extends Component {
                     <option selected disabled value="false">Select tournament</option>
                     {Socket.data.challonge.map((tournament, index) => (
                         <option key={index} value={tournament.tournament.url}>{tournament.tournament.name} ({tournament.tournament.url})</option>
+                    ))}
+                </select>
+                <strong>Match Group</strong>
+                <select name="match-group" id="match-group" title="match-group" className="form-control" ref={c => this.fields.match_group = c}>
+                    <option selected disabled value="false">Select a group</option>
+                    {Socket.data.groups.map((group, index) => (
+                        <option key={index} value={group}>{group}</option>
                     ))}
                 </select>
                 <strong>Server</strong>

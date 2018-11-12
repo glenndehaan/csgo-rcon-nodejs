@@ -207,7 +207,7 @@ class socket {
                 if(config.integrations.challonge.enabled) {
                     if (dataString.instruction === "integrations_challonge_import") {
                         log.info(`[SOCKET][${ws.id}][integrations_challonge_import] Starting challonge import`);
-                        challonge.importMatches(dataString.data.tournament, dataString.data.server, dataString.data.knife_config, dataString.data.main_config, (imported) => {
+                        challonge.importMatches(dataString.data.tournament, dataString.data.server, dataString.data.knife_config, dataString.data.main_config, dataString.data.match_group, (imported) => {
                             if(imported > 0) {
                                 this.sendGeneralUpdate();
                             }
