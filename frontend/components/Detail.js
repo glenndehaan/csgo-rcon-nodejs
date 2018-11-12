@@ -269,7 +269,7 @@ export default class Detail extends Component {
                             CSGO Main Config: {this.state.match.match_config}<br/>
                             Current match status: {`${statusResolver(this.state.match.status)} (${this.state.match.status})`}
                         </div>
-                        <div className="col-md-4">
+                        <div className="col-md-4 mt-5 mt-md-0">
                             <h4>Match controls</h4>
                             <div>
                                 <button type='button' className='btn btn-sm btn-success btn-detail' disabled={this.state.match.status >= 99} onClick={() => this.startKnife()}>
