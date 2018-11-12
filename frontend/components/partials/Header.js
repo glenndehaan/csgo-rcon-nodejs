@@ -4,6 +4,7 @@ import systemNotification from '../../modules/systemNotification';
 
 import Home from '../icons/Home';
 import Add from '../icons/Add';
+import Servers from '../icons/Servers';
 import Settings from '../icons/Settings';
 import Notification from '../icons/Notification';
 
@@ -105,6 +106,11 @@ export default class Header extends Component {
                     <li className="nav-item home-icon">
                         <Link href="/" activeClassName="active" className="nav-link" title="Home">
                             <Home/>
+                        </Link>
+                    </li>
+                    <li className="nav-item servers-icon">
+                        <Link href="/servers" activeClassName="active" className="nav-link" title="Server overview">
+                            <Servers/>
                         </Link>
                     </li>
                     <li className="nav-item add-icon">
