@@ -1,6 +1,6 @@
-# Counter-Strike Global Offensive RCON NodeJS
+# Counter-Strike Global Offensive Web Panel
 
-A prototype to control a CSGO server with a NodeJS backend
+A web panel to control a CS::GO server
 
 ## Backend Structure
 - NodeJS
