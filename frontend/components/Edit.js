@@ -123,6 +123,7 @@ export default class Edit extends Component {
                     name: this.fields.team2.name.value,
                     country: this.fields.team2.country.value
                 },
+                match_group: this.fields.match_group.value,
                 map: this.fields.map.value,
                 knife_config: this.fields.knife_config.value,
                 match_config: this.fields.main_config.value,
@@ -134,6 +135,7 @@ export default class Edit extends Component {
             this.fields.team1.country.selectedIndex = 0;
             this.fields.team2.name.value = "";
             this.fields.team2.country.selectedIndex = 0;
+            this.fields.match_group.selectedIndex = 0;
             this.fields.server.selectedIndex = 0;
             this.fields.map.value = "";
             this.fields.knife_config.selectedIndex = 0;

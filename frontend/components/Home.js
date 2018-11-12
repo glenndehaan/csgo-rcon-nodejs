@@ -27,6 +27,7 @@ export default class Home extends Component {
         this.state = {
             servers: Socket.data.servers,
             matches: Socket.data.matches,
+            match_groups: {},
             filters: {
                 notStarted: storage.get("filters").notStarted,
                 running: storage.get("filters").running,
@@ -40,6 +41,7 @@ export default class Home extends Component {
      * Runs then component mounts
      */
     componentDidMount() {
+        this.splitMatchesToGroups();
         Socket.on("update", (data) => this.onUpdate(data));
     }
 
@@ -59,12 +61,36 @@ export default class Home extends Component {
         this.setState({
             servers: data.servers,
             matches: data.matches,
+            match_groups: {},
             filters: {
                 notStarted: this.state.filters.notStarted,
                 running: this.state.filters.running,
                 completed: this.state.filters.completed,
                 archived: this.state.filters.archived
             }
+        });
+
+        this.splitMatchesToGroups();
+    }
+
+    /**
+     * Splits the matches by group
+     */
+    splitMatchesToGroups() {
+        let matchGroups = this.state.match_groups;
+
+        for(let item = 0; item < this.state.matches.length; item++) {
+            const match = this.state.matches[item];
+
+            if(!this.state.match_groups[match.match_group]) {
+                matchGroups[match.match_group] = [];
+            }
+
+            matchGroups[match.match_group].push(match);
+        }
+
+        this.setState({
+            match_groups: matchGroups
         });
     }
 
@@ -181,45 +207,62 @@ export default class Home extends Component {
                         <label className="custom-control-label" htmlFor="archived">Archived</label>
                     </div>
                 </div>
-                <div className="table-responsive">
-                    <table id="view-table" className="table table-striped">
-                        <thead className="thead-dark">
-                            <tr>
-                                <th>Server</th>
-                                <th>Map</th>
-                                <th>Team 1</th>
-                                <th>Team 2</th>
-                                <th>Status</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.state.matches.map((match, index) => {
-                                if((this.state.filters.notStarted && match.status === 0) || (this.state.filters.running && (match.status > 0 && match.status < 99)) || (this.state.filters.completed && match.status === 99) || (this.state.filters.archived && match.status > 99)) {
-                                    return (
-                                        <tr key={index}>
-                                            <td>{match.server}</td>
-                                            <td>{match.map}</td>
-                                            <td>{match.team1.name}</td>
-                                            <td>{match.team2.name}</td>
-                                            <td>{`${statusResolver(match.status)} (${match.status})`}</td>
-                                            <td>
-                                                <Link href={`/match/${match.id}/edit`} title="Edit match">
-                                                    <Edit/>
-                                                </Link>
-                                                &nbsp;&nbsp;
-                                                <Link href={`/match/${match.id}`} title="Match details">
-                                                    <Details/>
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                    )
-                                }
-                            })}
-                        </tbody>
-                    </table>
-                </div>
+                {Object.keys(this.state.match_groups).map((group, index) => (
+                    <div key={index}>
+                        <h4>{group}</h4>
+                        {this.renderGroup(this.state.match_groups[group])}
+                    </div>
+                ))}
             </div>
         );
+    }
+
+    /**
+     * Renders a group with matches
+     *
+     * @param matches
+     * @return {*}
+     */
+    renderGroup(matches) {
+        return (
+            <div className="table-responsive">
+                <table id="view-table" className="table table-striped">
+                    <thead className="thead-dark">
+                        <tr>
+                            <th>Server</th>
+                            <th>Map</th>
+                            <th>Team 1</th>
+                            <th>Team 2</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {matches.map((match, index) => {
+                            if((this.state.filters.notStarted && match.status === 0) || (this.state.filters.running && (match.status > 0 && match.status < 99)) || (this.state.filters.completed && match.status === 99) || (this.state.filters.archived && match.status > 99)) {
+                                return (
+                                    <tr key={index}>
+                                        <td>{match.server}</td>
+                                        <td>{match.map}</td>
+                                        <td>{match.team1.name}</td>
+                                        <td>{match.team2.name}</td>
+                                        <td>{`${statusResolver(match.status)} (${match.status})`}</td>
+                                        <td>
+                                            <Link href={`/match/${match.id}/edit`} title="Edit match">
+                                                <Edit/>
+                                            </Link>
+                                            &nbsp;&nbsp;
+                                            <Link href={`/match/${match.id}`} title="Match details">
+                                                <Details/>
+                                            </Link>
+                                        </td>
+                                    </tr>
+                                )
+                            }
+                        })}
+                    </tbody>
+                </table>
+            </div>
+        )
     }
 }
