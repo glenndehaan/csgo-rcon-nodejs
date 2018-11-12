@@ -260,15 +260,15 @@ export default class Detail extends Component {
                         <div className="col-md-4">
                             <h4>Match controls</h4>
                             <div>
-                                <button type='button' className='btn btn-sm btn-success btn-detail' onClick={() => this.startKnife()}>
+                                <button type='button' className='btn btn-sm btn-success btn-detail' disabled={this.state.match.status >= 99} onClick={() => this.startKnife()}>
                                     Start knife round
                                 </button>
                                 <br/>
-                                <button type='button' className='btn btn-sm btn-success btn-detail' onClick={() => this.startMatch()}>
+                                <button type='button' className='btn btn-sm btn-success btn-detail' disabled={this.state.match.status >= 99} onClick={() => this.startMatch()}>
                                     Start match
                                 </button>
                                 <br/>
-                                <button type='button' className='btn btn-sm btn-warning btn-detail' onClick={() => this.endMatch()}>
+                                <button type='button' className='btn btn-sm btn-warning btn-detail' disabled={this.state.match.status === 0 || this.state.match.status >= 99} onClick={() => this.endMatch()}>
                                     End Match & Restore Server
                                 </button>
                                 <br/>
@@ -276,36 +276,36 @@ export default class Detail extends Component {
                             <h4>Server controls</h4>
                             <div>
                                 <div className="btn-group" role="group">
-                                    <button type='button' className='btn btn-sm btn-success btn-detail' onClick={() => this.resumeGame()}>
+                                    <button type='button' className='btn btn-sm btn-success btn-detail' disabled={this.state.match.status === 0 || this.state.match.status >= 99} onClick={() => this.resumeGame()}>
                                         Resume game
                                     </button>
-                                    <button type='button' className='btn btn-sm btn-warning btn-detail' onClick={() => this.pauseGame()}>
+                                    <button type='button' className='btn btn-sm btn-warning btn-detail' disabled={this.state.match.status === 0 || this.state.match.status >= 99} onClick={() => this.pauseGame()}>
                                         Pause game
                                     </button>
                                 </div>
                                 <br/>
-                                <button type='button' className='btn btn-sm btn-primary btn-detail' onClick={() => this.switchTeamSides()}>
+                                <button type='button' className='btn btn-sm btn-primary btn-detail' disabled={this.state.match.status === 0 || this.state.match.status >= 99} onClick={() => this.switchTeamSides()}>
                                     Switch team sides
                                 </button>
                                 <br/>
-                                <select name="map" id="map" title="map" className="form-control" ref={c => this.fields.map = c}>
+                                <select name="map" id="map" title="map" className="form-control" disabled={this.state.match.status === 0 || this.state.match.status >= 99} ref={c => this.fields.map = c}>
                                     <option selected disabled value="false">Select map</option>
                                     {this.state.maps.map((map, index) => (
                                         <option key={index} value={map}>{map}</option>
                                     ))}
                                 </select>
                                 &nbsp;
-                                <button type='button' className='btn btn-sm btn-primary btn-detail' onClick={() => this.switchMap()}>
+                                <button type='button' className='btn btn-sm btn-primary btn-detail' disabled={this.state.match.status === 0 || this.state.match.status >= 99} onClick={() => this.switchMap()}>
                                     Switch map
                                 </button>
                                 <br/>
-                                <input type="text" className="form-control" name="message" id="message" title="message" ref={c => this.fields.message = c} />
+                                <input type="text" className="form-control" name="message" id="message" title="message" disabled={this.state.match.status === 0 || this.state.match.status >= 99} ref={c => this.fields.message = c} />
                                 &nbsp;
-                                <button type='button' className='btn btn-sm btn-primary btn-detail' onClick={() => this.sendMessage()}>
+                                <button type='button' className='btn btn-sm btn-primary btn-detail' disabled={this.state.match.status === 0 || this.state.match.status >= 99} onClick={() => this.sendMessage()}>
                                     Say
                                 </button>
                                 <br/>
-                                <button type='button' className='btn btn-sm btn-danger btn-detail' onClick={() => this.showRestartGameDialog()}>
+                                <button type='button' className='btn btn-sm btn-danger btn-detail' disabled={this.state.match.status === 0 || this.state.match.status >= 99} onClick={() => this.showRestartGameDialog()}>
                                     Restart game
                                 </button>
                             </div>

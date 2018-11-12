@@ -66,7 +66,7 @@ Checkout `csgo-rcon.json` since this is the db file.
 * Rewrite queue module
 * ~~Filter matches on homepage (Not started, Running, Completed)~~
 * ~~/settings add archive complete matches function~~
-* Disable match/server controls if match isn't started
+* ~~Disable match/server controls if match isn't started~~
 * Server overview page to so available server where no matches are running
 
 ## License
