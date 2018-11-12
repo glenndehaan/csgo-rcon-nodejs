@@ -101,7 +101,7 @@ export default class Header extends Component {
     render() {
         return (
             <nav className="navbar navbar-expand navbar-dark">
-                <Link href="/" className="navbar-brand" title="Home / Logo">CSGO Remote</Link>
+                <Link href="/" className="navbar-brand d-none d-sm-block" title="Home / Logo">CSGO Remote</Link>
                 <ul className="navbar-nav">
                     <li className="nav-item home-icon">
                         <Link href="/" activeClassName="active" className="nav-link" title="Home">
