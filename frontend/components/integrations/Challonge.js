@@ -63,6 +63,14 @@ export default class Challonge extends Component {
      */
     importTournament() {
         if(!this.checkFields()) {
+            console.log('test', {
+                knife_config: this.fields.knife_config.value,
+                match_config: this.fields.main_config.value,
+                server: this.fields.server.value,
+                tournament: this.fields.tournament.value,
+                match_group: this.fields.match_group.value
+            });
+
             Socket.send("integrations_challonge_import", {
                 knife_config: this.fields.knife_config.value,
                 match_config: this.fields.main_config.value,
