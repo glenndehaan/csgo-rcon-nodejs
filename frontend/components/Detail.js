@@ -39,6 +39,7 @@ export default class Detail extends Component {
 
         if(this.state.match === false) {
             route('/');
+            return;
         }
         console.log('this.state.match', this.state.match);
 

@@ -58,6 +58,7 @@ export default class Edit extends Component {
             });
 
             route('/');
+            return;
         }
 
         if(this.state.match.status > 0) {
@@ -67,6 +68,7 @@ export default class Edit extends Component {
             });
 
             route('/');
+            return;
         }
         console.log('this.state.match', this.state.match);
 
