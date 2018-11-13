@@ -41,7 +41,7 @@ To make this as simple as it is I use a local Json database.
 Checkout `csgo-rcon.json` since this is the db file.
 
 ## TODO's
-* Lock matches on same server when one match is running.
+* ~~Lock matches on same server when one match is running.~~
 * Readonly mode after first user opens the match admin panel.
 * ~~Fix production PKG build.~~
 * ~~Add say to admin interface.~~

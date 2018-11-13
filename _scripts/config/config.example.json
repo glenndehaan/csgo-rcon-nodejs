@@ -1,12 +1,9 @@
 {
   "application": {
-    "name": "CSGO Remote",
     "companyName": "A Company",
-    "env": " (local)",
-    "basePath": "/",
     "csgoConfigFolder": "../../_scripts/csgo-configs",
-    "port": 3542,
-    "host": "0.0.0.0"
+    "host": "0.0.0.0",
+    "port": 3542
   },
   "logger": {
     "location": "./log",

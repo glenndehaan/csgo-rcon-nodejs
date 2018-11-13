@@ -3,7 +3,7 @@ import { route } from 'preact-router';
 import Socket from "../modules/socket";
 
 import {statusResolver} from "../utils/Strings";
-import {findByIdInObjectArray} from "../utils/Arrays";
+import {findByIdInObjectArray, checkServerAvailabilityForMatch} from "../utils/Arrays";
 import Alert from "./partials/Alert";
 
 export default class Detail extends Component {
@@ -18,7 +18,8 @@ export default class Detail extends Component {
             matches: Socket.data.matches,
             maps: Socket.data.maps,
             match: false,
-            showDialog: false
+            showDialog: false,
+            serverAvailable: true
         };
 
         this.fields = {
@@ -32,9 +33,11 @@ export default class Detail extends Component {
      */
     componentDidMount() {
         Socket.on("update", (data) => this.onUpdate(data));
+        const match = findByIdInObjectArray(Socket.data.matches, this.props.id);
 
         this.setState({
-            match: findByIdInObjectArray(Socket.data.matches, this.props.id)
+            match: match,
+            serverAvailable: !checkServerAvailabilityForMatch(this.props.id, match.server, this.state.matches)
         });
 
         if(this.state.match === false) {
@@ -70,11 +73,14 @@ export default class Detail extends Component {
      */
     onUpdate(data) {
         console.log('dataUpdate', data);
+        const match = findByIdInObjectArray(data.matches, this.props.id);
+
         this.setState({
             servers: data.servers,
             matches: data.matches,
             maps: data.maps,
-            match: findByIdInObjectArray(data.matches, this.props.id)
+            match: match,
+            serverAvailable: !checkServerAvailabilityForMatch(this.props.id, match.server, this.state.matches)
         });
     }
 
@@ -273,12 +279,13 @@ export default class Detail extends Component {
                         <div className="col-md-4 mt-5 mt-md-0">
                             <h4>Match controls</h4>
                             {this.state.match.status >= 99 && <span className="status-error">Match controls locked! Reason:<br/>This match has already ended!</span>}
+                            {!this.state.serverAvailable && <span className="status-error">Match controls locked! Reason:<br/>Another match is already running on the same server!</span>}
                             <div>
-                                <button type='button' className='btn btn-sm btn-success btn-detail' disabled={this.state.match.status >= 99} onClick={() => this.startKnife()}>
+                                <button type='button' className='btn btn-sm btn-success btn-detail' disabled={this.state.match.status >= 99 || !this.state.serverAvailable} onClick={() => this.startKnife()}>
                                     Start knife round
                                 </button>
                                 <br/>
-                                <button type='button' className='btn btn-sm btn-success btn-detail' disabled={this.state.match.status >= 99} onClick={() => this.startMatch()}>
+                                <button type='button' className='btn btn-sm btn-success btn-detail' disabled={this.state.match.status >= 99 || !this.state.serverAvailable} onClick={() => this.startMatch()}>
                                     Start match
                                 </button>
                                 <br/>

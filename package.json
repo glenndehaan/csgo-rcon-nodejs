@@ -81,6 +81,7 @@
     "compression": "^1.7.3",
     "cross-env": "^5.2.0",
     "css-loader": "^0.28.11",
+    "deepmerge": "^2.2.1",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "express-basic-auth": "^1.1.6",
