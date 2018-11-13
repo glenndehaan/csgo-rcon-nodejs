@@ -1,5 +1,8 @@
 import {h, Component} from 'preact';
+import { Link } from 'preact-router/match';
 import Socket from "../modules/socket";
+
+import {checkServerAvailability} from "../utils/Arrays";
 
 export default class Servers extends Component {
     /**
@@ -10,7 +13,8 @@ export default class Servers extends Component {
 
         this.state = {
             servers: Socket.data.servers,
-            matches: Socket.data.matches
+            matches: Socket.data.matches,
+            availability: []
         };
     }
 
@@ -31,6 +35,7 @@ export default class Servers extends Component {
         ]);
 
         Socket.on("update", (data) => this.onUpdate(data));
+        this.checkAvailability();
     }
 
     /**
@@ -49,6 +54,31 @@ export default class Servers extends Component {
         this.setState({
             servers: data.servers,
             matches: data.matches
+        });
+
+        this.checkAvailability();
+    }
+
+    /**
+     * Checks if a servers are available
+     */
+    checkAvailability() {
+        const availability = [];
+
+        for(let item = 0; item < this.state.servers.length; item++) {
+            const server = this.state.servers[item];
+            const available = checkServerAvailability(`${server.ip}:${server.port}`, this.state.matches);
+
+            availability.push({
+                ip: server.ip,
+                port: server.port,
+                available: available === false ? "Available" : (<span>Match is running: <Link href={`/match/${available.id}`}>{available.team1.name} v/s {available.team2.name}</Link></span>),
+                color: available === false ? "success" : "warning"
+            });
+        }
+
+        this.setState({
+            availability
         });
     }
 
@@ -70,10 +100,10 @@ export default class Servers extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.servers.map((server, index) => (
+                            {this.state.availability.map((server, index) => (
                                 <tr key={index}>
                                     <td>{`${server.ip}:${server.port}`}</td>
-                                    <td><span className="badge badge-success">Available</span></td>
+                                    <td><span className={`badge badge-${server.color}`}>{server.available}</span></td>
                                 </tr>
                             ))}
                         </tbody>

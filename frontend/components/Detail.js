@@ -272,6 +272,7 @@ export default class Detail extends Component {
                         </div>
                         <div className="col-md-4 mt-5 mt-md-0">
                             <h4>Match controls</h4>
+                            {this.state.match.status >= 99 && <span className="status-error">Match controls locked! Reason:<br/>This match has already ended!</span>}
                             <div>
                                 <button type='button' className='btn btn-sm btn-success btn-detail' disabled={this.state.match.status >= 99} onClick={() => this.startKnife()}>
                                     Start knife round
@@ -287,6 +288,8 @@ export default class Detail extends Component {
                                 <br/>
                             </div><br/>
                             <h4>Server controls</h4>
+                            {this.state.match.status === 0 && <span className="status-error">Server controls locked! Reason:<br/>This match is not started!</span>}
+                            {this.state.match.status >= 99 && <span className="status-error">Server controls locked! Reason:<br/>This match has already ended!</span>}
                             <div>
                                 <div className="btn-group" role="group">
                                     <button type='button' className='btn btn-sm btn-success btn-detail' disabled={this.state.match.status === 0 || this.state.match.status >= 99} onClick={() => this.resumeGame()}>

@@ -16,4 +16,23 @@ function findByIdInObjectArray(array, id) {
     return false;
 }
 
-export {findByIdInObjectArray};
+/**
+ * Checks if a server is in use by a match
+ *
+ * @param server
+ * @param matches
+ * @return {*}
+ */
+function checkServerAvailability(server, matches) {
+    for(let item = 0; item < matches.length; item++) {
+        const match = matches[item];
+
+        if(match.status > 0 && match.status < 99 && match.server === server) {
+            return match;
+        }
+    }
+
+    return false;
+}
+
+export {findByIdInObjectArray, checkServerAvailability};
