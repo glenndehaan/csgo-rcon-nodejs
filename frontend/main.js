@@ -83,7 +83,9 @@ class App extends Component {
                 <div className="container">
                     <Notification/>
                     <Breadcrumbs/>
-                    {this.state.connected && this.mainRender()}
+                    {(this.state.connected && !this.state.reconnecting) && this.mainRender()}
+                    {this.state.reconnecting && this.reconnectRender()}
+                    {(!this.state.connected && !Socket.initialConnect) && this.errorRender()}
                 </div>
             </div>
         );
@@ -105,6 +107,42 @@ class App extends Component {
                 <Settings path="/settings"/>
                 <NotFound default/>
             </Router>
+        )
+    }
+
+    /**
+     * Renders the error message
+     *
+     * @return {*}
+     */
+    errorRender() {
+        return (
+            <div className="starter-template">
+                <h3>Whoops!</h3>
+                <div>
+                    The connection to the server has been lost!<br/>
+                    A reconnect attempt has been made but the server didn&apos;t respond in time.<br/>
+                    Please try to refresh this page...
+                </div>
+            </div>
+        )
+    }
+
+    /**
+     * Renders the reconnecting message
+     *
+     * @return {*}
+     */
+    reconnectRender() {
+        return (
+            <div className="starter-template">
+                <h3>Reconnecting!</h3>
+                <div>
+                    The connection to the server has been lost!<br/>
+                    We are trying to reconnect to the server.<br/>
+                    Please wait...
+                </div>
+            </div>
         )
     }
 }
