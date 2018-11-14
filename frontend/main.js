@@ -14,6 +14,7 @@ import NotFound from './components/NotFound';
 
 import Notification from './components/partials/Notification';
 import Breadcrumbs from "./components/partials/Breadcrumbs";
+import Footer from "./components/partials/Footer";
 
 class App extends Component {
     /**
@@ -87,6 +88,7 @@ class App extends Component {
                     {this.state.reconnecting && this.reconnectRender()}
                     {(!this.state.connected && !Socket.initialConnect) && this.errorRender()}
                 </div>
+                <Footer/>
             </div>
         );
     }

@@ -236,6 +236,13 @@ class socket {
 
                     this.sendGeneralUpdate();
                 }
+
+                if (dataString.instruction === "integrations_force_archive") {
+                    log.info(`[SOCKET][${ws.id}][integrations_archive] Force archive match: ${dataString.data.id}`);
+                    db.push(`/match[${dataString.data.id}]/status`, 100);
+
+                    this.sendGeneralUpdate();
+                }
             });
 
             /**
