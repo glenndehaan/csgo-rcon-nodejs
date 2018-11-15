@@ -1,4 +1,5 @@
 const fs = require("fs");
+const log = require("./logger");
 const config = require("../config");
 
 class csgoConfig {
@@ -7,6 +8,32 @@ class csgoConfig {
      */
     constructor() {
         this.dev = process.env.NODE_ENV !== 'production';
+    }
+
+    /**
+     * Writes some default csgo configs to the filesystem
+     */
+    init() {
+        if (!fs.existsSync(`${process.cwd()}/${config.application.csgoConfigFolder}`)) {
+            fs.mkdirSync(`${process.cwd()}/${config.application.csgoConfigFolder}`);
+            fs.mkdirSync(`${process.cwd()}/${config.application.csgoConfigFolder}/main`);
+            fs.mkdirSync(`${process.cwd()}/${config.application.csgoConfigFolder}/knife`);
+
+            const main_files = fs.readdirSync(`${__dirname}/../../../_scripts/csgo-configs/main`);
+            const knife_files = fs.readdirSync(`${__dirname}/../../../_scripts/csgo-configs/knife`);
+
+            for (let main = 0; main < main_files.length; main++) {
+                log.info(`[CSGO-CONFIG] Copy file: ${__dirname}/../../../_scripts/csgo-configs/main -> ${process.cwd()}/${config.application.csgoConfigFolder}/main/${main_files[main]} `);
+
+                fs.writeFileSync(`${process.cwd()}/${config.application.csgoConfigFolder}/main/${main_files[main]}`, fs.readFileSync(`${__dirname}/../../../_scripts/csgo-configs/main/${main_files[main]}`, 'utf8'));
+            }
+
+            for (let knife = 0; knife < knife_files.length; knife++) {
+                log.info(`[CSGO-CONFIG] Copy file: ${__dirname}/../../../_scripts/csgo-configs/knife/${knife_files[knife]} -> ${process.cwd()}/${config.application.csgoConfigFolder}/knife/${knife_files[knife]}`);
+
+                fs.writeFileSync(`${process.cwd()}/${config.application.csgoConfigFolder}/knife/${knife_files[knife]}`, fs.readFileSync(`${__dirname}/../../../_scripts/csgo-configs/knife/${knife_files[knife]}`, 'utf8'));
+            }
+        }
     }
 
     /**

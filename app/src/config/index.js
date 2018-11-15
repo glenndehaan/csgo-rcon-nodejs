@@ -20,7 +20,7 @@ const dev = process.env.NODE_ENV !== 'production';
 try {
     module.exports = deepmerge(baseConfig, eval('require')(dev ? __dirname + '/config.json' : process.cwd() + '/config.json'));
 } catch (e) {
-    const config = fs.readFileSync(__dirname + '/../../../_scripts/config/config.example.json', 'utf8');
+    const config = fs.readFileSync(__dirname + '/../../../_scripts/config/config.build.json', 'utf8');
     fs.writeFileSync(dev ? __dirname + '/config.json' : process.cwd() + '/config.json', config);
 
     module.exports = deepmerge(baseConfig, JSON.parse(config));

@@ -4,6 +4,7 @@
 const config = require("./config");
 const log = require("./modules/logger");
 const database = require("./modules/database");
+const csgoConfig = require("./modules/csgoConfig");
 const queue = require("./modules/queue");
 const web = require("./modules/web");
 const challonge = require("./modules/challonge");
@@ -14,8 +15,16 @@ const challonge = require("./modules/challonge");
 process.on('unhandledRejection', () => {});
 
 /**
+ * Check if we are running as dev
+ */
+const dev = process.env.NODE_ENV !== 'production';
+
+/**
  * Init modules
  */
+if(!dev) {
+    csgoConfig.init();
+}
 database.init();
 queue.init();
 web.init();

@@ -1,0 +1,51 @@
+{
+  "application": {
+    "companyName": "A Company",
+    "csgoConfigFolder": "./csgo-configs",
+    "host": "0.0.0.0",
+    "port": 3542
+  },
+  "logger": {
+    "location": "./log",
+    "level": "info"
+  },
+  "servers": [
+    {
+      "ip": "192.168.1.xx",
+      "port": 27015,
+      "password": "anrconpassword",
+      "default_map": "de_dust2",
+      "server_restore_config": "server"
+    }
+  ],
+  "maps": [
+    "de_inferno",
+    "de_train",
+    "de_mirage",
+    "de_nuke",
+    "de_overpass",
+    "de_cache",
+    "de_dust2"
+  ],
+  "broadcaster": {
+    "enabled": true,
+    "speed": 120,
+    "messages": [
+      "This is message 1",
+      "This is message 2",
+      "This is message 3"
+    ]
+  },
+  "authentication": {
+    "username": "root",
+    "password": "password123!"
+  },
+  "integrations": {
+    "challonge": {
+      "enabled": false,
+      "username": "challonge username",
+      "key": "api key",
+      "default_country": "NL"
+    }
+  }
+}

@@ -23,7 +23,7 @@ TODO: Update the basic usage!
 
 ## Development Usage
 - Install NodeJS 8.0 or higher
-- Copy the `_scripts/config/config.example.json` to here `app/config/config.json`
+- Copy the `_scripts/config/config.dev.json` to here `app/config/config.json`
 - Run `npm install` in the root project folder
 - Run `npm run webpack` in the root project folder
 - Run `npm run dev` in the root project folder

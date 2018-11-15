@@ -19,6 +19,7 @@
   "pkg": {
     "assets": [
       "_scripts/config/*",
+      "_scripts/csgo-configs/**/*",
       "app/src/**/*.js",
       "app/src/**/*.ejs",
       "public/**/*"
