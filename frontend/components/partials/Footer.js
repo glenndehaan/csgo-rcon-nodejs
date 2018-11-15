@@ -8,7 +8,7 @@ export default class Footer extends Component {
         super();
 
         this.state = {
-            loadTime: 0
+            loadTime: 0.00
         }
     }
 
