@@ -14,3 +14,13 @@ body {
   height: 100%;
   box-sizing: border-box;
 }
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.container {
+  flex-grow: 1;
+}

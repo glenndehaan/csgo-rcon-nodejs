@@ -2,6 +2,25 @@ import {h, Component} from 'preact';
 
 export default class Footer extends Component {
     /**
+     * Constructor
+     */
+    constructor() {
+        super();
+
+        this.state = {
+            loadTime: 0
+        }
+    }
+
+    componentDidMount() {
+        const loadTime = (Date.now() - window.loadTime) / 1000;
+
+        this.setState({
+            loadTime: loadTime.toFixed(2)
+        });
+    }
+
+    /**
      * Preact render function
      *
      * @returns {*}
@@ -10,7 +29,7 @@ export default class Footer extends Component {
         return (
             <footer className="footer">
                 <div className="container">
-                    <span className="text-muted">Place footer here</span>
+                    <span className="text-muted">Loaded in: {this.state.loadTime} seconds | <a href="https://github.com/glenndehaan/csgo-rcon-nodejs" target="_blank" rel="noopener noreferrer" native>View on GitHub</a></span>
                 </div>
             </footer>
         );
