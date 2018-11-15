@@ -5,13 +5,36 @@
     </head>
     <body>
         <noscript>
-            <strong>
-                Woops! Houston we got a problem. This page only works with JavaScript enabled.<br/>
-                Please enable JavaScript!
-            </strong>
+            <div id="root">
+                <nav class="navbar navbar-expand navbar-dark">
+                    <a href="/" class="navbar-brand d-none d-sm-block" title="Home / Logo">CSGO Remote</a>
+                </nav>
+                <div class="container">
+                    <div id="notifications"></div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item" aria-current="page">Home</li>
+                        </ol>
+                    </nav>
+                    <div class="starter-template">
+                        <h3>Woops!</h3>
+                        Houston we got a problem. This page only works with JavaScript enabled.<br/>
+                        Please enable JavaScript!
+                    </div>
+                </div>
+                <footer class="footer">
+                    <div class="container"><span class="text-muted"><a href="https://github.com/glenndehaan/csgo-rcon-nodejs" target="_blank" rel="noopener noreferrer">View on GitHub</a></span></div>
+                </footer>
+            </div>
         </noscript>
         <script>
-            window.expressConfig = {protocol: '<%= protocol %>', hostname: '<%= hostname %>', baseUrl: '<%= baseUrl %>', appName: '<%= appName %>', env: '<%= env %>'};
+            window.expressConfig = {
+                protocol: '<%= protocol %>',
+                hostname: '<%= hostname %>',
+                baseUrl: '<%= baseUrl %>',
+                appName: '<%= appName %>',
+                env: '<%= env %>'
+            };
         </script>
         <script src="/dist/<%= assets.js %>" type="application/javascript"></script>
     </body>
