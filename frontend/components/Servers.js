@@ -1,10 +1,10 @@
 import {h, Component} from 'preact';
 import { Link } from 'preact-router/match';
-import Socket from "../modules/socket";
+import { connect } from "unistore/preact";
 
 import {checkServerAvailability} from "../utils/Arrays";
 
-export default class Servers extends Component {
+class Servers extends Component {
     /**
      * Constructor
      */
@@ -12,8 +12,6 @@ export default class Servers extends Component {
         super();
 
         this.state = {
-            servers: Socket.data.servers,
-            matches: Socket.data.matches,
             availability: []
         };
     }
@@ -34,29 +32,18 @@ export default class Servers extends Component {
             }
         ]);
 
-        Socket.on("update", (data) => this.onUpdate(data));
         this.checkAvailability();
     }
 
     /**
-     * Runs before component unmounts
-     */
-    componentWillUnmount() {
-        Socket.off("update", (data) => this.onUpdate(data));
-    }
-
-    /**
-     * Updates the state based on data from the socket
+     * Runs when the component updates
      *
-     * @param data
+     * @param previousProps
      */
-    onUpdate(data) {
-        this.setState({
-            servers: data.servers,
-            matches: data.matches
-        });
-
-        this.checkAvailability();
+    componentDidUpdate(previousProps) {
+        if(previousProps !== this.props) {
+            this.checkAvailability();
+        }
     }
 
     /**
@@ -65,9 +52,9 @@ export default class Servers extends Component {
     checkAvailability() {
         const availability = [];
 
-        for(let item = 0; item < this.state.servers.length; item++) {
-            const server = this.state.servers[item];
-            const available = checkServerAvailability(`${server.ip}:${server.port}`, this.state.matches);
+        for(let item = 0; item < this.props.servers.length; item++) {
+            const server = this.props.servers[item];
+            const available = checkServerAvailability(`${server.ip}:${server.port}`, this.props.matches);
 
             availability.push({
                 ip: server.ip,
@@ -113,3 +100,8 @@ export default class Servers extends Component {
         );
     }
 }
+
+/**
+ * Connect the store to the component
+ */
+export default connect('servers,matches')(Servers);
