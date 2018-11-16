@@ -1,46 +1,10 @@
 import {h, Component} from 'preact';
+import { connect } from "unistore/preact";
 
 import Socket from "../../modules/socket";
 import {route} from "preact-router";
 
-export default class ForceArchive extends Component {
-    /**
-     * Constructor
-     */
-    constructor() {
-        super();
-
-        this.state = {
-            matches: Socket.data.matches
-        };
-    }
-
-    /**
-     * Runs then component mounts
-     */
-    componentDidMount() {
-        Socket.on("update", (data) => this.onUpdate(data));
-    }
-
-    /**
-     * Runs before component unmounts
-     */
-    componentWillUnmount() {
-        Socket.off("update", (data) => this.onUpdate(data));
-    }
-
-    /**
-     * Updates the state based on data from the socket
-     *
-     * @param data
-     */
-    onUpdate(data) {
-        console.log('dataUpdate', data);
-        this.setState({
-            matches: data.matches
-        });
-    }
-
+class ForceArchive extends Component {
     /**
      * Send the request to the socket to start archiving the selected match
      *
@@ -71,7 +35,7 @@ export default class ForceArchive extends Component {
                 <span>Click the archive button below to force archive a match</span><br/>
                 <br/>
                 <ul className="list-group">
-                    {this.state.matches.map((match, index) => {
+                    {this.props.matches.map((match, index) => {
                         if(match.status < 100) {
                             return (
                                 <li key={index} className="list-group-item">
@@ -88,3 +52,8 @@ export default class ForceArchive extends Component {
         );
     }
 }
+
+/**
+ * Connect the store to the component
+ */
+export default connect('matches')(ForceArchive);
