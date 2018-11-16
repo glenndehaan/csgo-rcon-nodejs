@@ -1,7 +1,10 @@
 import {h, Component, render} from 'preact';
 import Router from 'preact-router';
+import { Provider } from 'unistore/preact';
 import mitt from 'mitt';
 import Socket from './modules/socket';
+
+import store from './modules/store';
 
 import Header from "./components/partials/Header";
 import Home from './components/Home';
@@ -149,5 +152,5 @@ class App extends Component {
     }
 }
 
-render(<App/>, document.body);
+render(<Provider store={store}><App/></Provider>, document.body);
 require('preact/debug');
