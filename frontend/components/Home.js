@@ -1,14 +1,14 @@
 import {h, Component} from 'preact';
 import { Link } from 'preact-router/match';
+import { connect } from "unistore/preact";
 
 import Details from "./icons/Details";
 import Edit from "./icons/Edit";
 
-import Socket from "../modules/socket";
 import storage from "../modules/storage";
 import {statusResolver} from "../utils/Strings";
 
-export default class Home extends Component {
+class Home extends Component {
     /**
      * Constructor
      */
@@ -25,8 +25,6 @@ export default class Home extends Component {
         }
 
         this.state = {
-            servers: Socket.data.servers,
-            matches: Socket.data.matches,
             match_groups: {},
             filters: {
                 notStarted: storage.get("filters").notStarted,
@@ -50,35 +48,21 @@ export default class Home extends Component {
         ]);
 
         this.splitMatchesToGroups();
-        Socket.on("update", (data) => this.onUpdate(data));
     }
 
     /**
-     * Runs before component unmounts
-     */
-    componentWillUnmount() {
-        Socket.off("update", (data) => this.onUpdate(data));
-    }
-
-    /**
-     * Updates the state based on data from the socket
+     * Runs when the component updates
      *
-     * @param data
+     * @param previousProps
      */
-    onUpdate(data) {
-        this.setState({
-            servers: data.servers,
-            matches: data.matches,
-            match_groups: {},
-            filters: {
-                notStarted: this.state.filters.notStarted,
-                running: this.state.filters.running,
-                completed: this.state.filters.completed,
-                archived: this.state.filters.archived
-            }
-        });
+    componentDidUpdate(previousProps) {
+        if(previousProps !== this.props) {
+            this.setState({
+                match_groups: {}
+            });
 
-        this.splitMatchesToGroups();
+            this.splitMatchesToGroups();
+        }
     }
 
     /**
@@ -87,8 +71,8 @@ export default class Home extends Component {
     splitMatchesToGroups() {
         let matchGroups = this.state.match_groups;
 
-        for(let item = 0; item < this.state.matches.length; item++) {
-            const match = this.state.matches[item];
+        for(let item = 0; item < this.props.matches.length; item++) {
+            const match = this.props.matches[item];
 
             if(!this.state.match_groups[match.match_group]) {
                 matchGroups[match.match_group] = [];
@@ -274,3 +258,8 @@ export default class Home extends Component {
         )
     }
 }
+
+/**
+ * Connect the store to the component
+ */
+export default connect('servers,matches')(Home);
