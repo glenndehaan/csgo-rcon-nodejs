@@ -1,46 +1,18 @@
 import {h, Component} from 'preact';
+import { connect } from "unistore/preact";
+
 import Socket from "../../modules/socket";
 
-export default class MatchGroups extends Component {
+class MatchGroups extends Component {
     /**
      * Constructor
      */
     constructor() {
         super();
 
-        this.state = {
-            groups: Socket.data.groups
-        };
-
         this.fields = {
             group: null
         };
-    }
-
-    /**
-     * Runs then component mounts
-     */
-    componentDidMount() {
-        Socket.on("update", (data) => this.onUpdate(data));
-    }
-
-    /**
-     * Runs before component unmounts
-     */
-    componentWillUnmount() {
-        Socket.off("update", (data) => this.onUpdate(data));
-    }
-
-    /**
-     * Updates the state based on data from the socket
-     *
-     * @param data
-     */
-    onUpdate(data) {
-        console.log('dataUpdate', data);
-        this.setState({
-            groups: data.groups
-        });
     }
 
     /**
@@ -91,9 +63,9 @@ export default class MatchGroups extends Component {
                 <h6>Match Groups</h6>
                 <br/>
                 <span><strong>Here are all available match groups:</strong></span><br/>
-                {this.state.groups.length < 1 ? (<span>No groups available!<br/></span>) : null}
+                {this.props.groups.length < 1 ? (<span>No groups available!<br/></span>) : null}
                 <ul className="list-group">
-                    {this.state.groups.map((group, index) => (
+                    {this.props.groups.map((group, index) => (
                         <li key={index} className="list-group-item">{group}</li>
                     ))}
                 </ul>
@@ -105,3 +77,8 @@ export default class MatchGroups extends Component {
         );
     }
 }
+
+/**
+ * Connect the store to the component
+ */
+export default connect('groups')(MatchGroups)
