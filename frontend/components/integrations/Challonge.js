@@ -1,9 +1,10 @@
 import {h, Component} from 'preact';
+import { connect } from "unistore/preact";
 
 import Socket from "../../modules/socket";
 import {route} from "preact-router";
 
-export default class Challonge extends Component {
+class Challonge extends Component {
     /**
      * Constructor
      */
@@ -108,14 +109,14 @@ export default class Challonge extends Component {
                 <strong>Tournament</strong>
                 <select name="tournament" id="tournament" title="tournament" className="form-control" ref={c => this.fields.tournament = c}>
                     <option selected disabled value="false">Select tournament</option>
-                    {Socket.data.challonge.map((tournament, index) => (
+                    {this.props.challonge.map((tournament, index) => (
                         <option key={index} value={tournament.tournament.url}>{tournament.tournament.name} ({tournament.tournament.url})</option>
                     ))}
                 </select>
                 <strong>Match Group</strong>
                 <select name="match-group" id="match-group" title="match-group" className="form-control" ref={c => this.fields.match_group = c}>
                     <option selected disabled value="false">Select a group</option>
-                    {Socket.data.groups.map((group, index) => (
+                    {this.props.groups.map((group, index) => (
                         <option key={index} value={group}>{group}</option>
                     ))}
                 </select>
@@ -123,21 +124,21 @@ export default class Challonge extends Component {
                 <select title="server" name="server" id="server" className="form-control" ref={c => this.fields.server = c}>
                     <option selected disabled value="false">Select a server</option>
                     <option value="next">Autoselect next available server</option>
-                    {Socket.data.servers.map((server, index) => (
+                    {this.props.servers.map((server, index) => (
                         <option key={index} value={`${server.ip}:${server.port}`}>{`${server.ip}:${server.port}`}</option>
                     ))}
                 </select>
                 <strong>CSGO Knife Config</strong>
                 <select title="csgo-knife-config" name="csgo-knife-config" id="csgo-knife-config" className="form-control" ref={c => this.fields.knife_config = c}>
                     <option selected disabled value="false">Select a config</option>
-                    {Socket.data.configs.knife.map((config, index) => (
+                    {this.props.configs.knife.map((config, index) => (
                         <option key={index} value={config}>{config}</option>
                     ))}
                 </select>
                 <strong>CSGO Main Config</strong>
                 <select title="csgo-main-config" name="csgo-main-config" id="csgo-main-config" className="form-control" ref={c => this.fields.main_config = c}>
                     <option selected disabled value="false">Select a config</option>
-                    {Socket.data.configs.main.map((config, index) => (
+                    {this.props.configs.main.map((config, index) => (
                         <option key={index} value={config}>{config}</option>
                     ))}
                 </select><br/>
@@ -148,3 +149,8 @@ export default class Challonge extends Component {
         );
     }
 }
+
+/**
+ * Connect the store to the component
+ */
+export default connect('challonge,groups,servers,configs')(Challonge);
