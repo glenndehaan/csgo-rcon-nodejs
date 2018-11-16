@@ -1,4 +1,5 @@
 import Sockette from 'sockette';
+import store from './store';
 import systemNotification from './systemNotification';
 
 export default new class Socket {
@@ -80,6 +81,8 @@ export default new class Socket {
         if(message.instruction === "init") {
             console.log(`[SOCKET] Init: ${JSON.stringify(message.data)}`);
 
+            store.setState(message.data);
+
             this.data.servers = message.data.servers;
             this.data.groups = message.data.groups;
             this.data.matches = message.data.matches;
@@ -92,6 +95,8 @@ export default new class Socket {
 
         if(message.instruction === "update") {
             console.log(`[SOCKET] Update: ${JSON.stringify(message.data)}`);
+
+            store.setState(message.data);
 
             this.data.servers = message.data.servers;
             this.data.groups = message.data.groups;

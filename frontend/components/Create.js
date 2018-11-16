@@ -1,11 +1,12 @@
 import {h, Component} from 'preact';
 import { route } from 'preact-router';
+import { connect } from "unistore/preact";
 import uuidv4 from 'uuid/v4';
 
 import Socket from "../modules/socket";
 import {getIsoCodes} from '../utils/Strings';
 
-export default class Create extends Component {
+class Create extends Component {
     /**
      * Constructor
      */
@@ -13,10 +14,6 @@ export default class Create extends Component {
         super();
 
         this.state = {
-            servers: Socket.data.servers,
-            matches: Socket.data.matches,
-            groups: Socket.data.groups,
-            configs: Socket.data.configs,
             map: ""
         };
 
@@ -56,39 +53,16 @@ export default class Create extends Component {
                 "url": false
             }
         ]);
-
-        Socket.on("update", (data) => this.onUpdate(data));
-    }
-
-    /**
-     * Runs before component unmounts
-     */
-    componentWillUnmount() {
-        Socket.off("update", (data) => this.onUpdate(data));
-    }
-
-    /**
-     * Updates the state based on data from the socket
-     *
-     * @param data
-     */
-    onUpdate(data) {
-        this.setState({
-            servers: data.servers,
-            matches: data.matches,
-            configs: data.configs,
-            groups: data.groups
-        });
     }
 
     /**
      * Updated the map based on the selected server
      */
     updateMapField() {
-        for(let item = 0; item < this.state.servers.length; item++) {
-            if(this.fields.server.value === (this.state.servers[item].ip + ":" + this.state.servers[item].port)) {
+        for(let item = 0; item < this.props.servers.length; item++) {
+            if(this.fields.server.value === (this.props.servers[item].ip + ":" + this.props.servers[item].port)) {
                 this.setState({
-                    map: this.state.servers[item].default_map
+                    map: this.props.servers[item].default_map
                 });
 
                 break;
@@ -259,7 +233,7 @@ export default class Create extends Component {
                                     <td>
                                         <select title="match-group" name="match-group" id="match-group" className="form-control" ref={c => this.fields.match_group = c}>
                                             <option selected disabled value="false">Select a group</option>
-                                            {this.state.groups.map((group, index) => (
+                                            {this.props.groups.map((group, index) => (
                                                 <option key={index} value={group}>{group}</option>
                                             ))}
                                         </select>
@@ -270,7 +244,7 @@ export default class Create extends Component {
                                     <td>
                                         <select title="server" name="server" id="server" className="form-control" onChange={() => this.updateMapField()} ref={c => this.fields.server = c}>
                                             <option selected disabled value="false">Select a server</option>
-                                            {this.state.servers.map((server, index) => (
+                                            {this.props.servers.map((server, index) => (
                                                 <option key={index} value={`${server.ip}:${server.port}`}>{`${server.ip}:${server.port}`}</option>
                                             ))}
                                         </select>
@@ -285,7 +259,7 @@ export default class Create extends Component {
                                     <td>
                                         <select title="csgo-knife-config" name="csgo-knife-config" id="csgo-knife-config" className="form-control" ref={c => this.fields.knife_config = c}>
                                             <option selected disabled value="false">Select a config</option>
-                                            {this.state.configs.knife.map((config, index) => (
+                                            {this.props.configs.knife.map((config, index) => (
                                                 <option key={index} value={config}>{config}</option>
                                             ))}
                                         </select>
@@ -296,7 +270,7 @@ export default class Create extends Component {
                                     <td>
                                         <select title="csgo-main-config" name="csgo-main-config" id="csgo-main-config" className="form-control" ref={c => this.fields.main_config = c}>
                                             <option selected disabled value="false">Select a config</option>
-                                            {this.state.configs.main.map((config, index) => (
+                                            {this.props.configs.main.map((config, index) => (
                                                 <option key={index} value={config}>{config}</option>
                                             ))}
                                         </select>
@@ -314,3 +288,8 @@ export default class Create extends Component {
         );
     }
 }
+
+/**
+ * Connect the store to the component
+ */
+export default connect('servers,matches,groups,configs')(Create);
