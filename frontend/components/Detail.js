@@ -1,12 +1,14 @@
 import {h, Component} from 'preact';
 import { route } from 'preact-router';
+import { connect } from "unistore/preact";
+
 import Socket from "../modules/socket";
 
 import {statusResolver} from "../utils/Strings";
 import {findByIdInObjectArray, checkServerAvailabilityForMatch} from "../utils/Arrays";
 import Alert from "./partials/Alert";
 
-export default class Detail extends Component {
+class Detail extends Component {
     /**
      * Constructor
      */
@@ -14,10 +16,7 @@ export default class Detail extends Component {
         super();
 
         this.state = {
-            servers: Socket.data.servers,
-            matches: Socket.data.matches,
-            maps: Socket.data.maps,
-            match: false,
+            match: null,
             showDialog: false,
             serverAvailable: true
         };
@@ -32,19 +31,18 @@ export default class Detail extends Component {
      * Runs then component mounts
      */
     componentDidMount() {
-        Socket.on("update", (data) => this.onUpdate(data));
-        const match = findByIdInObjectArray(Socket.data.matches, this.props.id);
+        const match = findByIdInObjectArray(this.props.matches, this.props.id);
 
         this.setState({
             match: match,
-            serverAvailable: !checkServerAvailabilityForMatch(this.props.id, match.server, this.state.matches)
+            serverAvailable: !checkServerAvailabilityForMatch(this.props.id, match.server, this.props.matches)
         });
 
-        if(this.state.match === false) {
-            route('/');
+        console.log('this.state.match', this.state.match);
+
+        if (this.state.match === false) {
             return;
         }
-        console.log('this.state.match', this.state.match);
 
         document.title = `Match ${this.state.match.team1.name} v/s ${this.state.match.team2.name} | ${window.expressConfig.appName} ${window.expressConfig.env}`;
         window.events.emit('breadcrumbs', [
@@ -60,28 +58,19 @@ export default class Detail extends Component {
     }
 
     /**
-     * Runs before component unmounts
-     */
-    componentWillUnmount() {
-        Socket.off("update", (data) => this.onUpdate(data));
-    }
-
-    /**
-     * Updates the state based on data from the socket
+     * Runs when the component updates
      *
-     * @param data
+     * @param previousProps
      */
-    onUpdate(data) {
-        console.log('dataUpdate', data);
-        const match = findByIdInObjectArray(data.matches, this.props.id);
+    componentDidUpdate(previousProps) {
+        if(previousProps !== this.props) {
+            const match = findByIdInObjectArray(this.props.matches, this.props.id);
 
-        this.setState({
-            servers: data.servers,
-            matches: data.matches,
-            maps: data.maps,
-            match: match,
-            serverAvailable: !checkServerAvailabilityForMatch(this.props.id, match.server, this.state.matches)
-        });
+            this.setState({
+                match: match,
+                serverAvailable: !checkServerAvailabilityForMatch(this.props.id, match.server, this.props.matches)
+            });
+        }
     }
 
     /**
@@ -254,6 +243,18 @@ export default class Detail extends Component {
      * @returns {*}
      */
     render() {
+        if(this.state.match !== null) {
+            if(this.state.match === false) {
+                window.events.emit("notification", {
+                    title: "Match not found!",
+                    color: "danger"
+                });
+
+                route('/');
+                return;
+            }
+        }
+
         if(this.state.match) {
             return (
                 <div className="starter-template">
@@ -313,7 +314,7 @@ export default class Detail extends Component {
                                 <br/>
                                 <select name="map" id="map" title="map" className="form-control" disabled={this.state.match.status === 0 || this.state.match.status >= 99} ref={c => this.fields.map = c}>
                                     <option selected disabled value="false">Select map</option>
-                                    {this.state.maps.map((map, index) => (
+                                    {this.props.maps.map((map, index) => (
                                         <option key={index} value={map}>{map}</option>
                                     ))}
                                 </select>
@@ -339,3 +340,8 @@ export default class Detail extends Component {
         }
     }
 }
+
+/**
+ * Connect the store to the component
+ */
+export default connect('servers,matches,maps')(Detail);
