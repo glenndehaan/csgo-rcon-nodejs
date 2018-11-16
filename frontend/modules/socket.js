@@ -22,19 +22,6 @@ export default new class Socket {
         this.disconnectedCallback = disconnectedCallback;
         this.reconnectingCallback = reconnectingCallback;
 
-        this.callbacks = {
-            update: []
-        };
-
-        this.data = {
-            servers: [],
-            groups: [],
-            matches: [],
-            maps: [],
-            configs: {},
-            challonge: []
-        };
-
         this.setup();
     }
 
@@ -83,13 +70,6 @@ export default new class Socket {
 
             store.setState(message.data);
 
-            this.data.servers = message.data.servers;
-            this.data.groups = message.data.groups;
-            this.data.matches = message.data.matches;
-            this.data.maps = message.data.maps;
-            this.data.configs = message.data.configs;
-            this.data.challonge = message.data.challonge;
-
             this.connectedCallback();
         }
 
@@ -97,14 +77,6 @@ export default new class Socket {
             console.log(`[SOCKET] Update: ${JSON.stringify(message.data)}`);
 
             store.setState(message.data);
-
-            this.data.servers = message.data.servers;
-            this.data.groups = message.data.groups;
-            this.data.matches = message.data.matches;
-            this.data.maps = message.data.maps;
-            this.data.configs = message.data.configs;
-
-            this.runBoundFunctions("update", message.data);
         }
 
         if(message.instruction === "notification") {
@@ -117,43 +89,6 @@ export default new class Socket {
                     title: message.data.message,
                     color: message.data.color
                 });
-            }
-        }
-    }
-
-    /**
-     * Function to bind a callback for incoming socket messages
-     *
-     * @param instruction
-     * @param callback
-     */
-    on(instruction, callback) {
-        this.callbacks[instruction].push(callback);
-    }
-
-    /**
-     * Function to unbind a callback for incoming socket messages
-     *
-     * @param instruction
-     * @param callback
-     */
-    off(instruction, callback) {
-        const index = this.callbacks[instruction].indexOf(callback);
-        if (index > -1) {
-            this.callbacks[instruction].splice(index, 1);
-        }
-    }
-
-    /**
-     * Run all bound functions
-     *
-     * @param instruction
-     * @param data
-     */
-    runBoundFunctions(instruction, data) {
-        if(this.callbacks[instruction].length > 0) {
-            for(let callback = 0; callback < this.callbacks[instruction].length; callback++) {
-                this.callbacks[instruction][callback](data);
             }
         }
     }
