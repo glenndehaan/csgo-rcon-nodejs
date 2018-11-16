@@ -1,11 +1,12 @@
 import {h, Component} from 'preact';
 import { route } from 'preact-router';
+import { connect } from "unistore/preact";
 
 import Socket from "../modules/socket";
 import {getIsoCodes} from '../utils/Strings';
 import {findByIdInObjectArray} from "../utils/Arrays";
 
-export default class Edit extends Component {
+class Edit extends Component {
     /**
      * Constructor
      */
@@ -13,12 +14,8 @@ export default class Edit extends Component {
         super();
 
         this.state = {
-            servers: Socket.data.servers,
-            matches: Socket.data.matches,
-            groups: Socket.data.groups,
-            configs: Socket.data.configs,
             map: "",
-            match: false
+            match: null
         };
 
         this.fields = {
@@ -42,35 +39,18 @@ export default class Edit extends Component {
      * Runs then component mounts
      */
     componentDidMount() {
-        Socket.on("update", (data) => this.onUpdate(data));
-
-        const match = findByIdInObjectArray(Socket.data.matches, this.props.id);
+        const match = findByIdInObjectArray(this.props.matches, this.props.id);
 
         this.setState({
             match: match,
             map: match.map
         });
 
-        if(this.state.match === false) {
-            window.events.emit("notification", {
-                title: "Match not found!",
-                color: "danger"
-            });
-
-            route('/');
-            return;
-        }
-
-        if(this.state.match.status > 0) {
-            window.events.emit("notification", {
-                title: "You can't edit a match that is already started!",
-                color: "warning"
-            });
-
-            route('/');
-            return;
-        }
         console.log('this.state.match', this.state.match);
+
+        if (this.state.match === false || this.state.match > 0) {
+            return;
+        }
 
         document.title = `Edit match ${this.state.match.team1.name} v/s ${this.state.match.team2.name} | ${window.expressConfig.appName} ${window.expressConfig.env}`;
         window.events.emit('breadcrumbs', [
@@ -90,34 +70,13 @@ export default class Edit extends Component {
     }
 
     /**
-     * Runs before component unmounts
-     */
-    componentWillUnmount() {
-        Socket.off("update", (data) => this.onUpdate(data));
-    }
-
-    /**
-     * Updates the state based on data from the socket
-     *
-     * @param data
-     */
-    onUpdate(data) {
-        this.setState({
-            servers: data.servers,
-            matches: data.matches,
-            configs: data.configs,
-            groups: data.groups
-        });
-    }
-
-    /**
      * Updated the map based on the selected server
      */
     updateMapField() {
-        for(let item = 0; item < this.state.servers.length; item++) {
-            if(this.fields.server.value === (this.state.servers[item].ip + ":" + this.state.servers[item].port)) {
+        for(let item = 0; item < this.props.servers.length; item++) {
+            if(this.fields.server.value === (this.props.servers[item].ip + ":" + this.props.servers[item].port)) {
                 this.setState({
-                    map: this.state.servers[item].default_map
+                    map: this.props.servers[item].default_map
                 });
 
                 break;
@@ -126,9 +85,9 @@ export default class Edit extends Component {
     }
 
     /**
-     * Check's the fields and creates the match
+     * Check's the fields and edit the match
      */
-    createMatch() {
+    editMatch() {
         if(!this.checkFields()) {
             Socket.send("match_edit", {
                 id: this.state.match.id,
@@ -232,6 +191,28 @@ export default class Edit extends Component {
      * @returns {*}
      */
     render() {
+        if(this.state.match !== null) {
+            if (this.state.match === false) {
+                window.events.emit("notification", {
+                    title: "Match not found!",
+                    color: "danger"
+                });
+
+                route('/');
+                return;
+            }
+
+            if (this.state.match.status > 0) {
+                window.events.emit("notification", {
+                    title: "You can't edit a match that is already started!",
+                    color: "warning"
+                });
+
+                route('/');
+                return;
+            }
+        }
+
         if(this.state.match) {
             return (
                 <div className="starter-template">
@@ -286,7 +267,7 @@ export default class Edit extends Component {
                                         <td>Match Group</td>
                                         <td>
                                             <select title="match-group" name="match-group" id="match-group" className="form-control" ref={c => this.fields.match_group = c}>
-                                                {this.state.groups.map((group, index) => (
+                                                {this.props.groups.map((group, index) => (
                                                     <option key={index} value={group} selected={group === this.state.match.match_group}>{group}</option>
                                                 ))}
                                             </select>
@@ -296,7 +277,7 @@ export default class Edit extends Component {
                                         <td>Server</td>
                                         <td>
                                             <select title="server" name="server" id="server" className="form-control" onChange={() => this.updateMapField()} ref={c => this.fields.server = c}>
-                                                {this.state.servers.map((server, index) => (
+                                                {this.props.servers.map((server, index) => (
                                                     <option key={index} value={`${server.ip}:${server.port}`} selected={`${server.ip}:${server.port}` === this.state.match.server}>{`${server.ip}:${server.port}`}</option>
                                                 ))}
                                             </select>
@@ -310,7 +291,7 @@ export default class Edit extends Component {
                                         <td>CSGO Knife Config</td>
                                         <td>
                                             <select title="csgo-knife-config" name="csgo-knife-config" id="csgo-knife-config" className="form-control" ref={c => this.fields.knife_config = c}>
-                                                {this.state.configs.knife.map((config, index) => (
+                                                {this.props.configs.knife.map((config, index) => (
                                                     <option key={index} value={config} selected={config === this.state.match.knife_config}>{config}</option>
                                                 ))}
                                             </select>
@@ -320,7 +301,7 @@ export default class Edit extends Component {
                                         <td>CSGO Main Config</td>
                                         <td>
                                             <select title="csgo-main-config" name="csgo-main-config" id="csgo-main-config" className="form-control" ref={c => this.fields.main_config = c}>
-                                                {this.state.configs.main.map((config, index) => (
+                                                {this.props.configs.main.map((config, index) => (
                                                     <option key={index} value={config} selected={config === this.state.match.match_config}>{config}</option>
                                                 ))}
                                             </select>
@@ -329,7 +310,7 @@ export default class Edit extends Component {
                                     <tr>
                                         <td></td>
                                         <td>
-                                            <button type="button" className="btn btn-lg btn-success" id="submit" onClick={() => this.createMatch()}>Save</button>
+                                            <button type="button" className="btn btn-lg btn-success" id="submit" onClick={() => this.editMatch()}>Save</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -341,3 +322,8 @@ export default class Edit extends Component {
         }
     }
 }
+
+/**
+ * Connect the store to the component
+ */
+export default connect('servers,matches,groups,configs')(Edit);
