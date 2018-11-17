@@ -70,6 +70,9 @@ Checkout `csgo-rcon.json` since this is the db file.
 * ~~Server overview page to so available server where no matches are running~~
 * ~~Add breadcrumbs~~
 * ~~Add /settings force archive match~~
+* /about page with software info
+* Version update available based on GIT (GitHub)
+* Show development/production version
 
 ## License
 
