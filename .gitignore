@@ -16,3 +16,4 @@ npm-debug.log
 csgo-rcon.json
 *.log
 config.json
+app/src/config/version/version.txt

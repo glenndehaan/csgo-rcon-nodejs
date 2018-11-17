@@ -12,7 +12,8 @@
     "webpack": "webpack --watch --watch-poll --mode development --config ./_scripts/webpack/webpack.config.js",
     "prewebpack:production": "rimraf ./public/dist",
     "webpack:production": "cross-env NODE_ENV=production webpack --mode production --config ./_scripts/webpack/webpack.config.js",
-    "build": "npm run webpack:production && npm run server:build",
+    "prebuild": "git rev-parse HEAD > ./app/src/config/version/version.txt",
+    "build": "npm run webpack:production && npm run server:build && rm ./app/src/config/version/version.txt",
     "lint": "eslint -c ./package.json ./",
     "madge": "madge ./app/src && madge ./app/src --circular"
   },
@@ -20,6 +21,7 @@
     "assets": [
       "_scripts/config/*",
       "_scripts/csgo-configs/**/*",
+      "app/src/config/version/version.txt",
       "app/src/**/*.js",
       "app/src/**/*.ejs",
       "public/**/*"
@@ -104,6 +106,7 @@
     "srcds-rcon": "github:randunel/node-srcds-rcon",
     "uglify-es": "^3.3.10",
     "uglifyjs-webpack-plugin": "^2.0.1",
+    "unfetch": "^4.0.1",
     "unistore": "^3.1.0",
     "uuid": "^3.3.2",
     "webpack": "^4.25.1",

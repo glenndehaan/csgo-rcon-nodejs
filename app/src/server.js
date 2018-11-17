@@ -1,6 +1,7 @@
 /**
  * Import own modules
  */
+const version = require("./config/version");
 const config = require("./config");
 const log = require("./modules/logger");
 const database = require("./modules/database");
@@ -33,3 +34,4 @@ if(config.integrations.challonge.enabled) {
 }
 
 log.info("[SYSTEM] App running");
+log.info(`[SYSTEM] Version: ${version}`);

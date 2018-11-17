@@ -18,6 +18,7 @@ import NotFound from './components/NotFound';
 import Notification from './components/partials/Notification';
 import Breadcrumbs from "./components/partials/Breadcrumbs";
 import Footer from "./components/partials/Footer";
+import About from "./components/About";
 
 class App extends Component {
     /**
@@ -33,6 +34,8 @@ class App extends Component {
 
         Socket.initialize(window.location.host, () => this.connected(), () => this.disconnected() , () => this.reconnecting());
         window.events = mitt();
+        window.site = {};
+        window.site.production = process.env.NODE_ENV === 'production';
     }
 
     /**
@@ -110,6 +113,7 @@ class App extends Component {
                 <Detail path="/match/:id"/>
                 <Edit path="/match/:id/edit"/>
                 <Settings path="/settings"/>
+                <About path="/about"/>
                 <NotFound default/>
             </Router>
         )

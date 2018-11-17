@@ -1,4 +1,5 @@
 import {h, Component} from 'preact';
+import {Link} from 'preact-router/match';
 
 export default class Footer extends Component {
     /**
@@ -29,7 +30,7 @@ export default class Footer extends Component {
         return (
             <footer className="footer">
                 <div className="container">
-                    <span className="text">Loaded in: {this.state.loadTime} seconds | <a href="https://github.com/glenndehaan/csgo-rcon-nodejs" target="_blank" rel="noopener noreferrer" native>View on GitHub</a></span>
+                    <span className="text">Loaded in: {this.state.loadTime} seconds | <Link href="/about">About</Link></span>
                 </div>
             </footer>
         );

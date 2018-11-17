@@ -45,6 +45,12 @@ const routes = [
         controller: 'Index',
         action: 'index',
         secured: true
+    },
+    {
+        route: '/about',
+        method: 'get',
+        controller: 'Index',
+        action: 'index'
     }
 ];
 

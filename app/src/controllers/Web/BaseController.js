@@ -1,4 +1,5 @@
 const config = require("../../config");
+const version = require("../../config/version");
 const assets = require("../../modules/assets");
 
 class BaseController {
@@ -10,6 +11,7 @@ class BaseController {
             baseUrl: '',
             appName: '',
             env: '',
+            version: '',
             assets: {
                 js: false,
                 css: false
@@ -31,6 +33,7 @@ class BaseController {
         this.baseConfig.baseUrl = `${request.protocol}://${request.get('host')}${config.application.basePath}`;
         this.baseConfig.appName = config.application.name;
         this.baseConfig.env = config.application.env;
+        this.baseConfig.version = version;
 
         this.baseConfig.assets.js = files["main.js"];
         this.baseConfig.assets.css = files["main.css"];
