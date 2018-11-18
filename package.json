@@ -24,7 +24,8 @@
       "app/src/config/version/version.txt",
       "app/src/**/*.js",
       "app/src/**/*.ejs",
-      "public/**/*"
+      "LICENCE",
+      "README.md"
     ]
   },
   "bin": "app/src/bundle.js",
