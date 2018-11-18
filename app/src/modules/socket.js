@@ -116,7 +116,7 @@ class socket {
                     this.sendGeneralUpdate();
                     this.informAllSockets("notification", {
                         system: true,
-                        message: `Knife round started! Match: ${dataString.data.team1.name} v/s ${dataString.data.team2.name}`
+                        message: `Knife round started! Match: ${dbData.team1.name} v/s ${dbData.team2.name}`
                     });
                 }
 
@@ -130,7 +130,7 @@ class socket {
                     this.sendGeneralUpdate();
                     this.informAllSockets("notification", {
                         system: true,
-                        message: `Match started! Match: ${dataString.data.team1.name} v/s ${dataString.data.team2.name}`
+                        message: `Match started! Match: ${dbData.team1.name} v/s ${dbData.team2.name}`
                     });
                 }
 
@@ -144,7 +144,7 @@ class socket {
                     this.sendGeneralUpdate();
                     this.informAllSockets("notification", {
                         system: true,
-                        message: `Match ended! Match: ${dataString.data.team1.name} v/s ${dataString.data.team2.name}`
+                        message: `Match ended! Match: ${dbData.team1.name} v/s ${dbData.team2.name}`
                     });
                 }
 

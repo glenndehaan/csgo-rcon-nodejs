@@ -46,12 +46,12 @@ Checkout `csgo-rcon.json` since this is the db file.
 * ~~Add say to admin interface.~~
 * ~~Add broadcaster to config file.~~
 * ~~Fix restore server config file.~~ (Restore config is now optional)
-* Catch srcds error's. (Send cmd if rcon fails)
+* ~~Catch srcds error's. (Send cmd if rcon fails)~~
 * ~~Create one cmd for rcon. (Use in startMatch, reset) Let others use that.~~
-* Rcon reconnect?
+* ~~Rcon reconnect?~~ (Not possible with current package!)
 * Rcon server/match status? (V2)
 * ~~Challonge (API/Webhook) match import?~~
-* ~~Rewrite (server modules) to ES6 classes?~~ (Queue module remains for full refactor)
+* ~~Rewrite (server modules) to ES6 classes?~~
 * ~~Bootstrap Notification bar. (Showing that we are sending something)~~
 * ~~Add match groups~~
 * ~~Edit match~~
@@ -62,7 +62,7 @@ Checkout `csgo-rcon.json` since this is the db file.
 * ~~Challonge import complete notification update~~
 * ~~Settings icon active state stuck~~
 * ~~Restart game implement are you sure dialog~~
-* Rewrite queue module
+* ~~Rewrite queue module~~
 * ~~Filter matches on homepage (Not started, Running, Completed)~~
 * ~~/settings add archive complete matches function~~
 * ~~Disable match/server controls if match isn't started~~

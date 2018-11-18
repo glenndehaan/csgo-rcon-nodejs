@@ -1,3 +1,4 @@
+mp_warmup_end 1
 mp_ct_default_secondary ""
 mp_free_armor 1
 mp_give_player_c4 0
@@ -8,3 +9,4 @@ mp_roundtime 1.92
 mp_roundtime_defuse 1.92
 mp_roundtime_hostage 1.92
 mp_t_default_secondary ""
+bot_quota 0
