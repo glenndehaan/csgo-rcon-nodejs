@@ -42,7 +42,6 @@ Checkout `csgo-rcon.json` since this is the db file.
 
 ## TODO's
 * ~~Lock matches on same server when one match is running.~~
-* Readonly mode after first user opens the match admin panel.
 * ~~Fix production PKG build.~~
 * ~~Add say to admin interface.~~
 * ~~Add broadcaster to config file.~~
@@ -50,7 +49,7 @@ Checkout `csgo-rcon.json` since this is the db file.
 * Catch srcds error's. (Send cmd if rcon fails)
 * ~~Create one cmd for rcon. (Use in startMatch, reset) Let others use that.~~
 * Rcon reconnect?
-* Rcon server/match status?
+* Rcon server/match status? (V2)
 * ~~Challonge (API/Webhook) match import?~~
 * ~~Rewrite (server modules) to ES6 classes?~~ (Queue module remains for full refactor)
 * ~~Bootstrap Notification bar. (Showing that we are sending something)~~
@@ -73,6 +72,7 @@ Checkout `csgo-rcon.json` since this is the db file.
 * ~~/about page with software info~~
 * ~~Version update available based on GIT (GitHub)~~
 * ~~Show development/production version~~
+* Autosetup server (V3)
 
 ## License
 
