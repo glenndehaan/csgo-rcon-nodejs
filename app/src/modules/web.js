@@ -54,6 +54,14 @@ class web {
         app.use(bodyParser.json());
 
         /**
+         * Request logger
+         */
+        app.use((req, res, next) => {
+            log.trace(`[WEB][REQUEST]: ${req.originalUrl}`);
+            next();
+        });
+
+        /**
          * Configure routers
          */
         app.use('/', webRouter.router);
