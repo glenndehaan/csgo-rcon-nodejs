@@ -75,6 +75,7 @@ class socket {
                 if (dataString.instruction === "match_create") {
                     log.info(`[SOCKET][${ws.id}] Created a new match! RAW: ${JSON.stringify(dataString.data)}`);
                     dataString.data.challonge = false;
+                    dataString.data.server_data = false;
                     db.push("/match[]", dataString.data);
 
                     this.sendGeneralUpdate();
@@ -86,7 +87,7 @@ class socket {
 
                 if (dataString.instruction === "match_edit") {
                     log.info(`[SOCKET][${ws.id}] Edited a match! RAW: ${JSON.stringify(dataString.data)}`);
-                    dataString.data.challonge = false;
+                    dataString.data.server_data = false;
 
                     const matches = db.getData("/match");
                     let index = 0;

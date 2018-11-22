@@ -14,6 +14,12 @@ const routes = [
         method: 'get',
         controller: 'Index',
         action: 'index'
+    },
+    {
+        route: '/csgo/:ip/:port',
+        method: 'post',
+        controller: 'Csgo',
+        action: 'index'
     }
 ];
 

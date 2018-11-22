@@ -104,6 +104,7 @@ class Edit extends Component {
                 knife_config: this.fields.knife_config.value,
                 match_config: this.fields.main_config.value,
                 server: this.fields.server.value,
+                challonge: this.state.match.challonge,
                 status: 0
             });
 

@@ -98,7 +98,8 @@ class challonge {
                                         match_config: mainConfig,
                                         server: `${serverDetails.ip}:${serverDetails.port}`,
                                         status: 0,
-                                        challonge: matchId
+                                        challonge: matchId,
+                                        server_data: false
                                     });
 
                                     completed++;

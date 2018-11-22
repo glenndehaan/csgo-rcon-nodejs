@@ -15,6 +15,7 @@ class rcon {
     constructor() {
         this.rcon = {};
         this.broadcasters = {};
+        this.pluginAvailable = {};
 
         this.init();
     }
@@ -32,6 +33,7 @@ class rcon {
 
             this.rcon[`${config.servers[item].ip}:${config.servers[item].port}`].connect().then(() => {
                 log.info(`[RCON INIT][${config.servers[item].ip}:${config.servers[item].port}] Server ready `);
+                this.checkPlugin(`${config.servers[item].ip}:${config.servers[item].port}`);
 
                 if(config.broadcaster.enabled) {
                     this.initBroadcaster(`${config.servers[item].ip}:${config.servers[item].port}`);
@@ -212,6 +214,38 @@ class rcon {
             }).catch((error) => {
                 log.error(`[RCON][${server}] Error: ${error}`);
                 queue.complete(server);
+            });
+        });
+    }
+
+    /**
+     * Checks if the custom CSGO Remote plugin is available on the server
+     *
+     * @param server
+     */
+    checkPlugin(server) {
+        queue.add(server, () => {
+            this.rcon[server].command("sm_csgo_remote").then(source => {
+                queue.complete(server);
+
+                try {
+                    const available = JSON.parse(source.split("\n")[0]);
+
+                    if(available.enabled) {
+                        log.info(`[RCON][${server}] Plugin is available!`);
+                        this.pluginAvailable[server] = true;
+                    } else {
+                        log.warn(`[RCON][${server}]: Plugin isn't available!`);
+                        this.pluginAvailable[server] = false;
+                    }
+                } catch(e) {
+                    log.warn(`[RCON][${server}]: Plugin isn't available!`);
+                    this.pluginAvailable[server] = false;
+                }
+            }).catch(() => {
+                log.warn(`[RCON][${server}]: Plugin isn't available!`);
+                queue.complete(server);
+                this.pluginAvailable[server] = false;
             });
         });
     }
