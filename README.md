@@ -73,6 +73,7 @@ Checkout `csgo-rcon.json` since this is the db file.
 * ~~Version update available based on GIT (GitHub)~~
 * ~~Show development/production version~~
 * Autosetup server (V3)
+* Match control password protect at match create
 
 ## License
 

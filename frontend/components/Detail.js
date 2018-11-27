@@ -263,24 +263,28 @@ class Detail extends Component {
                     <div className="row">
                         <div className="col-md-8">
                             <h4>Match details</h4>
-                            Match Group: {this.state.match.match_group}<br/>
-                            <br/>
-                            Team 1 Name: {this.state.match.team1.name}<br/>
-                            Team 1 Country: {this.state.match.team1.country}<br/>
-                            <br/>
-                            Team 2 Name: {this.state.match.team2.name}<br/>
-                            Team 2 Country: {this.state.match.team2.country}<br/>
-                            <br/>
-                            Server: {this.state.match.server}<br/>
-                            Map: {this.state.match.map}<br/>
-                            CSGO Knife Config: {this.state.match.knife_config}<br/>
-                            CSGO Main Config: {this.state.match.match_config}<br/>
-                            Current match status: {`${statusResolver(this.state.match.status)} (${this.state.match.status})`}
+                            <div>
+                                Match Group: {this.state.match.match_group}<br/>
+                                <br/>
+                                Team 1 Name: {this.state.match.team1.name}<br/>
+                                Team 1 Country: {this.state.match.team1.country}<br/>
+                                <br/>
+                                Team 2 Name: {this.state.match.team2.name}<br/>
+                                Team 2 Country: {this.state.match.team2.country}<br/>
+                                <br/>
+                                Server: {this.state.match.server}<br/>
+                                Map: {this.state.match.map}<br/>
+                                CSGO Knife Config: {this.state.match.knife_config}<br/>
+                                CSGO Main Config: {this.state.match.match_config}<br/>
+                                Current match status: {`${statusResolver(this.state.match.status)} (${this.state.match.status})`}<br/>
+                            </div><br/>
+                            <h4>Live scoring</h4>
+                            {this.state.match.server_data && this.renderLiveScoring(this.state.match)}
                         </div>
                         <div className="col-md-4 mt-5 mt-md-0">
                             <h4>Match controls</h4>
                             {this.state.match.status >= 99 && <span className="status-error">Match controls locked! Reason:<br/>This match has already ended!</span>}
-                            {!this.state.serverAvailable && <span className="status-error">Match controls locked! Reason:<br/>Another match is already running on the same server!</span>}
+                            {this.state.match.status < 99 && !this.state.serverAvailable && <span className="status-error">Match controls locked! Reason:<br/>Another match is already running on the same server!</span>}
                             <div>
                                 <button type='button' className='btn btn-sm btn-success btn-detail' disabled={this.state.match.status >= 99 || !this.state.serverAvailable} onClick={() => this.startKnife()}>
                                     Start knife round
@@ -338,6 +342,131 @@ class Detail extends Component {
                 </div>
             );
         }
+    }
+
+    /**
+     * Renders the match live scoring
+     *
+     * @param match
+     * @returns {*}
+     */
+    renderLiveScoring(match) {
+        console.log('match', match);
+        const ct = [
+            {
+                name: "Player 1",
+                kills: 0,
+                assists: 0,
+                deaths: 0
+            },
+            {
+                name: "Player 2",
+                kills: 0,
+                assists: 0,
+                deaths: 0
+            },
+            {
+                name: "Player 3",
+                kills: 0,
+                assists: 0,
+                deaths: 0
+            },
+            {
+                name: "Player 4",
+                kills: 0,
+                assists: 0,
+                deaths: 0
+            },
+            {
+                name: "Player 5",
+                kills: 0,
+                assists: 0,
+                deaths: 0
+            }
+        ];
+
+        const t = [
+            {
+                name: "Player 6",
+                kills: 0,
+                assists: 0,
+                deaths: 0
+            },
+            {
+                name: "Player 7",
+                kills: 0,
+                assists: 0,
+                deaths: 0
+            },
+            {
+                name: "Player 8",
+                kills: 0,
+                assists: 0,
+                deaths: 0
+            },
+            {
+                name: "Player 9",
+                kills: 0,
+                assists: 0,
+                deaths: 0
+            },
+            {
+                name: "Player 10",
+                kills: 0,
+                assists: 0,
+                deaths: 0
+            }
+        ];
+
+        return (
+            <div>
+                <span>$team1 ($team1_current_side) v/s $team2 ($team2_current_side) ($team1_score/$team2_score)</span><br/>
+                <br/>
+                <h5>CT ($team1 - $team1_score)</h5>
+                <table className="table table-striped">
+                    <thead className="thead-dark">
+                        <tr>
+                            <th>Player</th>
+                            <th>K</th>
+                            <th>A</th>
+                            <th>D</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {ct.map((player, index) => (
+                            <tr key={index}>
+                                <td>{player.name}</td>
+                                <td>{player.kills}</td>
+                                <td>{player.assists}</td>
+                                <td>{player.deaths}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                <br/>
+                <h5>T ($team2 - $team2_score)</h5>
+                <table className="table table-striped">
+                    <thead className="thead-dark">
+                        <tr>
+                            <th>Player</th>
+                            <th>K</th>
+                            <th>A</th>
+                            <th>D</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {t.map((player, index) => (
+                            <tr key={index}>
+                                <td>{player.name}</td>
+                                <td>{player.kills}</td>
+                                <td>{player.assists}</td>
+                                <td>{player.deaths}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        );
     }
 }
 
