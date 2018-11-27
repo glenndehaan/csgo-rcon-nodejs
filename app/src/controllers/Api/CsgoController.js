@@ -1,6 +1,8 @@
 const baseController = require('./BaseController');
-const {checkServerAvailability} = require('../../utils/Arrays');
+const log = require('../../modules/logger');
 const db = require('../../modules/database').db;
+const socket = require('../../modules/socket');
+const {findIndexById, checkServerAvailability} = require('../../utils/Arrays');
 
 class CsgoController extends baseController {
     constructor() {
@@ -14,14 +16,14 @@ class CsgoController extends baseController {
      * @param res
      */
     indexAction(req, res) {
-        console.log('here');
-        console.log('req.body', req.body);
-
-        console.log('req.params', req.params);
-
         const match = checkServerAvailability(`${req.params.ip}:${req.params.port}`, db.getData("/match"));
-        if(match) {
-            console.log('match', match);
+        const index = findIndexById(db.getData("/match"), match.id);
+
+        if(match && index) {
+            log.info(`[API][${req.params.ip}:${req.params.port}] Server send live score update`);
+            db.push(`/match[${index}]/server_data`, req.body);
+
+            socket.sendGeneralUpdate();
         }
 
         this.jsonResponse(res, 200, { 'message': 'OK' });

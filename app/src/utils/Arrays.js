@@ -1,6 +1,23 @@
 const database = require("../modules/database").db;
 
 /**
+ * Find index by id in an array
+ *
+ * @param array
+ * @param id
+ * @return bool|object
+ */
+function findIndexById(array, id) {
+    for(let item = 0; item < array.length; item++) {
+        if(array[item].id === id) {
+            return item;
+        }
+    }
+
+    return false;
+}
+
+/**
  * Find the challonge param in an array
  *
  * @param array
@@ -54,4 +71,4 @@ function checkServerAvailability(server, matches) {
     return false;
 }
 
-module.exports = {findByChallonge, getAllChallonge, checkServerAvailability};
+module.exports = {findIndexById, findByChallonge, getAllChallonge, checkServerAvailability};

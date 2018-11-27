@@ -279,6 +279,7 @@ class Detail extends Component {
                                 Current match status: {`${statusResolver(this.state.match.status)} (${this.state.match.status})`}<br/>
                             </div><br/>
                             <h4>Live scoring</h4>
+                            {!this.state.match.server_data && <span className="status-error">No scores available yet...</span>}
                             {this.state.match.server_data && this.renderLiveScoring(this.state.match)}
                         </div>
                         <div className="col-md-4 mt-5 mt-md-0">
