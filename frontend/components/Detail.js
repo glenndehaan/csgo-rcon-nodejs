@@ -352,78 +352,11 @@ class Detail extends Component {
      * @returns {*}
      */
     renderLiveScoring(match) {
-        console.log('match', match);
-        const ct = [
-            {
-                name: "Player 1",
-                kills: 0,
-                assists: 0,
-                deaths: 0
-            },
-            {
-                name: "Player 2",
-                kills: 0,
-                assists: 0,
-                deaths: 0
-            },
-            {
-                name: "Player 3",
-                kills: 0,
-                assists: 0,
-                deaths: 0
-            },
-            {
-                name: "Player 4",
-                kills: 0,
-                assists: 0,
-                deaths: 0
-            },
-            {
-                name: "Player 5",
-                kills: 0,
-                assists: 0,
-                deaths: 0
-            }
-        ];
-
-        const t = [
-            {
-                name: "Player 6",
-                kills: 0,
-                assists: 0,
-                deaths: 0
-            },
-            {
-                name: "Player 7",
-                kills: 0,
-                assists: 0,
-                deaths: 0
-            },
-            {
-                name: "Player 8",
-                kills: 0,
-                assists: 0,
-                deaths: 0
-            },
-            {
-                name: "Player 9",
-                kills: 0,
-                assists: 0,
-                deaths: 0
-            },
-            {
-                name: "Player 10",
-                kills: 0,
-                assists: 0,
-                deaths: 0
-            }
-        ];
-
         return (
             <div>
-                <span>$team1 ($team1_current_side) v/s $team2 ($team2_current_side) ($team1_score/$team2_score)</span><br/>
+                <span>{match.server_data.CT.team_name} (CT) v/s {match.server_data.T.team_name} (T) ({match.server_data.match.CT} / {match.server_data.match.T})</span><br/>
                 <br/>
-                <h5>CT ($team1 - $team1_score)</h5>
+                <h5>CT ({match.server_data.CT.team_name} - {match.server_data.match.CT})</h5>
                 <table className="table table-striped">
                     <thead className="thead-dark">
                         <tr>
@@ -434,7 +367,7 @@ class Detail extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {ct.map((player, index) => (
+                        {match.server_data.CT.players.map((player, index) => (
                             <tr key={index}>
                                 <td>{player.name}</td>
                                 <td>{player.kills}</td>
@@ -445,7 +378,7 @@ class Detail extends Component {
                     </tbody>
                 </table>
                 <br/>
-                <h5>T ($team2 - $team2_score)</h5>
+                <h5>T ({match.server_data.T.team_name} - {match.server_data.match.T})</h5>
                 <table className="table table-striped">
                     <thead className="thead-dark">
                         <tr>
@@ -456,7 +389,7 @@ class Detail extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {t.map((player, index) => (
+                        {match.server_data.T.players.map((player, index) => (
                             <tr key={index}>
                                 <td>{player.name}</td>
                                 <td>{player.kills}</td>
