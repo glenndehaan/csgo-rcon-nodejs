@@ -234,6 +234,10 @@ class rcon {
                     if(available.enabled) {
                         log.info(`[RCON][${server}] Plugin is available!`);
                         this.pluginAvailable[server] = true;
+
+                        log.trace(`[RCON] Plugin CURL: ${config.application.baseUrl}/api/csgo/${server.split(":")[0]}/${server.split(":")[1]}'`);
+                        // Send server URL to use for CURL
+                        this.cmd(server, `sm_csgo_remote_url '${config.application.baseUrl}/api/csgo/${server.split(":")[0]}/${server.split(":")[1]}'`, "Update CSGO Remote CURL URL");
                     } else {
                         log.warn(`[RCON][${server}]: Plugin isn't available!`);
                         this.pluginAvailable[server] = false;
