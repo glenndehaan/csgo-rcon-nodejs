@@ -21,16 +21,18 @@ class CsgoController extends baseController {
         const index = findIndexById(db.getData("/match"), match.id);
 
         if(match && index) {
-            log.info(`[API][${req.params.ip}:${req.params.port}] Server send live score update`);
-            db.push(`/match[${index}]/server_data`, req.body);
+            if(typeof match.server_data.locked === "undefined" || match.server_data.locked === false) {
+                log.info(`[API][${req.params.ip}:${req.params.port}] Server send live score update`);
+                db.push(`/match[${index}]/server_data`, req.body);
 
-            socket.sendGeneralUpdate();
+                socket.sendGeneralUpdate();
 
-            // Auto pause match after knife round
-            if(match.status === 1 && (req.body.match.CT === 1 || req.body.match.T === 1)) {
-                log.info(`[API][${req.params.ip}:${req.params.port}] Pausing match since knife round is over!`);
-                rcon.cmd(`${req.params.ip}:${req.params.port}`, 'mp_pause_match', 'Auto pause match');
-                rcon.cmd(`${req.params.ip}:${req.params.port}`, "say 'Waiting for admin to start match...'", 'Auto pause match say');
+                // Auto pause match after knife round
+                if (match.status === 1 && (req.body.match.CT === 1 || req.body.match.T === 1)) {
+                    log.info(`[API][${req.params.ip}:${req.params.port}] Pausing match since knife round is over!`);
+                    rcon.cmd(`${req.params.ip}:${req.params.port}`, 'mp_pause_match', 'Auto pause match');
+                    rcon.cmd(`${req.params.ip}:${req.params.port}`, "say 'Waiting for admin to start match...'", 'Auto pause match say');
+                }
             }
         }
 

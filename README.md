@@ -74,7 +74,7 @@ Checkout `csgo-rcon.json` since this is the db file.
 * ~~Show development/production version~~
 * Autosetup server (V3)
 * Match control password protect at match create
-* Plugin: Lock match data after match_end
+* ~~Plugin: Lock match data after match_end~~ (Needs testing)
 * Plugin: Split connect server/start match
 * Plugin: Add start warmup button
 * Plugin: Autoflow Connect Server->Warmup->Start Knife->Knife (End)->Warmup->Start match->Match end->Auto restore server
