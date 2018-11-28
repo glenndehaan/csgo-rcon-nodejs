@@ -3,7 +3,8 @@
     "companyName": "A Company",
     "csgoConfigFolder": "./csgo-configs",
     "host": "0.0.0.0",
-    "port": 3542
+    "port": 3542,
+    "baseUrl": "http://CURRENTIP:3542"
   },
   "logger": {
     "location": "./log",
