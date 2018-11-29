@@ -101,22 +101,14 @@ class rcon {
     }
 
     /**
-     * Function to start a match
+     * Prepares the server before a match starts
      *
      * @param server
      * @param matchInfo
-     * @param type
      */
-    startMatch(server, matchInfo, type = "main") {
+    prepareServer(server, matchInfo) {
         const team1 = matchInfo.team1;
         const team2 = matchInfo.team2;
-        const match_config = (type === "main") ? matchInfo.match_config : matchInfo.knife_config;
-        const message = (type === "main") ? "Live!!!" : "Knife!!!";
-
-        /**
-         * Load External config file
-         */
-        this.loadExternalCSGOConfig(server, match_config, type);
 
         /**
          * Set hostname for match
@@ -134,6 +126,55 @@ class rcon {
          */
         this.cmd(server, `mp_teamflag_1 "${team1.country}"`, 'Teamflag 1 change');
         this.cmd(server, `mp_teamflag_2 "${team2.country}"`, 'Teamflag 2 change');
+
+        /**
+         * Restart game
+         */
+        this.cmd(server, 'mp_restartgame 1', 'Restart game');
+
+        log.info(`[RCON][${server}] Server config ready!`);
+    }
+
+    /**
+     * Starts the warmup for a server
+     *
+     * @param server
+     */
+    startWarmup(server) {
+        const config = `
+            // CS:GO Warmup Config
+            // 07.10.2014
+            
+            mp_maxmoney 250000
+            mp_startmoney 250000
+            mp_warmuptime 80281
+            mp_warmup_start 1
+        `;
+        const exported_lines = splitByByteLength(csgoConfig.process(config), 512, '; ');
+
+        for(let item = 0; item < exported_lines.length; item++) {
+            log.trace(`[RCON] Config Line: ${JSON.stringify(exported_lines[item])}`);
+            this.cmd(server, exported_lines[item]);
+        }
+
+        log.info(`[RCON][${server}] Warmup config loaded!`);
+    }
+
+    /**
+     * Function to start a match
+     *
+     * @param server
+     * @param matchInfo
+     * @param type
+     */
+    startMatch(server, matchInfo, type = "main") {
+        const match_config = (type === "main") ? matchInfo.match_config : matchInfo.knife_config;
+        const message = (type === "main") ? "Live!!!" : "Knife!!!";
+
+        /**
+         * Load External config file
+         */
+        this.loadExternalCSGOConfig(server, match_config, type);
 
         /**
          * Restart game

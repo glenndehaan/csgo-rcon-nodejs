@@ -39,11 +39,19 @@ function statusResolver(statusCode) {
     }
 
     if (statusCode === 1) {
-        return "Knife round running";
+        return "Server connected";
     }
 
     if (statusCode === 2) {
+        return "Knife round running";
+    }
+
+    if (statusCode === 3) {
         return "Match running";
+    }
+
+    if (statusCode === 20) {
+        return "Warmup running";
     }
 
     if (statusCode === 50) {

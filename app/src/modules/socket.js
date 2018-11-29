@@ -107,13 +107,38 @@ class socket {
                     });
                 }
 
+                if (dataString.instruction === "match_connect_server") {
+                    log.info(`[SOCKET][${ws.id}] Connects server match ID: ${dataString.data.id}`);
+
+                    const dbData = db.getData(`/match[${dataString.data.id}]`);
+                    rcon.prepareServer(dbData.server, dbData);
+                    rcon.startWarmup(dbData.server);
+
+                    db.push(`/match[${dataString.data.id}]/status`, 1);
+                    this.sendGeneralUpdate();
+                }
+
+                if (dataString.instruction === "match_start_warmup") {
+                    log.info(`[SOCKET][${ws.id}] Starts warmup match ID: ${dataString.data.id}`);
+
+                    const dbData = db.getData(`/match[${dataString.data.id}]`);
+                    rcon.startWarmup(dbData.server);
+
+                    db.push(`/match[${dataString.data.id}]/status`, 20);
+                    this.sendGeneralUpdate();
+                    this.informAllSockets("notification", {
+                        system: true,
+                        message: `Warmup started! Match: ${dbData.team1.name} v/s ${dbData.team2.name}`
+                    });
+                }
+
                 if (dataString.instruction === "match_start_knife") {
-                    log.info(`[SOCKET][${ws.id}] Starts match ID: ${dataString.data.id}`);
+                    log.info(`[SOCKET][${ws.id}] Starts knife round match ID: ${dataString.data.id}`);
 
                     const dbData = db.getData(`/match[${dataString.data.id}]`);
                     rcon.startMatch(dbData.server, dbData, "knife");
 
-                    db.push(`/match[${dataString.data.id}]/status`, 1);
+                    db.push(`/match[${dataString.data.id}]/status`, 2);
                     this.sendGeneralUpdate();
                     this.informAllSockets("notification", {
                         system: true,
@@ -127,7 +152,7 @@ class socket {
                     const dbData = db.getData(`/match[${dataString.data.id}]`);
                     rcon.startMatch(dbData.server, dbData, "main");
 
-                    db.push(`/match[${dataString.data.id}]/status`, 2);
+                    db.push(`/match[${dataString.data.id}]/status`, 3);
                     this.sendGeneralUpdate();
                     this.informAllSockets("notification", {
                         system: true,

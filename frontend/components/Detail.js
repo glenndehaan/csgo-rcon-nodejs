@@ -17,7 +17,8 @@ class Detail extends Component {
 
         this.state = {
             match: null,
-            showDialog: false,
+            showConnectDialog: false,
+            showRestartDialog: false,
             serverAvailable: true
         };
 
@@ -71,6 +72,36 @@ class Detail extends Component {
                 serverAvailable: !checkServerAvailabilityForMatch(this.props.id, match.server, this.props.matches)
             });
         }
+    }
+
+    /**
+     * Connects to the server
+     */
+    connectServer() {
+        this.closeConnectDialog();
+
+        window.events.emit("notification", {
+            title: "Connecting to server...",
+            color: "primary"
+        });
+
+        Socket.send("match_connect_server", {
+            id: parseInt(this.state.match.index)
+        });
+    }
+
+    /**
+     * Starts the warmup
+     */
+    startWarmup() {
+        window.events.emit("notification", {
+            title: "Warmup starting...",
+            color: "primary"
+        });
+
+        Socket.send("match_start_warmup", {
+            id: parseInt(this.state.match.index)
+        });
     }
 
     /**
@@ -222,9 +253,27 @@ class Detail extends Component {
     /**
      * Shows the restart game dialog
      */
+    showConnectDialog() {
+        this.setState({
+            showConnectDialog: true
+        });
+    }
+
+    /**
+     * Hide the restart game dialog
+     */
+    closeConnectDialog() {
+        this.setState({
+            showConnectDialog: false
+        });
+    }
+
+    /**
+     * Shows the restart game dialog
+     */
     showRestartGameDialog() {
         this.setState({
-            showDialog: true
+            showRestartDialog: true
         });
     }
 
@@ -233,7 +282,7 @@ class Detail extends Component {
      */
     closeRestartGameDialog() {
         this.setState({
-            showDialog: false
+            showRestartDialog: false
         });
     }
 
@@ -258,7 +307,8 @@ class Detail extends Component {
         if(this.state.match) {
             return (
                 <div className="starter-template">
-                    {this.state.showDialog ? <Alert yes={() => this.restartGame()} no={() => this.closeRestartGameDialog()} title="Restart game?" body="Warning! This will set all scores to 0 and restart the complete match!"/> : null}
+                    {this.state.showConnectDialog ? <Alert yes={() => this.connectServer()} no={() => this.closeConnectDialog()} title="Connect to server?" body="Please note: You have to be connected to the CS:GO server before connecting here!"/> : null}
+                    {this.state.showRestartDialog ? <Alert yes={() => this.restartGame()} no={() => this.closeRestartGameDialog()} title="Restart game?" body="Warning! This will set all scores to 0 and restart the complete match!"/> : null}
                     <h3>Match {this.state.match.team1.name} v/s {this.state.match.team2.name}</h3>
                     <div className="row">
                         <div className="col-md-8">
@@ -287,11 +337,19 @@ class Detail extends Component {
                             {this.state.match.status >= 99 && <span className="status-error">Match controls locked! Reason:<br/>This match has already ended!</span>}
                             {this.state.match.status < 99 && !this.state.serverAvailable && <span className="status-error">Match controls locked! Reason:<br/>Another match is already running on the same server!</span>}
                             <div>
-                                <button type='button' className='btn btn-sm btn-success btn-detail' disabled={this.state.match.status >= 99 || !this.state.serverAvailable} onClick={() => this.startKnife()}>
+                                <button type='button' className='btn btn-sm btn-warning btn-detail' disabled={this.state.match.status >= 99 || !this.state.serverAvailable} onClick={() => this.showConnectDialog()}>
+                                    Connect server
+                                </button>
+                                <br/>
+                                <button type='button' className='btn btn-sm btn-success btn-detail' disabled={this.state.match.status === 0 || this.state.match.status >= 99} onClick={() => this.startWarmup()}>
+                                    Start warmup
+                                </button>
+                                <br/>
+                                <button type='button' className='btn btn-sm btn-success btn-detail' disabled={this.state.match.status === 0 || this.state.match.status >= 99} onClick={() => this.startKnife()}>
                                     Start knife round
                                 </button>
                                 <br/>
-                                <button type='button' className='btn btn-sm btn-success btn-detail' disabled={this.state.match.status >= 99 || !this.state.serverAvailable} onClick={() => this.startMatch()}>
+                                <button type='button' className='btn btn-sm btn-success btn-detail' disabled={this.state.match.status === 0 || this.state.match.status >= 99} onClick={() => this.startMatch()}>
                                     Start match
                                 </button>
                                 <br/>

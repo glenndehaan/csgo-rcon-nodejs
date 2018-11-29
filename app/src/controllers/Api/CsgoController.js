@@ -27,11 +27,19 @@ class CsgoController extends baseController {
 
                 socket.sendGeneralUpdate();
 
-                // Auto pause match after knife round
-                if (match.status === 1 && (req.body.match.CT === 1 || req.body.match.T === 1)) {
+                // Auto start warmup after knife round
+                if (match.status === 2 && (req.body.match.CT === 1 || req.body.match.T === 1)) {
                     log.info(`[API][${req.params.ip}:${req.params.port}] Pausing match since knife round is over!`);
-                    rcon.cmd(`${req.params.ip}:${req.params.port}`, 'mp_pause_match', 'Auto pause match');
+                    db.push(`/match[${index}]/status`, 20);
                     rcon.cmd(`${req.params.ip}:${req.params.port}`, "say 'Waiting for admin to start match...'", 'Auto pause match say');
+                    rcon.cmd(`${req.params.ip}:${req.params.port}`, 'exec gamemode_competitive', 'Gamemode update');
+                    rcon.startWarmup(`${req.params.ip}:${req.params.port}`);
+                }
+
+                if(match.status === 3 && req.body.status === "match_end") {
+                    log.info(`[API][${req.params.ip}:${req.params.port}] Restoring server since match is over!`);
+                    db.push(`/match[${index}]/status`, 99);
+                    rcon.reset(`${req.params.ip}:${req.params.port}`);
                 }
             }
         }
