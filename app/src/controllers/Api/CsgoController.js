@@ -23,7 +23,32 @@ class CsgoController extends baseController {
         if(match && index) {
             if(typeof match.server_data.locked === "undefined" || match.server_data.locked === false) {
                 log.info(`[API][${req.params.ip}:${req.params.port}] Server send live score update`);
-                db.push(`/match[${index}]/server_data`, req.body);
+                const serverData = {};
+                serverData.status = req.body.status;
+                serverData.locked = req.body.locked;
+                serverData.match = req.body.match;
+                serverData.CT = {
+                    team_name: "Counter-Terrorists",
+                    players: []
+                };
+                serverData.T = {
+                    team_name: "Terrorists",
+                    players: []
+                };
+
+                for(let player = 0; player < req.body.players.length; player++) {
+                    const playerData = req.body.players[player];
+
+                    if(playerData.team === 1) {
+                        serverData.CT.players.push(playerData);
+                    }
+
+                    if(playerData.team === 2) {
+                        serverData.T.players.push(playerData);
+                    }
+                }
+
+                db.push(`/match[${index}]/server_data`, serverData);
 
                 socket.sendGeneralUpdate();
 
