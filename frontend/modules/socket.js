@@ -66,7 +66,7 @@ export default new class Socket {
         const message = JSON.parse(decodedMessage);
 
         if(message.instruction === "init") {
-            console.log(`[SOCKET] Init: ${JSON.stringify(message.data)}`);
+            console.log('[SOCKET] Init', message.data);
 
             store.setState(message.data);
 
@@ -74,13 +74,13 @@ export default new class Socket {
         }
 
         if(message.instruction === "update") {
-            console.log(`[SOCKET] Update: ${JSON.stringify(message.data)}`);
+            console.log('[SOCKET] Update', message.data);
 
             store.setState(message.data);
         }
 
         if(message.instruction === "notification") {
-            console.log(`[SOCKET] Notification: ${JSON.stringify(message.data)}`);
+            console.log('[SOCKET] Notification', message.data);
 
             if(message.data.system) {
                 systemNotification.sendNotification(message.data.message);
