@@ -86,6 +86,7 @@
     "compression": "^1.7.3",
     "cross-env": "^5.2.0",
     "css-loader": "^0.28.11",
+    "csvtojson": "^2.0.8",
     "deepmerge": "^2.2.1",
     "ejs": "^2.6.1",
     "express": "^4.16.4",

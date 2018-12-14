@@ -1,6 +1,7 @@
 import {h, Component} from 'preact';
 
 import Challonge from "./integrations/Challonge";
+import Csv from "./integrations/Csv";
 import Archive from "./integrations/Archive";
 import MatchGroups from "./integrations/MatchGroups";
 import ForceArchive from "./integrations/ForceArchive";
@@ -36,6 +37,8 @@ export default class Settings extends Component {
                 <MatchGroups/>
                 <hr/>
                 <Challonge/>
+                <hr/>
+                <Csv/>
                 <hr/>
                 <Archive/>
                 <hr/>
