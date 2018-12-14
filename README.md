@@ -78,7 +78,7 @@ Checkout `csgo-rcon.json` since this is the db file.
 * ~~Plugin: Split connect server/start match~~
 * ~~Plugin: Add start warmup button~~
 * ~~Plugin: Autoflow Connect Server->Warmup->Start Knife->Knife (End)->Warmup->Start match->Match end->Auto restore server~~
-* CSV Import matches (In Progress)
+* ~~CSV Import matches~~
 
 ## License
 

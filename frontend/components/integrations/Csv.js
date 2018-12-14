@@ -1,7 +1,7 @@
 import {h, Component} from 'preact';
 import { connect } from "unistore/preact";
 
-// import Socket from "../../modules/socket";
+import Socket from "../../modules/socket";
 import {route} from "preact-router";
 
 import csvtojson from "csvtojson";
@@ -64,18 +64,19 @@ class Csv extends Component {
     }
 
     /**
-     * Send the request to the socket to start importing the challonge matches
+     * Send the request to the socket to start importing the csv matches
      */
-    importTournament() {
+    importCsv() {
         if(!this.checkFields()) {
-            // Socket.send("integrations_challonge_import", {
-            //     knife_config: this.fields.knife_config.value,
-            //     match_config: this.fields.main_config.value,
-            //     server: this.fields.server.value,
-            //     tournament: this.fields.tournament.value,
-            //     match_group: this.fields.match_group.value
-            // });
+            Socket.send("integrations_csv_import", {
+                knife_config: this.fields.knife_config.value,
+                match_config: this.fields.main_config.value,
+                server: this.fields.server.value,
+                match_group: this.fields.match_group.value,
+                csv: this.fileContents
+            });
 
+            this.fields.csv.value = "";
             this.fields.server.selectedIndex = 0;
             this.fields.knife_config.selectedIndex = 0;
             this.fields.main_config.selectedIndex = 0;
@@ -102,6 +103,7 @@ class Csv extends Component {
             csvtojson()
                 .fromString(event.target.result)
                 .then((result) => {
+                    console.log('result', result);
                     this.fileContents = result;
                 })
         };
@@ -118,7 +120,7 @@ class Csv extends Component {
         return (
             <div>
                 <h6>CSV</h6>
-                <span>To import a CSV upload you CSV below and click: Import</span><br/>
+                <span>To import a CSV (<a href="/assets/csgo-remote_matches.csv" native>Example</a>) upload you CSV below and click: Import</span><br/>
                 <br/>
                 <strong>CSV</strong>
                 <input type="file" className="form-control-file" name="csv" id="csv" title="csv" accept="text/csv" ref={c => this.fields.csv = c} onChange={(e) => this.handleFileChange(e)} />
@@ -132,7 +134,6 @@ class Csv extends Component {
                 <strong>Server</strong>
                 <select title="server" name="server" id="server" className="form-control" ref={c => this.fields.server = c}>
                     <option selected disabled value="false">Select a server</option>
-                    <option value="next">Autoselect next available server</option>
                     {this.props.servers.map((server, index) => (
                         <option key={index} value={`${server.ip}:${server.port}`}>{`${server.ip}:${server.port}`}</option>
                     ))}
@@ -151,7 +152,7 @@ class Csv extends Component {
                         <option key={index} value={config}>{config}</option>
                     ))}
                 </select><br/>
-                <button type='button' className='btn btn-sm btn-primary btn-detail' onClick={() => this.importTournament()}>
+                <button type='button' className='btn btn-sm btn-primary btn-detail' onClick={() => this.importCsv()}>
                     Import
                 </button>
             </div>

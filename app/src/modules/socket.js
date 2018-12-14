@@ -9,6 +9,7 @@ const db = require("./database").db;
 const rcon = require("./rcon");
 const challonge = require("./challonge");
 const csgoConfig = require("./csgoConfig");
+const {findServerConfig} = require("../utils/Strings");
 const config = require("../config");
 
 class socket {
@@ -248,6 +249,50 @@ class socket {
                             }));
                         });
                     }
+                }
+
+                if (dataString.instruction === "integrations_csv_import") {
+                    log.info(`[SOCKET][${ws.id}][integrations_csv_import] Starting csv import`);
+
+                    const matches = dataString.data.csv;
+                    const knife_config = dataString.data.knife_config;
+                    const match_config = dataString.data.match_config;
+                    const match_group = dataString.data.match_group;
+                    const server = dataString.data.server;
+
+                    for(let item = 0; item < matches.length; item ++) {
+                        const serverDetails = findServerConfig(server);
+
+                        db.push("/match[]", {
+                            id: uuidv4(),
+                            team1: {
+                                name: matches[item].team_1_name,
+                                country: config.integrations.csv.default_country
+                            },
+                            team2: {
+                                name: matches[item].team_2_name,
+                                country: config.integrations.csv.default_country
+                            },
+                            match_group: match_group,
+                            map: serverDetails.default_map,
+                            knife_config: knife_config,
+                            match_config: match_config,
+                            server: `${serverDetails.ip}:${serverDetails.port}`,
+                            status: 0,
+                            challonge: false,
+                            server_data: false
+                        });
+                    }
+
+                    this.sendGeneralUpdate();
+                    ws.send(this.encrypt({
+                        instruction: 'notification',
+                        data: {
+                            system: false,
+                            message: `CSV import complete! Imported ${matches.length} matches`,
+                            color: 'success'
+                        }
+                    }));
                 }
 
                 if (dataString.instruction === "integrations_archive") {
