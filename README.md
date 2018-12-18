@@ -40,6 +40,11 @@ To make this as simple as it is I use a local Json database.
 
 Checkout `csgo-rcon.json` since this is the db file.
 
+## Plugin
+To enable livescoring and auto match configuration please install the SourceMod Plugin:
+
+https://github.com/glenndehaan/csgo-rcon-plugin
+
 ## TODO's
 * ~~Lock matches on same server when one match is running.~~
 * ~~Fix production PKG build.~~
