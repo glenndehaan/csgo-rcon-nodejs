@@ -62,7 +62,7 @@ export default class About extends Component {
                 {(this.state.currentCommit !== this.state.latestCommit || this.state.dev) && <br/>}
                 <div>
                     <h4>Description</h4>
-                    A web panel to control a CS::GO server<br/>
+                    A web panel to control a CS:GO server<br/>
 
                     <br/>
 

@@ -1,6 +1,6 @@
 # Counter-Strike Global Offensive Web Panel
 
-A web panel to control a CS::GO server
+A web panel to control a CS:GO server
 
 ## Backend Structure
 - NodeJS
