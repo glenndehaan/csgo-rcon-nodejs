@@ -121,6 +121,11 @@ class rcon {
         this.cmd(server, `mp_teamname_1 "${team1.name}"`, 'Teamname 1 change');
         this.cmd(server, `mp_teamname_2 "${team2.name}"`, 'Teamname 2 change');
 
+        if(this.pluginAvailable[server]) {
+            this.cmd(server, `sm_teamname_ct "${team1.name}"`, 'Teamname 1 change');
+            this.cmd(server, `sm_teamname_t "${team2.name}"`, 'Teamname 2 change');
+        }
+
         /**
          * Change team flags
          */

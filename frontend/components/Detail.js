@@ -307,7 +307,7 @@ class Detail extends Component {
         if(this.state.match) {
             return (
                 <div className="starter-template">
-                    {this.state.showConnectDialog ? <Alert yes={() => this.connectServer()} no={() => this.closeConnectDialog()} title="Connect to server?" body="Please note: You have to be connected to the CS:GO server before connecting here!"/> : null}
+                    {this.state.showConnectDialog ? <Alert yes={() => this.connectServer()} no={() => this.closeConnectDialog()} title="Connect to server?" body="Please note: Make sure that at least one CS:GO client is connected with the server before clicking yes!"/> : null}
                     {this.state.showRestartDialog ? <Alert yes={() => this.restartGame()} no={() => this.closeRestartGameDialog()} title="Restart game?" body="Warning! This will set all scores to 0 and restart the complete match!"/> : null}
                     <h3>Match {this.state.match.team1.name} v/s {this.state.match.team2.name}</h3>
                     <div className="row">
