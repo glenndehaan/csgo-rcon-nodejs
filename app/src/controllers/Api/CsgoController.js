@@ -29,11 +29,11 @@ class CsgoController extends baseController {
                 serverData.locked = req.body.locked;
                 serverData.match = req.body.match;
                 serverData.CT = {
-                    team_name: req.body.ct_name,
+                    team_name: !req.body.half_time ? req.body.ct_name : req.body.t_name,
                     players: []
                 };
                 serverData.T = {
-                    team_name: req.body.t_name,
+                    team_name: !req.body.half_time ? req.body.t_name : req.body.ct_name,
                     players: []
                 };
 
