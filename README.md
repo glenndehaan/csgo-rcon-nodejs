@@ -19,7 +19,13 @@ A web panel to control a CS:GO server
 - Sockette
 
 ## Basic Usage
-TODO: Update the basic usage!
+- Download the latest version from the releases page on GitHub
+- Save the binary in it's own folder
+- Run the binary (this will create some additional files/folders)
+- Adjust the `config.json`
+- Restart the binary
+
+Then open up a webbrowser and go to the site
 
 ## Development Usage
 - Install NodeJS 8.0 or higher
