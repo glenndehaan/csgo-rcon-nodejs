@@ -20,14 +20,14 @@ class Servers extends Component {
      * Runs then component mounts
      */
     componentDidMount() {
-        document.title = `Servers | ${window.expressConfig.appName} ${window.expressConfig.env}`;
+        document.title = `${this.props.lang.servers.title} | ${window.expressConfig.appName} ${window.expressConfig.env}`;
         window.events.emit('breadcrumbs', [
             {
-                "name": "Home",
+                "name": this.props.lang.home.title,
                 "url": "/"
             },
             {
-                "name": "Servers",
+                "name": this.props.lang.servers.title,
                 "url": false
             }
         ]);
@@ -59,7 +59,7 @@ class Servers extends Component {
             availability.push({
                 ip: server.ip,
                 port: server.port,
-                available: available === false ? "Available" : (<span>Match is running: <Link href={`/match/${available.id}`}>{available.team1.name} v/s {available.team2.name}</Link></span>),
+                available: available === false ? this.props.lang.servers.available : (<span>{this.props.lang.servers.matchIsRunning}: <Link href={`/match/${available.id}`}>{available.team1.name} v/s {available.team2.name}</Link></span>),
                 color: available === false ? "success" : "warning"
             });
         }
@@ -77,13 +77,13 @@ class Servers extends Component {
     render() {
         return (
             <div className="starter-template">
-                <h3>Servers</h3>
+                <h3>{this.props.lang.servers.subtitle}</h3>
                 <div className="table-responsive">
                     <table id="view-table" className="table table-striped">
                         <thead className="thead-dark">
                             <tr>
-                                <th>Server</th>
-                                <th>Status</th>
+                                <th>{this.props.lang.servers.table.server}</th>
+                                <th>{this.props.lang.servers.table.status}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -104,4 +104,4 @@ class Servers extends Component {
 /**
  * Connect the store to the component
  */
-export default connect('servers,matches')(Servers);
+export default connect('servers,matches,lang')(Servers);
