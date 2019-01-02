@@ -51,7 +51,17 @@ To enable livescoring and auto match configuration please install the SourceMod 
 
 https://github.com/glenndehaan/csgo-rcon-plugin
 
-## TODO's
+## v2 TODO's
+* Add frontend translations
+* Add Bo1, Bo2, Bo3, Bo4, Bo5 support
+* Add wingman and dangerzone support (maps, configs)
+* Add support for uploading scores back to challonge
+* Replace basic auth with frontend login
+* Add livescoring to Home/Servers view
+* Add Readme `config.json` explanation
+* Better GitHub release integration
+
+## v1 TODO's
 * ~~Lock matches on same server when one match is running.~~
 * ~~Fix production PKG build.~~
 * ~~Add say to admin interface.~~
