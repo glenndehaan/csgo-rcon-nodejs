@@ -1,0 +1,21 @@
+{
+  "title": "Home",
+  "subtitle": "Matches",
+  "filters": {
+    "notStarted": "Not started",
+    "running": "Running",
+    "completed": "Completed",
+    "archived": "Archived"
+  },
+  "table": {
+    "server": "Server",
+    "map": "Map",
+    "team1": "Team 1",
+    "team2": "Team 2",
+    "status": "Status"
+  },
+  "links": {
+    "edit": "Edit match",
+    "details": "Match details"
+  }
+}

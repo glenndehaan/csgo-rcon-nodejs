@@ -2,9 +2,10 @@ import {h, Component, render} from 'preact';
 import Router from 'preact-router';
 import { Provider } from 'unistore/preact';
 import mitt from 'mitt';
-import Socket from './modules/socket';
 
+import Socket from './modules/socket';
 import store from './modules/store';
+import language from './modules/language';
 
 import Header from "./components/partials/Header";
 import Home from './components/Home';
@@ -36,6 +37,8 @@ class App extends Component {
         window.events = mitt();
         window.site = {};
         window.site.production = process.env.NODE_ENV === 'production';
+
+        language.init();
     }
 
     /**

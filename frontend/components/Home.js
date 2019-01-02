@@ -39,10 +39,10 @@ class Home extends Component {
      * Runs then component mounts
      */
     componentDidMount() {
-        document.title = `Home | ${window.expressConfig.appName} ${window.expressConfig.env}`;
+        document.title = `${this.props.lang.home.title} | ${window.expressConfig.appName} ${window.expressConfig.env}`;
         window.events.emit('breadcrumbs', [
             {
-                "name": "Home",
+                "name": this.props.lang.home.title,
                 "url": false
             }
         ]);
@@ -178,25 +178,25 @@ class Home extends Component {
     render() {
         return (
             <div className="starter-template">
-                <h3>Matches</h3>
+                <h3>{this.props.lang.home.subtitle}</h3>
 
                 <div className="filters">
                     <span>Filters:</span>
                     <div className="custom-control custom-checkbox">
                         <input type="checkbox" className="custom-control-input" id="not-started" onClick={() => this.toggleNotStarted()} checked={this.state.filters.notStarted} />
-                        <label className="custom-control-label" htmlFor="not-started">Not started</label>
+                        <label className="custom-control-label" htmlFor="not-started">{this.props.lang.home.filters.notStarted}</label>
                     </div>
                     <div className="custom-control custom-checkbox">
                         <input type="checkbox" className="custom-control-input" id="running" onClick={() => this.toggleRunning()} checked={this.state.filters.running} />
-                        <label className="custom-control-label" htmlFor="running">Running</label>
+                        <label className="custom-control-label" htmlFor="running">{this.props.lang.home.filters.running}</label>
                     </div>
                     <div className="custom-control custom-checkbox">
                         <input type="checkbox" className="custom-control-input" id="completed" onClick={() => this.toggleCompleted()} checked={this.state.filters.completed} />
-                        <label className="custom-control-label" htmlFor="completed">Completed</label>
+                        <label className="custom-control-label" htmlFor="completed">{this.props.lang.home.filters.completed}</label>
                     </div>
                     <div className="custom-control custom-checkbox">
                         <input type="checkbox" className="custom-control-input" id="archived" onClick={() => this.toggleArchived()} checked={this.state.filters.archived} />
-                        <label className="custom-control-label" htmlFor="archived">Archived</label>
+                        <label className="custom-control-label" htmlFor="archived">{this.props.lang.home.filters.archived}</label>
                     </div>
                 </div>
                 {Object.keys(this.state.match_groups).map((group, index) => (
@@ -221,11 +221,11 @@ class Home extends Component {
                 <table className="table table-striped">
                     <thead className="thead-dark">
                         <tr>
-                            <th>Server</th>
-                            <th>Map</th>
-                            <th>Team 1</th>
-                            <th>Team 2</th>
-                            <th>Status</th>
+                            <th>{this.props.lang.home.table.server}</th>
+                            <th>{this.props.lang.home.table.map}</th>
+                            <th>{this.props.lang.home.table.team1}</th>
+                            <th>{this.props.lang.home.table.team2}</th>
+                            <th>{this.props.lang.home.table.status}</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -240,11 +240,11 @@ class Home extends Component {
                                         <td>{match.team2.name}</td>
                                         <td>{`${statusResolver(match.status)} (${match.status})`}</td>
                                         <td>
-                                            <Link href={`/match/${match.id}/edit`} title="Edit match">
+                                            <Link href={`/match/${match.id}/edit`} title={this.props.lang.home.links.edit}>
                                                 <Edit/>
                                             </Link>
                                             &nbsp;&nbsp;
-                                            <Link href={`/match/${match.id}`} title="Match details">
+                                            <Link href={`/match/${match.id}`} title={this.props.lang.home.links.details}>
                                                 <Details/>
                                             </Link>
                                         </td>
@@ -262,4 +262,4 @@ class Home extends Component {
 /**
  * Connect the store to the component
  */
-export default connect('servers,matches')(Home);
+export default connect('servers,matches,lang')(Home);
