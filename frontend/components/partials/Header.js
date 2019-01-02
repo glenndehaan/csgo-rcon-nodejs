@@ -7,8 +7,9 @@ import Add from '../icons/Add';
 import Servers from '../icons/Servers';
 import Settings from '../icons/Settings';
 import Notification from '../icons/Notification';
+import {connect} from "unistore/preact";
 
-export default class Header extends Component {
+class Header extends Component {
     /**
      * Constructor
      */
@@ -58,7 +59,7 @@ export default class Header extends Component {
             this.setState({
                 connection: {
                     className: "text-success",
-                    text: "Connected"
+                    text: this.props.lang.general.header.connected
                 }
             });
         }
@@ -67,7 +68,7 @@ export default class Header extends Component {
             this.setState({
                 connection: {
                     className: "text-warning",
-                    text: "Reconnecting..."
+                    text: this.props.lang.general.header.reconnecting
                 }
             });
         }
@@ -76,7 +77,7 @@ export default class Header extends Component {
             this.setState({
                 connection: {
                     className: "text-danger",
-                    text: "Disconnected"
+                    text: this.props.lang.general.header.disconnected
                 }
             });
         }
@@ -104,22 +105,22 @@ export default class Header extends Component {
                 <Link href="/" className="navbar-brand d-none d-sm-block" title="Home / Logo">CSGO Remote</Link>
                 <ul className="navbar-nav">
                     <li className="nav-item home-icon">
-                        <Link href="/" activeClassName="active" className="nav-link" title="Home">
+                        <Link href="/" activeClassName="active" className="nav-link" title={this.props.lang.general.header.links.home}>
                             <Home/>
                         </Link>
                     </li>
                     <li className="nav-item servers-icon">
-                        <Link href="/servers" activeClassName="active" className="nav-link" title="Server overview">
+                        <Link href="/servers" activeClassName="active" className="nav-link" title={this.props.lang.general.header.links.serverOverview}>
                             <Servers/>
                         </Link>
                     </li>
                     <li className="nav-item add-icon">
-                        <Link href="/match/create" activeClassName="active" className="nav-link" title="Create match">
+                        <Link href="/match/create" activeClassName="active" className="nav-link" title={this.props.lang.general.header.links.createMatch}>
                             <Add/>
                         </Link>
                     </li>
                     <li className="nav-item settings-icon">
-                        <a href="/settings" className={`nav-link ${window.location.pathname === "/settings" ? 'active' : ''}`} ref={c => this.settings = c} title="Settings" native>
+                        <a href="/settings" className={`nav-link ${window.location.pathname === "/settings" ? 'active' : ''}`} ref={c => this.settings = c} title={this.props.lang.general.header.links.settings} native>
                             <Settings/>
                         </a>
                     </li>
@@ -136,3 +137,8 @@ export default class Header extends Component {
         );
     }
 }
+
+/**
+ * Connect the store to the component
+ */
+export default connect('lang')(Header);

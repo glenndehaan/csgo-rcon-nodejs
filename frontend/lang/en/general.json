@@ -1,0 +1,18 @@
+{
+  "header": {
+    "connected": "Connected",
+    "reconnecting": "Reconnecting...",
+    "disconnected": "Disconnected",
+    "links": {
+      "home": "Home",
+      "serverOverview": "Server overview",
+      "createMatch": "Create match",
+      "settings": "Settings"
+    }
+  },
+  "footer": {
+    "about": "About",
+    "loadedIn": "Loaded in",
+    "seconds": "seconds"
+  }
+}

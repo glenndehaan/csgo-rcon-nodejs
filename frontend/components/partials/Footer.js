@@ -1,7 +1,8 @@
 import {h, Component} from 'preact';
 import {Link} from 'preact-router/match';
+import {connect} from "unistore/preact";
 
-export default class Footer extends Component {
+class Footer extends Component {
     /**
      * Constructor
      */
@@ -30,9 +31,14 @@ export default class Footer extends Component {
         return (
             <footer className="footer">
                 <div className="container">
-                    <span className="text">Loaded in: {this.state.loadTime} seconds | <Link href="/about">About</Link></span>
+                    <span className="text">{this.props.lang.general.footer.loadedIn}: {this.state.loadTime} {this.props.lang.general.footer.seconds} | <Link href="/about">{this.props.lang.general.footer.about}</Link></span>
                 </div>
             </footer>
         );
     }
 }
+
+/**
+ * Connect the store to the component
+ */
+export default connect('lang')(Footer);

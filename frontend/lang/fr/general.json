@@ -1,0 +1,18 @@
+{
+  "header": {
+    "connected": "Connecté",
+    "reconnecting": "Reconnexion...",
+    "disconnected": "Débranché",
+    "links": {
+      "home": "Accueil",
+      "serverOverview": "Server overview",
+      "createMatch": "Créer un match",
+      "settings": "Réglages"
+    }
+  },
+  "footer": {
+    "about": "Sur",
+    "loadedIn": "Chargé dans",
+    "seconds": "seconds"
+  }
+}
