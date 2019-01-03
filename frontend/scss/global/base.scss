@@ -24,3 +24,12 @@ body {
 .container {
   flex-grow: 1;
 }
+
+.dropdown-menu {
+  min-width: 0;
+  padding: 0;
+}
+
+.dropdown-item {
+  padding: 0px 16px;
+}

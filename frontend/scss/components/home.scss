@@ -1,6 +1,7 @@
 .filters {
   display: flex;
   float: right;
+  flex-wrap: wrap;
 
   span {
     margin-right: 10px;
@@ -8,5 +9,6 @@
 
   .custom-control {
     margin-right: 10px;
+    margin-bottom: 10px;
   }
 }

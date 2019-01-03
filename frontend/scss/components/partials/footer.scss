@@ -14,6 +14,13 @@ body > .container {
 .footer > .container {
   padding-right: 15px;
   padding-left: 15px;
+
+  display: flex;
+  align-items: center;
+}
+
+.footer .dropup {
+  margin-left: auto;
 }
 
 .footer {
