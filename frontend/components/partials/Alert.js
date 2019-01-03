@@ -1,6 +1,7 @@
 import {h, Component} from 'preact';
+import {connect} from "unistore/preact";
 
-export default class Alert extends Component {
+class Alert extends Component {
     /**
      * Preact render function
      *
@@ -19,8 +20,8 @@ export default class Alert extends Component {
                             {this.props.body}
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" onClick={this.props.no}>No</button>
-                            <button type="button" className="btn btn-primary" onClick={this.props.yes}>Yes</button>
+                            <button type="button" className="btn btn-secondary" onClick={this.props.no}>{this.props.lang.general.alert.no}</button>
+                            <button type="button" className="btn btn-primary" onClick={this.props.yes}>{this.props.lang.general.alert.yes}</button>
                         </div>
                     </div>
                 </div>
@@ -28,3 +29,8 @@ export default class Alert extends Component {
         );
     }
 }
+
+/**
+ * Connect the store to the component
+ */
+export default connect('lang')(Alert);

@@ -1,14 +1,29 @@
 import {h, Component} from 'preact';
+import {connect} from "unistore/preact";
 
-export default class NotFound extends Component {
+class NotFound extends Component {
     /**
      * Runs then component mounts
      */
     componentDidMount() {
-        document.title = `Not Found | ${window.expressConfig.appName} ${window.expressConfig.env}`;
+        this.updateGeneralPageData();
+    }
+
+    /**
+     * Runs when component updates
+     */
+    componentDidUpdate() {
+        this.updateGeneralPageData();
+    }
+
+    /**
+     * Updates some general page data
+     */
+    updateGeneralPageData() {
+        document.title = `${this.props.lang.general.notFound.title} | ${window.expressConfig.appName} ${window.expressConfig.env}`;
         window.events.emit('breadcrumbs', [
             {
-                "name": "Home",
+                "name": this.props.lang.home.title,
                 "url": "/"
             }
         ]);
@@ -22,11 +37,16 @@ export default class NotFound extends Component {
     render() {
         return (
             <div className="starter-template">
-                <h3>Not Found</h3>
+                <h3>{this.props.lang.general.notFound.subtitle}</h3>
                 <span>
-                    Use the menu above to navigate to another page.
+                    {this.props.lang.general.notFound.body}
                 </span>
             </div>
         );
     }
 }
+
+/**
+ * Connect the store to the component
+ */
+export default connect('lang')(NotFound);

@@ -20,18 +20,7 @@ class Servers extends Component {
      * Runs then component mounts
      */
     componentDidMount() {
-        document.title = `${this.props.lang.servers.title} | ${window.expressConfig.appName} ${window.expressConfig.env}`;
-        window.events.emit('breadcrumbs', [
-            {
-                "name": this.props.lang.home.title,
-                "url": "/"
-            },
-            {
-                "name": this.props.lang.servers.title,
-                "url": false
-            }
-        ]);
-
+        this.updateGeneralPageData();
         this.checkAvailability();
     }
 
@@ -44,6 +33,25 @@ class Servers extends Component {
         if(previousProps !== this.props) {
             this.checkAvailability();
         }
+
+        this.updateGeneralPageData();
+    }
+
+    /**
+     * Updates some general page data
+     */
+    updateGeneralPageData() {
+        document.title = `${this.props.lang.servers.title} | ${window.expressConfig.appName} ${window.expressConfig.env}`;
+        window.events.emit('breadcrumbs', [
+            {
+                "name": this.props.lang.home.title,
+                "url": "/"
+            },
+            {
+                "name": this.props.lang.servers.title,
+                "url": false
+            }
+        ]);
     }
 
     /**

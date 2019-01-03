@@ -39,14 +39,7 @@ class Home extends Component {
      * Runs then component mounts
      */
     componentDidMount() {
-        document.title = `${this.props.lang.home.title} | ${window.expressConfig.appName} ${window.expressConfig.env}`;
-        window.events.emit('breadcrumbs', [
-            {
-                "name": this.props.lang.home.title,
-                "url": false
-            }
-        ]);
-
+        this.updateGeneralPageData();
         this.splitMatchesToGroups();
     }
 
@@ -63,6 +56,21 @@ class Home extends Component {
 
             this.splitMatchesToGroups();
         }
+
+        this.updateGeneralPageData();
+    }
+
+    /**
+     * Updates some general page data
+     */
+    updateGeneralPageData() {
+        document.title = `${this.props.lang.home.title} | ${window.expressConfig.appName} ${window.expressConfig.env}`;
+        window.events.emit('breadcrumbs', [
+            {
+                "name": this.props.lang.home.title,
+                "url": false
+            }
+        ]);
     }
 
     /**

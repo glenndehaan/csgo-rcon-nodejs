@@ -1,0 +1,16 @@
+{
+  "title": "Editer le match",
+  "subtitle": "Editer le match",
+  "match": "Rencontre",
+  "team1": "Équipe 1",
+  "team2": "Équipe 2",
+  "name": "Prénom",
+  "countryCode": "Code postal",
+  "generalMatchSettings": "Paramètres de correspondance généraux",
+  "matchGroup": "Groupe de match",
+  "server": "Serveur",
+  "defaultServerMap": "Carte du serveur par défaut",
+  "csgoKnifeConfig": "CSGO Knife Config",
+  "csgoMainConfig": "Configuration principale de CSGO",
+  "save": "Sauvegarder"
+}

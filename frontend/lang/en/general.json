@@ -14,5 +14,14 @@
     "about": "About",
     "loadedIn": "Loaded in",
     "seconds": "seconds"
+  },
+  "notFound": {
+    "title": "Not Found",
+    "subtitle": "Not Found",
+    "body": "Use the menu above to navigate to another page."
+  },
+  "alert": {
+    "yes": "Yes",
+    "no": "No"
   }
 }

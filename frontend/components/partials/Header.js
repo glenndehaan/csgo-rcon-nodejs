@@ -46,7 +46,7 @@ class Header extends Component {
      * @param prevProps
      */
     componentDidUpdate(prevProps) {
-        if (prevProps.connected !== this.props.connected || prevProps.reconnecting !== this.props.reconnecting) {
+        if (prevProps.connected !== this.props.connected || prevProps.reconnecting !== this.props.reconnecting || prevProps.lang !== this.props.lang) {
             this.updateConnectionStatus();
         }
     }

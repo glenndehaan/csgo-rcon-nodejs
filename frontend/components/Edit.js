@@ -52,18 +52,32 @@ class Edit extends Component {
             return;
         }
 
-        document.title = `Edit match ${this.state.match.team1.name} v/s ${this.state.match.team2.name} | ${window.expressConfig.appName} ${window.expressConfig.env}`;
+        this.updateGeneralPageData();
+    }
+
+    /**
+     * Runs when the component updates
+     */
+    componentDidUpdate() {
+        this.updateGeneralPageData();
+    }
+
+    /**
+     * Updates some general page data
+     */
+    updateGeneralPageData() {
+        document.title = `${this.props.lang.edit.title} ${this.state.match.team1.name} v/s ${this.state.match.team2.name} | ${window.expressConfig.appName} ${window.expressConfig.env}`;
         window.events.emit('breadcrumbs', [
             {
-                "name": "Home",
+                "name": this.props.lang.home.title,
                 "url": "/"
             },
             {
-                "name": `Match ${this.state.match.team1.name} v/s ${this.state.match.team2.name}`,
+                "name": `${this.props.lang.edit.match} ${this.state.match.team1.name} v/s ${this.state.match.team2.name}`,
                 "url": `/match/${this.state.match.id}`
             },
             {
-                "name": "Edit",
+                "name": this.props.lang.edit.title,
                 "url": false
             }
         ]);
@@ -217,19 +231,19 @@ class Edit extends Component {
         if(this.state.match) {
             return (
                 <div className="starter-template">
-                    <h3>Edit match {this.state.match.team1.name} v/s {this.state.match.team2.name}</h3>
+                    <h3>{this.props.lang.edit.subtitle} {this.state.match.team1.name} v/s {this.state.match.team2.name}</h3>
 
                     <div className="table-responsive">
                         <form>
-                            <h4>Team 1</h4>
+                            <h4>{this.props.lang.edit.team1}</h4>
                             <table className="table table-striped">
                                 <tbody>
                                     <tr>
-                                        <td>Name</td>
+                                        <td>{this.props.lang.edit.name}</td>
                                         <td><input type="text" name="team-name-1" id="team-name-1" title="team-name-1" className="form-control" ref={c => this.fields.team1.name = c} value={this.state.match.team1.name} disabled/></td>
                                     </tr>
                                     <tr>
-                                        <td>Country Code</td>
+                                        <td>{this.props.lang.edit.countryCode}</td>
                                         <td>
                                             <select name="team-country-1" id="team-country-1" title="team-country-1" className="form-control" ref={c => this.fields.team1.country = c}>
                                                 {getIsoCodes().map((code, index) => (
@@ -241,15 +255,15 @@ class Edit extends Component {
                                 </tbody>
                             </table>
 
-                            <h4>Team 2</h4>
+                            <h4>{this.props.lang.edit.team2}</h4>
                             <table className="table table-striped">
                                 <tbody>
                                     <tr>
-                                        <td>Name</td>
+                                        <td>{this.props.lang.edit.name}</td>
                                         <td><input type="text" name="team-name-2" id="team-name-2" title="team-name-2" className="form-control" ref={c => this.fields.team2.name = c} value={this.state.match.team2.name} disabled/></td>
                                     </tr>
                                     <tr>
-                                        <td>Country Code</td>
+                                        <td>{this.props.lang.edit.countryCode}</td>
                                         <td>
                                             <select name="team-country-2" id="team-country-2" title="team-country-2" className="form-control" ref={c => this.fields.team2.country = c}>
                                                 {getIsoCodes().map((code, index) => (
@@ -261,11 +275,11 @@ class Edit extends Component {
                                 </tbody>
                             </table>
 
-                            <h4>General Match Settings</h4>
+                            <h4>{this.props.lang.edit.generalMatchSettings}</h4>
                             <table className="table table-striped">
                                 <tbody>
                                     <tr>
-                                        <td>Match Group</td>
+                                        <td>{this.props.lang.edit.matchGroup}</td>
                                         <td>
                                             <select title="match-group" name="match-group" id="match-group" className="form-control" ref={c => this.fields.match_group = c}>
                                                 {this.props.groups.map((group, index) => (
@@ -275,7 +289,7 @@ class Edit extends Component {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Server</td>
+                                        <td>{this.props.lang.edit.server}</td>
                                         <td>
                                             <select title="server" name="server" id="server" className="form-control" onChange={() => this.updateMapField()} ref={c => this.fields.server = c}>
                                                 {this.props.servers.map((server, index) => (
@@ -285,11 +299,11 @@ class Edit extends Component {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Default Server Map</td>
+                                        <td>{this.props.lang.edit.defaultServerMap}</td>
                                         <td><input type="text" name="map" title="map" id="map" className="form-control" value={this.state.map} ref={c => this.fields.map = c} disabled/></td>
                                     </tr>
                                     <tr>
-                                        <td>CSGO Knife Config</td>
+                                        <td>{this.props.lang.edit.csgoKnifeConfig}</td>
                                         <td>
                                             <select title="csgo-knife-config" name="csgo-knife-config" id="csgo-knife-config" className="form-control" ref={c => this.fields.knife_config = c}>
                                                 {this.props.configs.knife.map((config, index) => (
@@ -299,7 +313,7 @@ class Edit extends Component {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>CSGO Main Config</td>
+                                        <td>{this.props.lang.edit.csgoMainConfig}</td>
                                         <td>
                                             <select title="csgo-main-config" name="csgo-main-config" id="csgo-main-config" className="form-control" ref={c => this.fields.main_config = c}>
                                                 {this.props.configs.main.map((config, index) => (
@@ -311,7 +325,7 @@ class Edit extends Component {
                                     <tr>
                                         <td></td>
                                         <td>
-                                            <button type="button" className="btn btn-lg btn-success" id="submit" onClick={() => this.editMatch()}>Save</button>
+                                            <button type="button" className="btn btn-lg btn-success" id="submit" onClick={() => this.editMatch()}>{this.props.lang.edit.save}</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -327,4 +341,4 @@ class Edit extends Component {
 /**
  * Connect the store to the component
  */
-export default connect('servers,matches,groups,configs')(Edit);
+export default connect('servers,matches,groups,configs,lang')(Edit);

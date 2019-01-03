@@ -45,17 +45,7 @@ class Detail extends Component {
             return;
         }
 
-        document.title = `Match ${this.state.match.team1.name} v/s ${this.state.match.team2.name} | ${window.expressConfig.appName} ${window.expressConfig.env}`;
-        window.events.emit('breadcrumbs', [
-            {
-                "name": "Home",
-                "url": "/"
-            },
-            {
-                "name": `Match ${this.state.match.team1.name} v/s ${this.state.match.team2.name}`,
-                "url": false
-            }
-        ]);
+        this.updateGeneralPageData();
     }
 
     /**
@@ -72,6 +62,25 @@ class Detail extends Component {
                 serverAvailable: !checkServerAvailabilityForMatch(this.props.id, match.server, this.props.matches)
             });
         }
+
+        this.updateGeneralPageData();
+    }
+
+    /**
+     * Updates some general page data
+     */
+    updateGeneralPageData() {
+        document.title = `${this.props.lang.detail.title} ${this.state.match.team1.name} v/s ${this.state.match.team2.name} | ${window.expressConfig.appName} ${window.expressConfig.env}`;
+        window.events.emit('breadcrumbs', [
+            {
+                "name": this.props.lang.home.title,
+                "url": "/"
+            },
+            {
+                "name": `${this.props.lang.detail.title} ${this.state.match.team1.name} v/s ${this.state.match.team2.name}`,
+                "url": false
+            }
+        ]);
     }
 
     /**
@@ -307,93 +316,93 @@ class Detail extends Component {
         if(this.state.match) {
             return (
                 <div className="starter-template">
-                    {this.state.showConnectDialog ? <Alert yes={() => this.connectServer()} no={() => this.closeConnectDialog()} title="Connect to server?" body="Please note: Make sure that at least one CS:GO client is connected with the server before clicking yes!"/> : null}
-                    {this.state.showRestartDialog ? <Alert yes={() => this.restartGame()} no={() => this.closeRestartGameDialog()} title="Restart game?" body="Warning! This will set all scores to 0 and restart the complete match!"/> : null}
-                    <h3>Match {this.state.match.team1.name} v/s {this.state.match.team2.name}</h3>
+                    {this.state.showConnectDialog ? <Alert yes={() => this.connectServer()} no={() => this.closeConnectDialog()} title={this.props.lang.detail.connectServerAlert.title} body={this.props.lang.detail.connectServerAlert.body}/> : null}
+                    {this.state.showRestartDialog ? <Alert yes={() => this.restartGame()} no={() => this.closeRestartGameDialog()} title={this.props.lang.detail.restartGameAlert.title} body={this.props.lang.detail.restartGameAlert.body}/> : null}
+                    <h3>{this.props.lang.detail.title} {this.state.match.team1.name} v/s {this.state.match.team2.name}</h3>
                     <div className="row">
                         <div className="col-md-8">
-                            <h4>Match details</h4>
+                            <h4>{this.props.lang.detail.subtitle}</h4>
                             <div>
-                                Match Group: {this.state.match.match_group}<br/>
+                                {this.props.lang.detail.matchGroup}: {this.state.match.match_group}<br/>
                                 <br/>
-                                Team 1 Name: {this.state.match.team1.name}<br/>
-                                Team 1 Country: {this.state.match.team1.country}<br/>
+                                {this.props.lang.detail.team1Name}: {this.state.match.team1.name}<br/>
+                                {this.props.lang.detail.team1Country}: {this.state.match.team1.country}<br/>
                                 <br/>
-                                Team 2 Name: {this.state.match.team2.name}<br/>
-                                Team 2 Country: {this.state.match.team2.country}<br/>
+                                {this.props.lang.detail.team2Name}: {this.state.match.team2.name}<br/>
+                                {this.props.lang.detail.team2Country}: {this.state.match.team2.country}<br/>
                                 <br/>
-                                Server: {this.state.match.server}<br/>
-                                Map: {this.state.match.map}<br/>
-                                CSGO Knife Config: {this.state.match.knife_config}<br/>
-                                CSGO Main Config: {this.state.match.match_config}<br/>
-                                Current match status: {`${statusResolver(this.state.match.status)} (${this.state.match.status})`}<br/>
+                                {this.props.lang.detail.server}: {this.state.match.server}<br/>
+                                {this.props.lang.detail.map}: {this.state.match.map}<br/>
+                                {this.props.lang.detail.csgoKnifeConfig}: {this.state.match.knife_config}<br/>
+                                {this.props.lang.detail.csgoMainConfig}: {this.state.match.match_config}<br/>
+                                {this.props.lang.detail.currentMatchStatus}: {`${statusResolver(this.state.match.status)} (${this.state.match.status})`}<br/>
                             </div><br/>
-                            <h4>Live scoring</h4>
-                            {!this.state.match.server_data && <span className="status-error">No scores available yet...</span>}
+                            <h4>{this.props.lang.detail.liveScoring}</h4>
+                            {!this.state.match.server_data && <span className="status-error">{this.props.lang.detail.noScoresAvailable}</span>}
                             {this.state.match.server_data && this.renderLiveScoring(this.state.match)}
                         </div>
                         <div className="col-md-4 mt-5 mt-md-0">
-                            <h4>Match controls</h4>
-                            {this.state.match.status >= 99 && <span className="status-error">Match controls locked! Reason:<br/>This match has already ended!</span>}
-                            {this.state.match.status < 99 && !this.state.serverAvailable && <span className="status-error">Match controls locked! Reason:<br/>Another match is already running on the same server!</span>}
+                            <h4>{this.props.lang.detail.matchControls}</h4>
+                            {this.state.match.status >= 99 && <span className="status-error">{this.props.lang.detail.matchControlsLocked}<br/>{this.props.lang.detail.matchControlsLockedReason1}</span>}
+                            {this.state.match.status < 99 && !this.state.serverAvailable && <span className="status-error">{this.props.lang.detail.matchControlsLocked}<br/>{this.props.lang.detail.matchControlsLockedReason2}</span>}
                             <div>
                                 <button type='button' className='btn btn-sm btn-warning btn-detail' disabled={this.state.match.status >= 99 || !this.state.serverAvailable} onClick={() => this.showConnectDialog()}>
-                                    Connect server
+                                    {this.props.lang.detail.connectServer}
                                 </button>
                                 <br/>
                                 <button type='button' className='btn btn-sm btn-success btn-detail' disabled={this.state.match.status === 0 || this.state.match.status >= 99} onClick={() => this.startWarmup()}>
-                                    Start warmup
+                                    {this.props.lang.detail.startWarmup}
                                 </button>
                                 <br/>
                                 <button type='button' className='btn btn-sm btn-success btn-detail' disabled={this.state.match.status === 0 || this.state.match.status >= 99} onClick={() => this.startKnife()}>
-                                    Start knife round
+                                    {this.props.lang.detail.startKnifeRound}
                                 </button>
                                 <br/>
                                 <button type='button' className='btn btn-sm btn-success btn-detail' disabled={this.state.match.status === 0 || this.state.match.status >= 99} onClick={() => this.startMatch()}>
-                                    Start match
+                                    {this.props.lang.detail.startMatch}
                                 </button>
                                 <br/>
                                 <button type='button' className='btn btn-sm btn-warning btn-detail' disabled={this.state.match.status === 0 || this.state.match.status >= 99} onClick={() => this.endMatch()}>
-                                    End Match & Restore Server
+                                    {this.props.lang.detail.endMatch}
                                 </button>
                                 <br/>
                             </div><br/>
-                            <h4>Server controls</h4>
-                            {this.state.match.status === 0 && <span className="status-error">Server controls locked! Reason:<br/>This match is not started!</span>}
-                            {this.state.match.status >= 99 && <span className="status-error">Server controls locked! Reason:<br/>This match has already ended!</span>}
+                            <h4>{this.props.lang.detail.serverControls}</h4>
+                            {this.state.match.status === 0 && <span className="status-error">{this.props.lang.detail.serverControlsLocked}<br/>{this.props.lang.detail.serverControlsLockedReason1}</span>}
+                            {this.state.match.status >= 99 && <span className="status-error">{this.props.lang.detail.serverControlsLocked}<br/>{this.props.lang.detail.serverControlsLockedReason2}</span>}
                             <div>
                                 <div className="btn-group" role="group">
                                     <button type='button' className='btn btn-sm btn-success btn-detail' disabled={this.state.match.status === 0 || this.state.match.status >= 99} onClick={() => this.resumeGame()}>
-                                        Resume game
+                                        {this.props.lang.detail.resumeGame}
                                     </button>
                                     <button type='button' className='btn btn-sm btn-warning btn-detail' disabled={this.state.match.status === 0 || this.state.match.status >= 99} onClick={() => this.pauseGame()}>
-                                        Pause game
+                                        {this.props.lang.detail.pauseGame}
                                     </button>
                                 </div>
                                 <br/>
                                 <button type='button' className='btn btn-sm btn-primary btn-detail' disabled={this.state.match.status === 0 || this.state.match.status >= 99} onClick={() => this.switchTeamSides()}>
-                                    Switch team sides
+                                    {this.props.lang.detail.switchTeamSides}
                                 </button>
                                 <br/>
                                 <select name="map" id="map" title="map" className="form-control" disabled={this.state.match.status === 0 || this.state.match.status >= 99} ref={c => this.fields.map = c}>
-                                    <option selected disabled value="false">Select map</option>
+                                    <option selected disabled value="false">{this.props.lang.detail.selectMap}</option>
                                     {this.props.maps.map((map, index) => (
                                         <option key={index} value={map}>{map}</option>
                                     ))}
                                 </select>
                                 &nbsp;
                                 <button type='button' className='btn btn-sm btn-primary btn-detail' disabled={this.state.match.status === 0 || this.state.match.status >= 99} onClick={() => this.switchMap()}>
-                                    Switch map
+                                    {this.props.lang.detail.switchMap}
                                 </button>
                                 <br/>
                                 <input type="text" className="form-control" name="message" id="message" title="message" disabled={this.state.match.status === 0 || this.state.match.status >= 99} ref={c => this.fields.message = c} />
                                 &nbsp;
                                 <button type='button' className='btn btn-sm btn-primary btn-detail' disabled={this.state.match.status === 0 || this.state.match.status >= 99} onClick={() => this.sendMessage()}>
-                                    Say
+                                    {this.props.lang.detail.say}
                                 </button>
                                 <br/>
                                 <button type='button' className='btn btn-sm btn-danger btn-detail' disabled={this.state.match.status === 0 || this.state.match.status >= 99} onClick={() => this.showRestartGameDialog()}>
-                                    Restart game
+                                    {this.props.lang.detail.restartGame}
                                 </button>
                             </div>
                         </div>
@@ -465,4 +474,4 @@ class Detail extends Component {
 /**
  * Connect the store to the component
  */
-export default connect('servers,matches,maps')(Detail);
+export default connect('servers,matches,maps,lang')(Detail);

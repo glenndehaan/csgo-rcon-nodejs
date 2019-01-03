@@ -1,0 +1,19 @@
+{
+  "title": "Créer un nouveau match",
+  "subtitle": "Créer un nouveau match",
+  "team1": "Équipe 1",
+  "team2": "Équipe 2",
+  "name": "Prénom",
+  "countryCode": "Code postal",
+  "selectCountry": "Choisissez le pays",
+  "generalMatchSettings": "Paramètres de correspondance généraux",
+  "matchGroup": "Groupe de match",
+  "server": "Serveur",
+  "defaultServerMap": "Carte du serveur par défaut",
+  "csgoKnifeConfig": "CSGO Knife Config",
+  "csgoMainConfig": "Configuration principale de CSGO",
+  "selectGroup": "Sélectionner un groupe",
+  "selectServer": "Sélectionnez un serveur",
+  "selectConfig": "Sélectionnez une configuration",
+  "create": "Créer"
+}

@@ -1,8 +1,8 @@
 {
-  "title": "Servers",
-  "subtitle": "Servers",
+  "title": "Les serveurs",
+  "subtitle": "Les serveurs",
   "table": {
-    "server": "Server",
+    "server": "Serveur",
     "status": "Statut"
   },
   "available": "Disponible",

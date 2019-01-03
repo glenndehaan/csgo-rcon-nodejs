@@ -5,7 +5,7 @@
     "disconnected": "Débranché",
     "links": {
       "home": "Accueil",
-      "serverOverview": "Server overview",
+      "serverOverview": "Vue d'ensemble du serveur",
       "createMatch": "Créer un match",
       "settings": "Réglages"
     }
@@ -14,5 +14,14 @@
     "about": "Sur",
     "loadedIn": "Chargé dans",
     "seconds": "seconds"
+  },
+  "notFound": {
+    "title": "Pas trouvé",
+    "subtitle": "Pas trouvé",
+    "body": "Utilisez le menu ci-dessus pour naviguer vers une autre page."
+  },
+  "alert": {
+    "yes": "Oui",
+    "no": "Non"
   }
 }

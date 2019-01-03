@@ -1,0 +1,15 @@
+{
+  "title": "Sur",
+  "subtitle": "Sur",
+  "devWarning": "Vous utilisez une version de développement!!",
+  "oldWarning": "Vous utilisez une version plus ancienne!! Veuillez mettre à jour votre version bientôt...",
+  "descriptionTitle": "La description",
+  "description": "Un panneau Web pour contrôler un serveur CS:GO",
+  "version": "Version",
+  "currentVersion": "Version actuelle",
+  "latestVersion": "Dernière version",
+  "contributors": "Contributeurs",
+  "project": "Projet",
+  "backendStructure": "Structure du backend",
+  "frontendStructure": "Structure du frontend"
+}

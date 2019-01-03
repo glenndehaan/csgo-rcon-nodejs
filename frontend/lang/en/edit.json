@@ -1,0 +1,16 @@
+{
+  "title": "Edit match",
+  "subtitle": "Edit match",
+  "match": "Match",
+  "team1": "Team 1",
+  "team2": "Team 2",
+  "name": "Name",
+  "countryCode": "Country Code",
+  "generalMatchSettings": "General Match Settings",
+  "matchGroup": "Match Group",
+  "server": "Server",
+  "defaultServerMap": "Default Server Map",
+  "csgoKnifeConfig": "CSGO Knife Config",
+  "csgoMainConfig": "CSGO Main Config",
+  "save": "Save"
+}
