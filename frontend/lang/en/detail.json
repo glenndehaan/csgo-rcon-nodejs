@@ -2,6 +2,8 @@
   "title": "Match",
   "subtitle": "Match details",
   "matchGroup": "Match Group",
+  "matchType": "Match Type",
+  "gameMode": "Game Mode",
   "team1Name": "Team 1 Name",
   "team1Country": "Team 1 Country",
   "team2Name": "Team 2 Name",

@@ -30,6 +30,8 @@ class Edit extends Component {
             match_group: null,
             server: null,
             map: null,
+            match_type: null,
+            game_mode: null,
             main_config: null,
             knife_config: null
         };
@@ -115,6 +117,8 @@ class Edit extends Component {
                 },
                 match_group: this.fields.match_group.value,
                 map: this.fields.map.value,
+                max_games: parseInt(this.fields.match_type.value),
+                game_mode: this.fields.game_mode.value,
                 knife_config: this.fields.knife_config.value,
                 match_config: this.fields.main_config.value,
                 server: this.fields.server.value,
@@ -129,6 +133,8 @@ class Edit extends Component {
             this.fields.match_group.selectedIndex = 0;
             this.fields.server.selectedIndex = 0;
             this.fields.map.value = "";
+            this.fields.match_type.selectedIndex = 0;
+            this.fields.game_mode.selectedIndex = 0;
             this.fields.knife_config.selectedIndex = 0;
             this.fields.main_config.selectedIndex = 0;
 
@@ -157,6 +163,8 @@ class Edit extends Component {
         this.fields.match_group.classList.remove("error");
         this.fields.server.classList.remove("error");
         this.fields.map.classList.remove("error");
+        this.fields.match_type.classList.remove("error");
+        this.fields.game_mode.classList.remove("error");
         this.fields.knife_config.classList.remove("error");
         this.fields.main_config.classList.remove("error");
 
@@ -187,6 +195,14 @@ class Edit extends Component {
         if(this.fields.map.value === "") {
             errors = true;
             this.fields.map.classList.add("error");
+        }
+        if(this.fields.match_type.value === "false" || this.fields.match_type.value === false) {
+            errors = true;
+            this.fields.match_type.classList.add("error");
+        }
+        if(this.fields.game_mode.value === "false" || this.fields.game_mode.value === false) {
+            errors = true;
+            this.fields.game_mode.classList.add("error");
         }
         if(this.fields.knife_config.value === "false" || this.fields.knife_config.value === false) {
             errors = true;
@@ -301,6 +317,28 @@ class Edit extends Component {
                                     <tr>
                                         <td>{this.props.lang.edit.defaultServerMap}</td>
                                         <td><input type="text" name="map" title="map" id="map" className="form-control" value={this.state.map} ref={c => this.fields.map = c} disabled/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>{this.props.lang.create.matchType}</td>
+                                        <td>
+                                            <select title="match-type" name="match-type" id="match-type" className="form-control" ref={c => this.fields.match_type = c}>
+                                                <option value="1" selected={1 === this.state.match.max_games}>Bo1</option>
+                                                <option value="2" selected={2 === this.state.match.max_games}>Bo2</option>
+                                                <option value="3" selected={3 === this.state.match.max_games}>Bo3</option>
+                                                <option value="4" selected={4 === this.state.match.max_games}>Bo4</option>
+                                                <option value="5" selected={5 === this.state.match.max_games}>Bo5</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>{this.props.lang.create.gameMode}</td>
+                                        <td>
+                                            <select title="game-mode" name="game-mode" id="game-mode" className="form-control" ref={c => this.fields.game_mode = c}>
+                                                <option value="competitive" selected={"competitive" === this.state.match.game_mode}>Competitive</option>
+                                                <option value="wingman" selected={"wingman" === this.state.match.game_mode}>Wingman</option>
+                                                <option value="dangerzone" selected={"dangerzone" === this.state.match.game_mode}>Dangerzone</option>
+                                            </select>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>{this.props.lang.edit.csgoKnifeConfig}</td>

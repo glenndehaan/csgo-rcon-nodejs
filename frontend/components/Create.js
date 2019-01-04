@@ -29,6 +29,8 @@ class Create extends Component {
             match_group: null,
             server: null,
             map: null,
+            match_type: null,
+            game_mode: null,
             main_config: null,
             knife_config: null
         };
@@ -97,6 +99,8 @@ class Create extends Component {
                 },
                 match_group: this.fields.match_group.value,
                 map: this.fields.map.value,
+                max_games: parseInt(this.fields.match_type.value),
+                game_mode: this.fields.game_mode.value,
                 knife_config: this.fields.knife_config.value,
                 match_config: this.fields.main_config.value,
                 server: this.fields.server.value,
@@ -110,6 +114,8 @@ class Create extends Component {
             this.fields.match_group.selectedIndex = 0;
             this.fields.server.selectedIndex = 0;
             this.fields.map.value = "";
+            this.fields.match_type.selectedIndex = 0;
+            this.fields.game_mode.selectedIndex = 0;
             this.fields.knife_config.selectedIndex = 0;
             this.fields.main_config.selectedIndex = 0;
 
@@ -138,6 +144,8 @@ class Create extends Component {
         this.fields.match_group.classList.remove("error");
         this.fields.server.classList.remove("error");
         this.fields.map.classList.remove("error");
+        this.fields.match_type.classList.remove("error");
+        this.fields.game_mode.classList.remove("error");
         this.fields.knife_config.classList.remove("error");
         this.fields.main_config.classList.remove("error");
 
@@ -168,6 +176,14 @@ class Create extends Component {
         if(this.fields.map.value === "") {
             errors = true;
             this.fields.map.classList.add("error");
+        }
+        if(this.fields.match_type.value === "false" || this.fields.match_type.value === false) {
+            errors = true;
+            this.fields.match_type.classList.add("error");
+        }
+        if(this.fields.game_mode.value === "false" || this.fields.game_mode.value === false) {
+            errors = true;
+            this.fields.game_mode.classList.add("error");
         }
         if(this.fields.knife_config.value === "false" || this.fields.knife_config.value === false) {
             errors = true;
@@ -263,6 +279,30 @@ class Create extends Component {
                                 <tr>
                                     <td>{this.props.lang.create.defaultServerMap}</td>
                                     <td><input type="text" name="map" title="map" id="map" className="form-control" value={this.state.map} ref={c => this.fields.map = c} disabled/></td>
+                                </tr>
+                                <tr>
+                                    <td>{this.props.lang.create.matchType}</td>
+                                    <td>
+                                        <select title="match-type" name="match-type" id="match-type" className="form-control" ref={c => this.fields.match_type = c}>
+                                            <option selected disabled value="false">{this.props.lang.create.selectMatchType}</option>
+                                            <option value="1">Bo1</option>
+                                            <option value="2">Bo2</option>
+                                            <option value="3">Bo3</option>
+                                            <option value="4">Bo4</option>
+                                            <option value="5">Bo5</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>{this.props.lang.create.gameMode}</td>
+                                    <td>
+                                        <select title="game-mode" name="game-mode" id="game-mode" className="form-control" ref={c => this.fields.game_mode = c}>
+                                            <option selected disabled value="false">{this.props.lang.create.selectGameMode}</option>
+                                            <option value="competitive">Competitive</option>
+                                            <option value="wingman">Wingman</option>
+                                            <option value="dangerzone">Dangerzone</option>
+                                        </select>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>{this.props.lang.create.csgoKnifeConfig}</td>

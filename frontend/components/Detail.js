@@ -324,6 +324,8 @@ class Detail extends Component {
                             <h4>{this.props.lang.detail.subtitle}</h4>
                             <div>
                                 {this.props.lang.detail.matchGroup}: {this.state.match.match_group}<br/>
+                                {this.props.lang.detail.matchType}: Bo{this.state.match.max_games}<br/>
+                                {this.props.lang.detail.gameMode}: {this.state.match.game_mode.charAt(0).toUpperCase() + this.state.match.game_mode.slice(1)}<br/>
                                 <br/>
                                 {this.props.lang.detail.team1Name}: {this.state.match.team1.name}<br/>
                                 {this.props.lang.detail.team1Country}: {this.state.match.team1.country}<br/>

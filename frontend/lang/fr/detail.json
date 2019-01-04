@@ -2,6 +2,8 @@
   "title": "Rencontre",
   "subtitle": "Détails du match",
   "matchGroup": "Groupe de match",
+  "matchType": "Type de match",
+  "gameMode": "Mode de jeu",
   "team1Name": "Nom de l'équipe 1",
   "team1Country": "Équipe 1 pays",
   "team2Name": "Nom de l'équipe 2",

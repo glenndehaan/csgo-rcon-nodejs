@@ -10,9 +10,13 @@
   "matchGroup": "Groupe de match",
   "server": "Serveur",
   "defaultServerMap": "Carte du serveur par défaut",
+  "matchType": "Type de match",
+  "gameMode": "Mode de jeu",
   "csgoKnifeConfig": "CSGO Knife Config",
   "csgoMainConfig": "Configuration principale de CSGO",
   "selectGroup": "Sélectionner un groupe",
+  "selectMatchType": "Sélectionnez un type de match",
+  "selectGameMode": "Sélectionnez un mode de jeu",
   "selectServer": "Sélectionnez un serveur",
   "selectConfig": "Sélectionnez une configuration",
   "create": "Créer"

@@ -234,7 +234,7 @@ class socket {
                 if(config.integrations.challonge.enabled) {
                     if (dataString.instruction === "integrations_challonge_import") {
                         log.info(`[SOCKET][${ws.id}][integrations_challonge_import] Starting challonge import`);
-                        challonge.importMatches(dataString.data.tournament, dataString.data.server, dataString.data.knife_config, dataString.data.match_config, dataString.data.match_group, (imported) => {
+                        challonge.importMatches(dataString.data.tournament, dataString.data.server, dataString.data.max_games, dataString.data.game_mode, dataString.data.knife_config, dataString.data.match_config, dataString.data.match_group, (imported) => {
                             if(imported > 0) {
                                 this.sendGeneralUpdate();
                             }
@@ -255,6 +255,8 @@ class socket {
                     log.info(`[SOCKET][${ws.id}][integrations_csv_import] Starting csv import`);
 
                     const matches = dataString.data.csv;
+                    const max_games = dataString.data.max_games;
+                    const game_mode = dataString.data.game_mode;
                     const knife_config = dataString.data.knife_config;
                     const match_config = dataString.data.match_config;
                     const match_group = dataString.data.match_group;
@@ -275,6 +277,8 @@ class socket {
                             },
                             match_group: match_group,
                             map: serverDetails.default_map,
+                            max_games: parseInt(max_games),
+                            game_mode: game_mode,
                             knife_config: knife_config,
                             match_config: match_config,
                             server: `${serverDetails.ip}:${serverDetails.port}`,

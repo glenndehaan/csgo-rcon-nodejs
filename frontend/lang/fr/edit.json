@@ -10,6 +10,8 @@
   "matchGroup": "Groupe de match",
   "server": "Serveur",
   "defaultServerMap": "Carte du serveur par défaut",
+  "matchType": "Type de match",
+  "gameMode": "Mode de jeu",
   "csgoKnifeConfig": "CSGO Knife Config",
   "csgoMainConfig": "Configuration principale de CSGO",
   "save": "Sauvegarder"

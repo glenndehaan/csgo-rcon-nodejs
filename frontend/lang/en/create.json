@@ -10,9 +10,13 @@
   "matchGroup": "Match Group",
   "server": "Server",
   "defaultServerMap": "Default Server Map",
+  "matchType": "Match Type",
+  "gameMode": "Game Mode",
   "csgoKnifeConfig": "CSGO Knife Config",
   "csgoMainConfig": "CSGO Main Config",
   "selectGroup": "Select a group",
+  "selectMatchType": "Select a match type",
+  "selectGameMode": "Select a game mode",
   "selectServer": "Select a server",
   "selectConfig": "Select a config",
   "create": "Create"
