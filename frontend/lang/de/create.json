@@ -1,0 +1,23 @@
+{
+  "title": "Neues Spiel erstellen",
+  "subtitle": "Neues Spiel erstellen",
+  "team1": "Team 1",
+  "team2": "Team 2",
+  "name": "Name",
+  "countryCode": "Landesvorwahl",
+  "selectCountry": "Land auswählen",
+  "generalMatchSettings": "Allgemeine Übereinstimmungseinstellungen",
+  "matchGroup": "Spielgruppe",
+  "server": "Server",
+  "defaultServerMap": "Standard-Serverzuordnung",
+  "matchType": "Übereinstimmungstyp",
+  "gameMode": "Spielmodus",
+  "csgoKnifeConfig": "CSGO Knife Config",
+  "csgoMainConfig": "CSGO-Hauptkonfiguration",
+  "selectGroup": "Wählen Sie eine Gruppe aus",
+  "selectMatchType": "Wählen Sie einen Übereinstimmungstyp aus",
+  "selectGameMode": "Wählen Sie einen Spielmodus",
+  "selectServer": "Wählen Sie einen Server",
+  "selectConfig": "Wählen Sie eine Konfiguration aus",
+  "create": "Erstellen"
+}

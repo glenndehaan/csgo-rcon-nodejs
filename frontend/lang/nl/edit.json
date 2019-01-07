@@ -1,0 +1,18 @@
+{
+  "title": "Bewerk de overeenkomst",
+  "subtitle": "Bewerk de overeenkomst",
+  "match": "Wedstrijd",
+  "team1": "Team 1",
+  "team2": "Team 2",
+  "name": "Naam",
+  "countryCode": "Landcode",
+  "generalMatchSettings": "Algemene instellingen",
+  "matchGroup": "Match Groep",
+  "server": "Server",
+  "defaultServerMap": "Standaard serverkaart",
+  "matchType": "Match Type",
+  "gameMode": "Spelmodus",
+  "csgoKnifeConfig": "CSGO Knife Config",
+  "csgoMainConfig": "CSGO Main Config",
+  "save": "Opslaan"
+}

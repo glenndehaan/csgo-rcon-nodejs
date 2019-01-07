@@ -1,0 +1,18 @@
+{
+  "title": "Spiel bearbeiten",
+  "subtitle": "Spiel bearbeiten",
+  "match": "Spiel",
+  "team1": "Team 1",
+  "team2": "Team 2",
+  "name": "Name",
+  "countryCode": "Landesvorwahl",
+  "generalMatchSettings": "Allgemeine Übereinstimmungseinstellungen",
+  "matchGroup": "Spielgruppe",
+  "server": "Server",
+  "defaultServerMap": "Standard-Serverzuordnung",
+  "matchType": "Übereinstimmungstyp",
+  "gameMode": "Spielmodus",
+  "csgoKnifeConfig": "CSGO Knife Config",
+  "csgoMainConfig": "CSGO-Hauptkonfiguration",
+  "save": "Sparen"
+}

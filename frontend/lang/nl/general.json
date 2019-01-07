@@ -1,0 +1,27 @@
+{
+  "header": {
+    "connected": "Verbonden",
+    "reconnecting": "Opnieuw verbinding maken ...",
+    "disconnected": "Verbinding verbroken",
+    "links": {
+      "home": "Thuis",
+      "serverOverview": "Server overzicht",
+      "createMatch": "Creër een match",
+      "settings": "Instellingen"
+    }
+  },
+  "footer": {
+    "about": "Info over",
+    "loadedIn": "Geladen in",
+    "seconds": "seconden"
+  },
+  "notFound": {
+    "title": "Niet gevonden",
+    "subtitle": "Niet gevonden",
+    "body": "Gebruik het menu hierboven om naar een andere pagina te gaan."
+  },
+  "alert": {
+    "yes": "Ja",
+    "no": "Nee"
+  }
+}

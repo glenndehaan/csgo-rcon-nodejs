@@ -60,6 +60,8 @@ https://github.com/glenndehaan/csgo-rcon-plugin
 * Add livescoring to Home/Servers view
 * Add Readme `config.json` explanation
 * Better GitHub release integration
+* Rcon Healthcheck (Auto reinit Rcon connection)
+* Rcon Command error/timeout (https://github.com/randunel/node-srcds-rcon#specify-command-timeout)
 
 ## v1 TODO's
 * ~~Lock matches on same server when one match is running.~~
@@ -70,7 +72,7 @@ https://github.com/glenndehaan/csgo-rcon-plugin
 * ~~Catch srcds error's. (Send cmd if rcon fails)~~
 * ~~Create one cmd for rcon. (Use in startMatch, reset) Let others use that.~~
 * ~~Rcon reconnect?~~ (Not possible with current package!)
-* Rcon server/match status? (V2)
+* ~~Rcon server/match status? (V2)~~
 * ~~Challonge (API/Webhook) match import?~~
 * ~~Rewrite (server modules) to ES6 classes?~~
 * ~~Bootstrap Notification bar. (Showing that we are sending something)~~

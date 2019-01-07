@@ -1,0 +1,27 @@
+{
+  "header": {
+    "connected": "In Verbindung gebracht",
+    "reconnecting": "Verbindung wird wiederhergestellt ...",
+    "disconnected": "Getrennt",
+    "links": {
+      "home": "Zuhause",
+      "serverOverview": "Server-Übersicht",
+      "createMatch": "Spiel erstellen",
+      "settings": "die Einstellungen"
+    }
+  },
+  "footer": {
+    "about": "Über",
+    "loadedIn": "Geladen in",
+    "seconds": "Sekunden"
+  },
+  "notFound": {
+    "title": "Nicht gefunden",
+    "subtitle": "Nicht gefunden",
+    "body": "Verwenden Sie das Menü oben, um zu einer anderen Seite zu navigieren."
+  },
+  "alert": {
+    "yes": "Ja",
+    "no": "Nein"
+  }
+}

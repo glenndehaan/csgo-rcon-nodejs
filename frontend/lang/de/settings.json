@@ -1,0 +1,46 @@
+{
+  "title": "Einstellungen",
+  "subtitle": "Einstellungen",
+  "matchGroups": {
+    "title": "Spielgruppen",
+    "available": "Hier sind alle verfügbaren Matchgruppen",
+    "create": "Sie können auch eine neue erstellen",
+    "createButton": "Erstellen"
+  },
+  "challonge": {
+    "title": "Challonge",
+    "description": "Um die Challonge-Übereinstimmungen in die Datenbank zu importieren, wählen Sie die folgenden Optionen aus und klicken Sie auf: Importieren",
+    "tournament": "Turnier",
+    "matchGroup": "Spielgruppe",
+    "matchType": "Übereinstimmungstyp",
+    "gameMode": "Spielmodus",
+    "server": "Server",
+    "knifeConfig": "CSGO Knife Config",
+    "mainConfig": "CSGO-Hauptkonfiguration",
+    "import": "Einführen"
+  },
+  "csv": {
+    "title": "CSV",
+    "descriptionPart1": "So importieren Sie eine CSV",
+    "descriptionPart2": "Beispiel",
+    "descriptionPart3": "Laden Sie Ihre CSV-Datei hoch und klicken Sie auf: Importieren",
+    "csv": "CSV",
+    "matchGroup": "Spielgruppe",
+    "matchType": "Übereinstimmungstyp",
+    "gameMode": "Spielmodus",
+    "server": "Server",
+    "knifeConfig": "CSGO Knife Config",
+    "mainConfig": "CSGO-Hauptkonfiguration",
+    "import": "Einführen"
+  },
+  "archive": {
+    "title": "Archiv",
+    "description": "Klicken Sie auf die Schaltfläche Archiv, um die beendeten Übereinstimmungen zu archivieren",
+    "archive": "Archiv"
+  },
+  "forceArchive": {
+    "title": "Archiv-Übereinstimmungen erzwingen",
+    "description": "Klicken Sie auf die Schaltfläche &quot;Archiv&quot;, um ein Match zu erzwingen",
+    "archive": "Archiv"
+  }
+}

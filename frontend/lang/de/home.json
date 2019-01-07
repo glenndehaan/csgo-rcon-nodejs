@@ -1,0 +1,21 @@
+{
+  "title": "Zuhause",
+  "subtitle": "Streichhölzer",
+  "filters": {
+    "notStarted": "Nicht angefangen",
+    "running": "Laufen",
+    "completed": "Abgeschlossen",
+    "archived": "Archiviert"
+  },
+  "table": {
+    "server": "Server",
+    "map": "Karte",
+    "team1": "Team 1",
+    "team2": "Team 2",
+    "status": "Status"
+  },
+  "links": {
+    "edit": "Spiel bearbeiten",
+    "details": "Angaben zum Spiel"
+  }
+}

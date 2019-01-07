@@ -1,0 +1,15 @@
+{
+  "title": "Über",
+  "subtitle": "Über",
+  "devWarning": "Sie betreiben eine Entwicklungsversion !!",
+  "oldWarning": "Sie führen eine ältere Version aus !! Bitte aktualisieren Sie Ihre Version bald ...",
+  "descriptionTitle": "Beschreibung",
+  "description": "Ein Web-Panel zur Steuerung eines CS: GO-Servers",
+  "version": "Ausführung",
+  "currentVersion": "Aktuelle Version",
+  "latestVersion": "Letzte Version",
+  "contributors": "Mitwirkende",
+  "project": "Projekt",
+  "backendStructure": "Backend-Struktur",
+  "frontendStructure": "Frontend-Struktur"
+}

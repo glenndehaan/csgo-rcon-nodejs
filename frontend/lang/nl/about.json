@@ -1,0 +1,15 @@
+{
+  "title": "Info over",
+  "subtitle": "Info over",
+  "devWarning": "U voert een ontwikkelingsversie uit !!",
+  "oldWarning": "U gebruikt een oudere versie !! Werk uw versie binnenkort bij ...",
+  "descriptionTitle": "Omschrijving",
+  "description": "Een webpaneel om een CS:GO-server te besturen",
+  "version": "Versie",
+  "currentVersion": "Huidige versie",
+  "latestVersion": "Laatste versie",
+  "contributors": "Medewerkers",
+  "project": "Project",
+  "backendStructure": "Backend structuur",
+  "frontendStructure": "Frontend structuur"
+}

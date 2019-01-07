@@ -1,0 +1,21 @@
+{
+  "title": "Thuis",
+  "subtitle": "Wedstrijden",
+  "filters": {
+    "notStarted": "Niet begonnen",
+    "running": "Bezig",
+    "completed": "Voltooid",
+    "archived": "Gearchiveerd"
+  },
+  "table": {
+    "server": "Server",
+    "map": "Kaart",
+    "team1": "Team 1",
+    "team2": "Team 2",
+    "status": "Staat"
+  },
+  "links": {
+    "edit": "Bewerken",
+    "details": "Match details"
+  }
+}

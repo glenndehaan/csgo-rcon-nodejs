@@ -1,0 +1,46 @@
+{
+  "title": "Instellingen",
+  "subtitle": "Instellingen",
+  "matchGroups": {
+    "title": "Groepen",
+    "available": "Hier zijn alle beschikbare matchgroepen",
+    "create": "U kunt ook een nieuwe maken",
+    "createButton": "Creëren"
+  },
+  "challonge": {
+    "title": "Challonge",
+    "description": "Om de challonge-overeenkomsten met de database te importeren, selecteert u de onderstaande opties en klikt u op: Importeren",
+    "tournament": "Toernooi",
+    "matchGroup": "Match Group",
+    "matchType": "Match Type",
+    "gameMode": "Spelmodus",
+    "server": "Server",
+    "knifeConfig": "CSGO Knife Config",
+    "mainConfig": "CSGO Main Config",
+    "import": "Importeren"
+  },
+  "csv": {
+    "title": "CSV",
+    "descriptionPart1": "Om een CSV te importeren",
+    "descriptionPart2": "Voorbeeld",
+    "descriptionPart3": "upload hieronder CSV en klik op: Importeren",
+    "csv": "CSV",
+    "matchGroup": "Match Group",
+    "matchType": "Match Type",
+    "gameMode": "Spelmodus",
+    "server": "Server",
+    "knifeConfig": "CSGO Knife Config",
+    "mainConfig": "CSGO Main Config",
+    "import": "Importeren"
+  },
+  "archive": {
+    "title": "Archief",
+    "description": "Klik op de archiefknop hieronder om voltooide wedstrijden te archiveren",
+    "archive": "Archief"
+  },
+  "forceArchive": {
+    "title": "Forceer archief",
+    "description": "Klik op de archiefknop hieronder om het archief te forceren",
+    "archive": "Archief"
+  }
+}

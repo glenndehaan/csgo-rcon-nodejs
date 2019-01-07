@@ -1,0 +1,10 @@
+{
+  "title": "Servers",
+  "subtitle": "Servers",
+  "table": {
+    "server": "Server",
+    "status": "Staat"
+  },
+  "available": "Beschikbaar",
+  "matchIsRunning": "Wedstrijd loopt"
+}

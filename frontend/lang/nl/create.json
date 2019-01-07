@@ -1,0 +1,23 @@
+{
+  "title": "Creër een nieuwe match",
+  "subtitle": "Creër een nieuwe match",
+  "team1": "Team 1",
+  "team2": "Team 2",
+  "name": "Naam",
+  "countryCode": "Landcode",
+  "selectCountry": "Selecteer land",
+  "generalMatchSettings": "Algemene instellingen",
+  "matchGroup": "Match Groep",
+  "server": "Server",
+  "defaultServerMap": "Standaard serverkaart",
+  "matchType": "Match Type",
+  "gameMode": "Spelmodus",
+  "csgoKnifeConfig": "CSGO Knife Config",
+  "csgoMainConfig": "CSGO Main Config",
+  "selectGroup": "Selecteer een groep",
+  "selectMatchType": "Selecteer een matchtype",
+  "selectGameMode": "Selecteer een spelmodus",
+  "selectServer": "Selecteer een server",
+  "selectConfig": "Selecteer een config",
+  "create": "Creëren"
+}
