@@ -1,0 +1,13 @@
+// Reset Knife data
+mp_t_default_secondary "weapon_glock"
+mp_ct_default_secondary "weapon_hkp2000"
+mp_give_player_c4 1
+// End Reset Knife data
+
+// Gamemode
+game_mode 0
+game_type 6
+// End Gamemode
+
+// Change map
+changelevel dz_blacksite

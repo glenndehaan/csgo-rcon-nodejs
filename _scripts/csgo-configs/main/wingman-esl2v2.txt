@@ -1,5 +1,5 @@
 // ESL - www.eslgaming.com
-// CS:GO 3on3/5on5 Ladder Config
+// CS:GO 2on2 Ladder Config
 // 14.01.2016
 
 // Reset Knife data
@@ -8,37 +8,36 @@ mp_ct_default_secondary "weapon_hkp2000"
 mp_give_player_c4 1
 // End Reset Knife data
 
+// Gamemode
+game_mode 2
+game_type 0
+// End Gamemode
+
 ammo_grenade_limit_default 1
 ammo_grenade_limit_flashbang 2
 ammo_grenade_limit_total 4
 
 bot_quota "0"					// Determines the total number of bots in the game
 
-cash_player_bomb_defused 300
-cash_player_bomb_planted 300
-cash_player_damage_hostage -30
-cash_player_interact_with_hostage 150
-cash_player_killed_enemy_default 300
-cash_player_killed_enemy_factor 1
-cash_player_killed_hostage -1000
-cash_player_killed_teammate -300
-cash_player_rescued_hostage 1000
-cash_team_elimination_bomb_map 3250
-cash_team_hostage_alive 150
-cash_team_hostage_interaction 150
-cash_team_loser_bonus 1400
-cash_team_loser_bonus_consecutive_rounds 500
-cash_team_planted_bomb_but_defused 800
-cash_team_rescued_hostage 750
 cash_team_terrorist_win_bomb 3500
+cash_team_elimination_bomb_map 3250
 cash_team_win_by_defusing_bomb 3500
 cash_team_win_by_hostage_rescue 3500
-cash_player_get_killed 0
-cash_player_respawn_amount 0
-cash_team_elimination_hostage_map_ct 2000
-cash_team_elimination_hostage_map_t 1000
-cash_team_win_by_time_running_out_bomb 3250
-cash_team_win_by_time_running_out_hostage 3250
+cash_team_loser_bonus 1400
+cash_team_loser_bonus_consecutive_rounds 500
+cash_team_rescued_hostage 750
+cash_team_hostage_alive 150
+cash_team_planted_bomb_but_defused 800
+cash_team_hostage_interaction 150
+cash_player_killed_teammate -300
+cash_player_killed_enemy_default 300
+cash_player_killed_enemy_factor 1
+cash_player_bomb_planted 300
+cash_player_bomb_defused 300
+cash_player_rescued_hostage 1000
+cash_player_interact_with_hostage 150
+cash_player_damage_hostage -30
+cash_player_killed_hostage -1000
 
 ff_damage_reduction_grenade 0.85           	// How much to reduce damage done to teammates by a thrown grenade.  Range is from 0 - 1 (with 1 being damage equal to what is done to an enemy)
 ff_damage_reduction_bullets 0.33           	// How much to reduce damage done to teammates when shot.  Range is from 0 - 1 (with 1 being damage equal to what is done to an enemy)
@@ -58,7 +57,7 @@ mp_do_warmup_period 1				// Whether or not to do a warmup period at the start of
 mp_forcecamera 1                        	// Restricts spectator modes for dead players
 mp_force_pick_time 160				// The amount of time a player has on the team screen to make a selection before being auto-teamed
 mp_free_armor 0					// Determines whether armor and helmet are given automatically.
-mp_freezetime 12                        	// How many seconds to keep players frozen when the round starts
+mp_freezetime 10                        	// How many seconds to keep players frozen when the round starts
 mp_friendlyfire 1                       	// Allows team members to injure other members of their team
 mp_halftime 1					// Determines whether or not the match has a team-swapping halftime event.
 mp_halftime_duration 15				// Number of seconds that halftime lasts
@@ -123,15 +122,12 @@ sv_maxrate 0					// min. 0.000000 max. 30000.000000 replicated  Max bandwidth ra
 sv_mincmdrate 30				// This sets the minimum value for cl_cmdrate. 0 == unlimited.
 sv_minrate 20000				// Min bandwidth rate allowed on server, 0 == unlimited
 sv_competitive_minspec 1                        // Enable to force certain client convars to minimum/maximum values to help prevent competitive advantages.
-sv_competitive_official_5v5 1			// Enable to force the server to show 5v5 scoreboards and allows spectators to see characters through walls.
 sv_pausable 1                                   // Is the server pausable.
 sv_pure 1
 sv_pure_kick_clients 1                          // If set to 1, the server will kick clients with mismatching files. Otherwise, it will issue a warning to the client.
 sv_pure_trace 0					// If set to 1, the server will print a message whenever a client is verifying a CR
 sv_spawn_afk_bomb_drop_time 30                 	// Players that spawn and don't move for longer than sv_spawn_afk_bomb_drop_time (default 15 seconds) will automatically drop the bomb.
 sv_steamgroup_exclusive 0                     	// If set, only members of Steam group will be able to join the server when it's empty, public people will be able to join the server only if it has players.
-sv_voiceenable 1
-sv_alltalk 0
-sv_auto_full_alltalk_during_warmup_half_end 0
+sv_voiceenable 0
 
-say "> ESL CS:GO 3on3/5on5 Ladder Config loaded - 14.01.2016<"
+say "> ESL CS:GO 2v2 Ladder Config loaded - 14.01.2016 <"
