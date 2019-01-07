@@ -31,8 +31,8 @@ class ForceArchive extends Component {
     render() {
         return (
             <div>
-                <h6>Force archive matches</h6>
-                <span>Click the archive button below to force archive a match</span><br/>
+                <h6>{this.props.lang.settings.forceArchive.title}</h6>
+                <span>{this.props.lang.settings.forceArchive.description}</span><br/>
                 <br/>
                 <ul className="list-group">
                     {this.props.matches.map((match, index) => {
@@ -41,7 +41,7 @@ class ForceArchive extends Component {
                                 <li key={index} className="list-group-item">
                                     <span>{match.team1.name} v/s {match.team2.name}</span>
                                     <button type='button' className='btn btn-sm btn-warning btn-detail float-right m-0' onClick={() => this.archive(index)}>
-                                        Archive
+                                        {this.props.lang.settings.forceArchive.archive}
                                     </button>
                                 </li>
                             )
@@ -56,4 +56,4 @@ class ForceArchive extends Component {
 /**
  * Connect the store to the component
  */
-export default connect('matches')(ForceArchive);
+export default connect('matches,lang')(ForceArchive);

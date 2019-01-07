@@ -8,8 +8,9 @@ import about from './about';
 import detail from './detail';
 import create from './create';
 import edit from './edit';
+import settings from './settings';
 
 /**
  * Export as one translation file
  */
-export default {general,home,servers,about,detail,create,edit};
+export default {general,home,servers,about,detail,create,edit,settings};

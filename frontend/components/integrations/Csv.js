@@ -135,19 +135,19 @@ class Csv extends Component {
     render() {
         return (
             <div>
-                <h6>CSV</h6>
-                <span>To import a CSV (<a href="/assets/csgo-remote_matches.csv" native>Example</a>) upload you CSV below and click: Import</span><br/>
+                <h6>{this.props.lang.settings.csv.title}</h6>
+                <span>{this.props.lang.settings.csv.descriptionPart1} (<a href="/assets/csgo-remote_matches.csv" native>{this.props.lang.settings.csv.descriptionPart2}</a>) {this.props.lang.settings.csv.descriptionPart3}</span><br/>
                 <br/>
-                <strong>CSV</strong>
+                <strong>{this.props.lang.settings.csv.csv}</strong>
                 <input type="file" className="form-control-file" name="csv" id="csv" title="csv" accept="text/csv" ref={c => this.fields.csv = c} onChange={(e) => this.handleFileChange(e)} />
-                <strong>Match Group</strong>
+                <strong>{this.props.lang.settings.csv.matchGroup}</strong>
                 <select name="match-group" id="match-group" title="match-group" className="form-control" ref={c => this.fields.match_group = c}>
                     <option selected disabled value="false">Select a group</option>
                     {this.props.groups.map((group, index) => (
                         <option key={index} value={group}>{group}</option>
                     ))}
                 </select>
-                <strong>Match Type</strong>
+                <strong>{this.props.lang.settings.csv.matchType}</strong>
                 <select title="match-type" name="match-type" id="match-type" className="form-control" ref={c => this.fields.match_type = c}>
                     <option selected disabled value="false">Select a match type</option>
                     <option value="1">Bo1</option>
@@ -156,28 +156,28 @@ class Csv extends Component {
                     <option value="4">Bo4</option>
                     <option value="5">Bo5</option>
                 </select>
-                <strong>Game Mode</strong>
+                <strong>{this.props.lang.settings.csv.gameMode}</strong>
                 <select title="game-mode" name="game-mode" id="game-mode" className="form-control" ref={c => this.fields.game_mode = c}>
                     <option selected disabled value="false">Select a game mode</option>
                     <option value="competitive">Competitive</option>
                     <option value="wingman">Wingman</option>
                     <option value="dangerzone">Dangerzone</option>
                 </select>
-                <strong>Server</strong>
+                <strong>{this.props.lang.settings.csv.server}</strong>
                 <select title="server" name="server" id="server" className="form-control" ref={c => this.fields.server = c}>
                     <option selected disabled value="false">Select a server</option>
                     {this.props.servers.map((server, index) => (
                         <option key={index} value={`${server.ip}:${server.port}`}>{`${server.ip}:${server.port}`}</option>
                     ))}
                 </select>
-                <strong>CSGO Knife Config</strong>
+                <strong>{this.props.lang.settings.csv.knifeConfig}</strong>
                 <select title="csgo-knife-config" name="csgo-knife-config" id="csgo-knife-config" className="form-control" ref={c => this.fields.knife_config = c}>
                     <option selected disabled value="false">Select a config</option>
                     {this.props.configs.knife.map((config, index) => (
                         <option key={index} value={config}>{config}</option>
                     ))}
                 </select>
-                <strong>CSGO Main Config</strong>
+                <strong>{this.props.lang.settings.csv.mainConfig}</strong>
                 <select title="csgo-main-config" name="csgo-main-config" id="csgo-main-config" className="form-control" ref={c => this.fields.main_config = c}>
                     <option selected disabled value="false">Select a config</option>
                     {this.props.configs.main.map((config, index) => (
@@ -185,7 +185,7 @@ class Csv extends Component {
                     ))}
                 </select><br/>
                 <button type='button' className='btn btn-sm btn-primary btn-detail' onClick={() => this.importCsv()}>
-                    Import
+                    {this.props.lang.settings.csv.import}
                 </button>
             </div>
         );
@@ -195,4 +195,4 @@ class Csv extends Component {
 /**
  * Connect the store to the component
  */
-export default connect('groups,servers,configs')(Csv);
+export default connect('groups,servers,configs,lang')(Csv);

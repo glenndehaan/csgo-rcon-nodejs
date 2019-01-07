@@ -1,0 +1,46 @@
+{
+  "title": "Settings",
+  "subtitle": "Settings",
+  "matchGroups": {
+    "title": "Match Groups",
+    "available": "Here are all available match groups",
+    "create": "You can also create a new one",
+    "createButton": "Create"
+  },
+  "challonge": {
+    "title": "Challonge",
+    "description": "To import the challonge matches to the database select the options below and click: Import",
+    "tournament": "Tournament",
+    "matchGroup": "Match Group",
+    "matchType": "Match Type",
+    "gameMode": "Game Mode",
+    "server": "Server",
+    "knifeConfig": "CSGO Knife Config",
+    "mainConfig": "CSGO Main Config",
+    "import": "Import"
+  },
+  "csv": {
+    "title": "CSV",
+    "descriptionPart1": "To import a CSV",
+    "descriptionPart2": "Example",
+    "descriptionPart3": "upload you CSV below and click: Import",
+    "csv": "CSV",
+    "matchGroup": "Match Group",
+    "matchType": "Match Type",
+    "gameMode": "Game Mode",
+    "server": "Server",
+    "knifeConfig": "CSGO Knife Config",
+    "mainConfig": "CSGO Main Config",
+    "import": "Import"
+  },
+  "archive": {
+    "title": "Archive",
+    "description": "Click the archive button below to archive ended matches",
+    "archive": "Archive"
+  },
+  "forceArchive": {
+    "title": "Force archive matches",
+    "description": "Click the archive button below to force archive a match",
+    "archive": "Archive"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "title": "Réglages",
+  "subtitle": "Réglages",
+  "matchGroups": {
+    "title": "Groupes de match",
+    "available": "Voici tous les groupes de match disponibles",
+    "create": "Vous pouvez aussi en créer un nouveau",
+    "createButton": "Créer"
+  },
+  "challonge": {
+    "title": "Challonge",
+    "description": "Pour importer les correspondances dans la base de données, sélectionnez les options ci-dessous et cliquez sur: Importer.",
+    "tournament": "Tournoi",
+    "matchGroup": "Groupe de match",
+    "matchType": "Type de match",
+    "gameMode": "Mode de jeu",
+    "server": "Serveur",
+    "knifeConfig": "CSGO Knife Config",
+    "mainConfig": "Configuration principale de CSGO",
+    "import": "Importation"
+  },
+  "csv": {
+    "title": "CSV",
+    "descriptionPart1": "Pour importer un fichier CSV",
+    "descriptionPart2": "Exemple",
+    "descriptionPart3": "téléchargez votre fichier CSV ci-dessous et cliquez sur: Importer",
+    "csv": "CSV",
+    "matchGroup": "Groupe de match",
+    "matchType": "Type de match",
+    "gameMode": "Mode de jeu",
+    "server": "Serveur",
+    "knifeConfig": "CSGO Knife Config",
+    "mainConfig": "Configuration principale de CSGO",
+    "import": "Importation"
+  },
+  "archive": {
+    "title": "Archiver",
+    "description": "Cliquez sur le bouton d'archive ci-dessous pour archiver les matchs terminés.",
+    "archive": "Archiver"
+  },
+  "forceArchive": {
+    "title": "Forcer les correspondances d'archives",
+    "description": "Cliquez sur le bouton d'archive ci-dessous pour forcer l'archivage d'une correspondance.",
+    "archive": "Archiver"
+  }
+}

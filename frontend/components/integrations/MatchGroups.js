@@ -60,9 +60,9 @@ class MatchGroups extends Component {
     render() {
         return (
             <div>
-                <h6>Match Groups</h6>
+                <h6>{this.props.lang.settings.matchGroups.title}</h6>
                 <br/>
-                <span><strong>Here are all available match groups:</strong></span><br/>
+                <span><strong>{this.props.lang.settings.matchGroups.available}:</strong></span><br/>
                 {this.props.groups.length < 1 ? (<span>No groups available!<br/></span>) : null}
                 <ul className="list-group">
                     {this.props.groups.map((group, index) => (
@@ -70,9 +70,9 @@ class MatchGroups extends Component {
                     ))}
                 </ul>
                 <br/>
-                <span><strong>You can also create a new one:</strong></span><br/>
+                <span><strong>{this.props.lang.settings.matchGroups.create}:</strong></span><br/>
                 <input type="text" name="group-name" id="group-name" title="group-name" className="form-control" ref={c => this.fields.group = c} /><br/>
-                <button type="button" className="btn btn-sm btn-success btn-detail" id="submit" onClick={() => this.createMatchGroup()}>Create</button>
+                <button type="button" className="btn btn-sm btn-success btn-detail" id="submit" onClick={() => this.createMatchGroup()}>{this.props.lang.settings.matchGroups.createButton}</button>
             </div>
         );
     }
@@ -81,4 +81,4 @@ class MatchGroups extends Component {
 /**
  * Connect the store to the component
  */
-export default connect('groups')(MatchGroups)
+export default connect('groups,lang')(MatchGroups)

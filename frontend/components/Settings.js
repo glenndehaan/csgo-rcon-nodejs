@@ -5,20 +5,35 @@ import Csv from "./integrations/Csv";
 import Archive from "./integrations/Archive";
 import MatchGroups from "./integrations/MatchGroups";
 import ForceArchive from "./integrations/ForceArchive";
+import {connect} from "unistore/preact";
 
-export default class Settings extends Component {
+class Settings extends Component {
     /**
      * Runs then component mounts
      */
     componentDidMount() {
-        document.title = `Settings | ${window.expressConfig.appName} ${window.expressConfig.env}`;
+        this.updateGeneralPageData();
+    }
+
+    /**
+     * Runs when the component updates
+     */
+    componentDidUpdate() {
+        this.updateGeneralPageData();
+    }
+
+    /**
+     * Updates some general page data
+     */
+    updateGeneralPageData() {
+        document.title = `${this.props.lang.settings.title} | ${window.expressConfig.appName} ${window.expressConfig.env}`;
         window.events.emit('breadcrumbs', [
             {
-                "name": "Home",
+                "name": this.props.lang.home.title,
                 "url": "/"
             },
             {
-                "name": "Settings",
+                "name": this.props.lang.settings.title,
                 "url": false
             }
         ]);
@@ -32,7 +47,7 @@ export default class Settings extends Component {
     render() {
         return (
             <div className="starter-template">
-                <h3>Settings</h3>
+                <h3>{this.props.lang.settings.subtitle}</h3>
                 <hr/>
                 <MatchGroups/>
                 <hr/>
@@ -47,3 +62,8 @@ export default class Settings extends Component {
         );
     }
 }
+
+/**
+ * Connect the store to the component
+ */
+export default connect('lang')(Settings);
