@@ -388,7 +388,7 @@ class Detail extends Component {
                                 <br/>
                                 <select name="map" id="map" title="map" className="form-control" disabled={this.state.match.status === 0 || this.state.match.status >= 99} ref={c => this.fields.map = c}>
                                     <option selected disabled value="false">{this.props.lang.detail.selectMap}</option>
-                                    {this.props.maps.map((map, index) => (
+                                    {this.props.maps[this.state.match.game_mode].map((map, index) => (
                                         <option key={index} value={map}>{map}</option>
                                     ))}
                                 </select>
