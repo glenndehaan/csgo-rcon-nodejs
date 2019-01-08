@@ -254,11 +254,14 @@ class rcon {
      */
     cmd(server, cmd, message = "CMD Send") {
         queue.add(server, () => {
-            this.rcon[server].command(cmd).then(source => {
+            this.rcon[server].command(cmd, 5000).then(source => {
                 log.trace(`[RCON][${server}] ${message}: `, source);
                 queue.complete(server);
+            }, err => {
+                log.error(`[RCON][${server}] Error: ${err}`);
+                queue.complete(server);
             }).catch((error) => {
-                log.error(`[RCON][${server}] Error: ${error}`);
+                log.error(`[RCON][${server}] Catch: ${error}`);
                 queue.complete(server);
             });
         });

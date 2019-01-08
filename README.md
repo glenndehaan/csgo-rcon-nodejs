@@ -61,7 +61,7 @@ https://github.com/glenndehaan/csgo-rcon-plugin
 * Add Readme `config.json` explanation
 * Better GitHub release integration
 * Rcon Healthcheck (Auto reinit Rcon connection)
-* Rcon Command error/timeout (https://github.com/randunel/node-srcds-rcon#specify-command-timeout)
+* ~~Rcon Command error/timeout (https://github.com/randunel/node-srcds-rcon#specify-command-timeout)~~ (Needs testing)
 
 ## v1 TODO's
 * ~~Lock matches on same server when one match is running.~~
