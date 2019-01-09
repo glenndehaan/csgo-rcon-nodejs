@@ -54,13 +54,13 @@ https://github.com/glenndehaan/csgo-rcon-plugin
 ## v2 TODO's
 * ~~Add frontend translations~~
 * Add Bo1, Bo2, Bo3, Bo4, Bo5 support
-* Add wingman and dangerzone support (maps, configs)
+* ~~Add wingman and dangerzone support (maps, configs)~~ (Needs testing)
 * Add support for uploading scores back to challonge
 * Replace basic auth with frontend login
 * Add livescoring to Home/Servers view
 * Add Readme `config.json` explanation
 * Better GitHub release integration
-* Rcon Healthcheck (Auto reinit Rcon connection)
+* ~~Rcon Healthcheck (Auto reinit Rcon connection)~~ (Needs testing)
 * ~~Rcon Command error/timeout (https://github.com/randunel/node-srcds-rcon#specify-command-timeout)~~ (Needs testing)
 
 ## v1 TODO's

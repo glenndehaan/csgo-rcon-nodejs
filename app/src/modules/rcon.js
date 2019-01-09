@@ -26,22 +26,58 @@ class rcon {
     init() {
         for(let item = 0; item < config.servers.length; item++){
             this.broadcasters[`${config.servers[item].ip}:${config.servers[item].port}`] = null;
-            this.rcon[`${config.servers[item].ip}:${config.servers[item].port}`] = Rcon({
-                address: `${config.servers[item].ip}:${config.servers[item].port}`,
-                password: config.servers[item].password
-            });
-
-            this.rcon[`${config.servers[item].ip}:${config.servers[item].port}`].connect().then(() => {
-                log.info(`[RCON INIT][${config.servers[item].ip}:${config.servers[item].port}] Server ready `);
-                this.checkPlugin(`${config.servers[item].ip}:${config.servers[item].port}`);
-
-                if(config.broadcaster.enabled) {
-                    this.initBroadcaster(`${config.servers[item].ip}:${config.servers[item].port}`);
-                }
-            }).catch(err => {
-                log.error(`[RCON INIT][${config.servers[item].ip}:${config.servers[item].port}] Failed to connect to rcon: `, err);
-            });
+            this.initServer(`${config.servers[item].ip}:${config.servers[item].port}`, config.servers[item].password);
+            setInterval(() => this.healthcheck(`${config.servers[item].ip}:${config.servers[item].port}`, config.servers[item].password), 60000);
         }
+    }
+
+    /**
+     * Function to setup the RCON connection
+     *
+     * @param server
+     * @param password
+     */
+    initServer(server, password) {
+        this.rcon[server] = Rcon({
+            address: server,
+            password: password
+        });
+
+        this.rcon[server].connect().then(() => {
+            log.info(`[RCON INIT][${server}] Server ready `);
+            this.checkPlugin(server);
+
+            if(config.broadcaster.enabled) {
+                this.initBroadcaster(server);
+            }
+        }).catch(err => {
+            log.error(`[RCON INIT][${server}] Failed to connect to rcon: `, err);
+        });
+    }
+
+    /**
+     * Function to check if a server is still alive
+     *
+     * @param server
+     * @param password
+     */
+    healthcheck(server, password) {
+        queue.add(server, () => {
+            this.rcon[server].command("status", 5000).then(() => {
+                queue.complete(server);
+                log.info(`[RCON][${server}][HEALTHCHECK]: OK`);
+            }, () => {
+                log.error(`[RCON][${server}][HEALTHCHECK]: Server error reconnecting...`);
+                queue.complete(server);
+
+                this.initServer(server, password);
+            }).catch(() => {
+                log.error(`[RCON][${server}][HEALTHCHECK]: Server error reconnecting...`);
+                queue.complete(server);
+
+                this.initServer(server, password);
+            });
+        });
     }
 
     /**
@@ -53,14 +89,16 @@ class rcon {
         let currentMessage = 0;
 
         if(config.broadcaster.messages.length > 0) {
-            this.broadcasters[server] = setInterval(() => {
-                this.cmd(server, `say "${config.broadcaster.messages[currentMessage]}"`, 'Message sending complete');
-                currentMessage++;
+            if(this.broadcasters[server] === null) {
+                this.broadcasters[server] = setInterval(() => {
+                    this.cmd(server, `say "${config.broadcaster.messages[currentMessage]}"`, 'Message sending complete');
+                    currentMessage++;
 
-                if((currentMessage + 1) > config.broadcaster.messages.length) {
-                    currentMessage = 0;
-                }
-            }, (config.broadcaster.speed * 1000));
+                    if ((currentMessage + 1) > config.broadcaster.messages.length) {
+                        currentMessage = 0;
+                    }
+                }, (config.broadcaster.speed * 1000));
+            }
         }
     }
 
