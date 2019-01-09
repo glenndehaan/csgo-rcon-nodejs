@@ -52,6 +52,7 @@ class About extends Component {
      * Fetch the latest version from GitHub
      */
     checkCurrentVersion() {
+        //todo https://api.github.com/repos/glenndehaan/csgo-rcon-nodejs/releases
         fetch('https://api.github.com/repos/glenndehaan/csgo-rcon-nodejs/commits')
             .then(r => r.json())
             .then(data => {
