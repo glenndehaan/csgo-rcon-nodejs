@@ -12,7 +12,7 @@
     "webpack": "webpack --watch --watch-poll --mode development --config ./_scripts/webpack/webpack.config.js",
     "prewebpack:production": "rimraf ./public/dist",
     "webpack:production": "cross-env NODE_ENV=production webpack --mode production --config ./_scripts/webpack/webpack.config.js",
-    "prebuild": "git rev-parse HEAD > ./app/src/config/version/version.txt",
+    "prebuild": "git describe --tags `git rev-list --tags --max-count=1` > ./app/src/config/version/version.txt",
     "build": "npm run webpack:production && npm run server:build && rm ./app/src/config/version/version.txt",
     "lint": "eslint -c ./package.json ./",
     "madge": "madge ./app/src && madge ./app/src --circular"

@@ -52,14 +52,13 @@ class About extends Component {
      * Fetch the latest version from GitHub
      */
     checkCurrentVersion() {
-        //todo https://api.github.com/repos/glenndehaan/csgo-rcon-nodejs/releases
-        fetch('https://api.github.com/repos/glenndehaan/csgo-rcon-nodejs/commits')
+        fetch('https://api.github.com/repos/glenndehaan/csgo-rcon-nodejs/releases')
             .then(r => r.json())
             .then(data => {
                 if(data.length > 0) {
-                    if(data[0].sha) {
+                    if(data[0].tag_name) {
                         this.setState({
-                            latestCommit: data[0].sha
+                            latestCommit: data[0].tag_name
                         })
                     }
                 }
