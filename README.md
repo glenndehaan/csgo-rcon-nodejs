@@ -59,6 +59,11 @@ https://github.com/glenndehaan/csgo-rcon-plugin
 * Replace basic auth with frontend login
 * Add livescoring to Home/Servers view
 * Add Readme `config.json` explanation
+* Implement LoadBalancing (Redis)?
+* Implement lang files tests
+* Implement basic tests
+* Implement NodeJS server logs web interface
+* Implement NodeJS server controls
 * ~~Better GitHub release integration~~
 * ~~Rcon Healthcheck (Auto reinit Rcon connection)~~ (Needs testing)
 * ~~Rcon Command error/timeout (https://github.com/randunel/node-srcds-rcon#specify-command-timeout)~~ (Needs testing)
