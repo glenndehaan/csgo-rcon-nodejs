@@ -17,3 +17,7 @@ csgo-rcon.json
 *.log
 config.json
 app/src/config/version/version.txt
+
+# Tests
+coverage/
+.nyc_output/

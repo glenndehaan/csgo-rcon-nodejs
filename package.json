@@ -15,7 +15,16 @@
     "prebuild": "git describe --tags `git rev-list --tags --max-count=1` > ./app/src/config/version/version.txt",
     "build": "npm run webpack:production && npm run server:build && rm ./app/src/config/version/version.txt",
     "lint": "eslint -c ./package.json ./",
-    "madge": "madge ./app/src && madge ./app/src --circular"
+    "madge": "madge ./app/src && madge ./app/src --circular",
+    "test": "npm run lint && npm run madge && npm run test:all",
+    "test:all": "nyc --reporter=html --reporter=text mocha -R spec --recursive --require babel-core/register './{,!(node_modules)/**}/*.test.js'",
+    "test:watch": "mocha -R spec --recursive --watch --require babel-core/register './{,!(node_modules)/**}/*.test.js'",
+    "test:cleanup": "rimraf ./coverage ./.nyc_output"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
   },
   "pkg": {
     "assets": [
@@ -71,7 +80,8 @@
     }
   },
   "eslintIgnore": [
-    "public/dist"
+    "public/dist",
+    "*.test.js"
   ],
   "dependencies": {
     "atob": "^2.1.2",
@@ -94,15 +104,18 @@
     "express-ws": "^4.0.0",
     "mini-css-extract-plugin": "^0.4.4",
     "mitt": "^1.1.3",
+    "mocha": "^5.2.0",
     "node-fetch": "^2.2.1",
     "node-json-db": "^0.9.1",
     "node-sass": "^4.10.0",
+    "nyc": "^13.1.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "pkg": "^4.3.4",
     "preact": "^8.3.1",
     "preact-router": "^2.6.1",
     "rimraf": "^2.6.2",
     "sass-loader": "^7.0.3",
+    "should": "^13.2.3",
     "simple-node-logger": "^0.93.40",
     "size-plugin": "^1.0.1",
     "sockette": "^2.0.1",
