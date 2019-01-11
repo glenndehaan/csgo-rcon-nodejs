@@ -2,6 +2,8 @@
 
 A web panel to control a CS:GO server
 
+[![dependencies](https://david-dm.org/glenndehaan/csgo-rcon-nodejs.svg)](https://github.com/glenndehaan/csgo-rcon-nodejs/blob/master/package.json) [![release](https://img.shields.io/github/release/glenndehaan/csgo-rcon-nodejs.svg)](https://github.com/glenndehaan/csgo-rcon-nodejs/releases) [![license](https://img.shields.io/github/license/glenndehaan/csgo-rcon-nodejs.svg)](https://github.com/glenndehaan/csgo-rcon-nodejs/blob/master/LICENCE)
+
 ## Backend Structure
 - NodeJS
 - Simple Node Logger
@@ -51,6 +53,44 @@ To enable livescoring and auto match configuration please install the SourceMod 
 
 https://github.com/glenndehaan/csgo-rcon-plugin
 
+## Language Support
+- English
+- French
+- German
+- Dutch
+
+## config.json Explanation
+```
+{
+  "application": {
+    "companyName": "A Company", <<- This name will be prefixed in the servername
+    "baseUrl": "http://CURRENTIP:3542" <<- Change 'CURRENTIP' to the IP of the CSGO-Remote server. Your CS:GO servers must be able to connect to the CSGO-Remote app
+  },
+  "servers": [ <<- Put all your CS:GO server in this block
+    { <<- A server block
+      "ip": "192.168.1.xx", <<- CS:GO server IP/Hostname
+      "port": 27015, <<- CS:GO server Port
+      "password": "anrconpassword", <<- CS:GO server password
+      "default_map": "de_dust2", <<- CS:GO server default loading map
+      "server_restore_config": "server" <<- Leave this default
+    }
+  ],
+  "broadcaster": { <<- The broadcaster sends messages to the CS:GO server chat
+    "enabled": true, <<- Enables the broadcaster
+    "speed": 120, <<- After how long do we need to send the next message in seconds
+    "messages": [ <<- This block contains all the messages
+      "This is message 1", <<- This is one message
+      "This is message 2",
+      "This is message 3"
+    ]
+  },
+  "authentication": { <<- This block is for the /settings pages
+    "username": "root", <<- Username for the /settings pages
+    "password": "password123!" <<- Password for the /settings pages
+  }
+}
+```
+
 ## v2 TODO's
 * ~~Add frontend translations~~
 * Add Bo1, Bo2, Bo3, Bo4, Bo5 support
@@ -58,11 +98,11 @@ https://github.com/glenndehaan/csgo-rcon-plugin
 * Add support for uploading scores back to challonge
 * Replace basic auth with frontend login
 * Add livescoring to Home/Servers view
-* Add Readme `config.json` explanation
+* ~~Add Readme `config.json` explanation~~
 * Implement LoadBalancing (Redis)?
 * Implement lang files tests
 * Implement basic tests
-* Implement NodeJS server logs web interface
+* ~~Implement NodeJS server logs web interface~~
 * Implement NodeJS server controls
 * ~~Better GitHub release integration~~
 * ~~Rcon Healthcheck (Auto reinit Rcon connection)~~ (Needs testing)
