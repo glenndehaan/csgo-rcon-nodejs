@@ -14,6 +14,7 @@ import Create from './components/Create';
 import Edit from './components/Edit';
 import Detail from './components/Detail';
 import Settings from './components/Settings';
+import Log from './components/settings/Log';
 import NotFound from './components/NotFound';
 
 import Notification from './components/partials/Notification';
@@ -116,6 +117,7 @@ class App extends Component {
                 <Detail path="/match/:id"/>
                 <Edit path="/match/:id/edit"/>
                 <Settings path="/settings"/>
+                <Log path="/settings/log"/>
                 <About path="/about"/>
                 <NotFound default/>
             </Router>

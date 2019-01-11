@@ -47,6 +47,13 @@ const routes = [
         secured: true
     },
     {
+        route: '/settings/log',
+        method: 'get',
+        controller: 'Index',
+        action: 'index',
+        secured: true
+    },
+    {
         route: '/about',
         method: 'get',
         controller: 'Index',

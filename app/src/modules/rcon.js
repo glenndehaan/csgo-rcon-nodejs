@@ -51,7 +51,7 @@ class rcon {
                 this.initBroadcaster(server);
             }
         }).catch(err => {
-            log.error(`[RCON INIT][${server}] Failed to connect to rcon: `, err);
+            log.error(`[RCON INIT][${server}] Failed to connect to rcon: ${err}`);
         });
     }
 
@@ -293,7 +293,7 @@ class rcon {
     cmd(server, cmd, message = "CMD Send") {
         queue.add(server, () => {
             this.rcon[server].command(cmd, 5000).then(source => {
-                log.trace(`[RCON][${server}] ${message}: `, source);
+                log.trace(`[RCON][${server}] ${message}: ${source}`);
                 queue.complete(server);
             }, err => {
                 log.error(`[RCON][${server}] Error: ${err}`);

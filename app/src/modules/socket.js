@@ -18,6 +18,8 @@ class socket {
      */
     constructor() {
         this.socket = null;
+
+        log.addCallback((message) => this.logHandler(message));
     }
 
     /**
@@ -351,12 +353,25 @@ class socket {
     }
 
     /**
+     * Send all logs to the sockets
+     *
+     * @param message
+     */
+    logHandler(message) {
+        this.informAllSockets("log", message);
+    }
+
+    /**
      * Function to send info to all sockets
      *
      * @param instruction
      * @param data
      */
     informAllSockets(instruction, data) {
+        if(this.socket === null) {
+            return;
+        }
+
         this.socket.getWss().clients.forEach(client => {
             // Check if connection is still open
             if (client.readyState !== client.OPEN) return;

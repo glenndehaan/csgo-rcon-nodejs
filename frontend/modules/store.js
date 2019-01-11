@@ -13,7 +13,8 @@ const createStore = () => {
         matches: [],
         maps: [],
         configs: {},
-        challonge: []
+        challonge: [],
+        logs: []
     };
 
     return process.env.NODE_ENV === 'production' ?  createUnistore(initialState) : devtools(createUnistore(initialState));
@@ -34,6 +35,11 @@ const actions = () => {
                 maps: payload.maps,
                 configs: payload.configs,
                 challonge: payload.challonge
+            };
+        },
+        setLogData(state, payload) {
+            return {
+                logs: payload.logs
             };
         }
     };

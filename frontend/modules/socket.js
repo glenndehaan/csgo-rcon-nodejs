@@ -79,6 +79,12 @@ export default new class Socket {
             store.setState(message.data);
         }
 
+        if(message.instruction === "log") {
+            store.setState({
+                logs: [message.data].concat(store.getState().logs)
+            });
+        }
+
         if(message.instruction === "notification") {
             console.log('[SOCKET] Notification', message.data);
 
