@@ -2,7 +2,7 @@
 
 A web panel to control a CS:GO server
 
-[![dependencies](https://david-dm.org/glenndehaan/csgo-rcon-nodejs.svg)](https://github.com/glenndehaan/csgo-rcon-nodejs/blob/master/package.json) [![release](https://img.shields.io/github/release/glenndehaan/csgo-rcon-nodejs.svg)](https://github.com/glenndehaan/csgo-rcon-nodejs/releases) [![license](https://img.shields.io/github/license/glenndehaan/csgo-rcon-nodejs.svg)](https://github.com/glenndehaan/csgo-rcon-nodejs/blob/master/LICENCE)
+[![Build Status](https://travis-ci.org/glenndehaan/csgo-rcon-nodejs.svg?branch=master)](https://travis-ci.org/glenndehaan/csgo-rcon-nodejs) [![release](https://img.shields.io/github/release/glenndehaan/csgo-rcon-nodejs.svg)](https://github.com/glenndehaan/csgo-rcon-nodejs/releases) [![dependencies](https://david-dm.org/glenndehaan/csgo-rcon-nodejs.svg)](https://github.com/glenndehaan/csgo-rcon-nodejs/blob/master/package.json) [![license](https://img.shields.io/github/license/glenndehaan/csgo-rcon-nodejs.svg)](https://github.com/glenndehaan/csgo-rcon-nodejs/blob/master/LICENCE)
 
 ## Backend Structure
 - NodeJS
