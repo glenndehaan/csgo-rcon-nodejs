@@ -100,7 +100,7 @@ https://github.com/glenndehaan/csgo-rcon-plugin
 * Add livescoring to Home/Servers view
 * ~~Add Readme `config.json` explanation~~
 * Implement LoadBalancing (Redis)?
-* Implement lang files tests
+* ~~Implement lang files tests~~
 * ~~Implement basic tests~~
 * ~~Implement NodeJS server logs web interface~~
 * ~~Implement NodeJS server controls~~ (Not possible)
