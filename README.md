@@ -98,6 +98,7 @@ https://github.com/glenndehaan/csgo-rcon-plugin
 * Dangerzone: `Start match` needs to stop warmup
 * Dangerzone/Wingman: Restore game_type/game_mode to competitive
 * Healthcheck needs to be faster
+* Translations add socket error messages
 * ~~Add frontend translations~~
 * Add Bo1, Bo2, Bo3, Bo4, Bo5 support
 * ~~Add wingman and dangerzone support (maps, configs)~~
