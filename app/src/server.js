@@ -47,7 +47,7 @@ if(!dev) {
 
         log.info("------------------------------------------");
         log.info("Hi and thank you for using this piece of software!");
-        log.info("Go ahead and update the config.json to your needed then relaunch the software!");
+        log.info("Go ahead and update the config.json to your needs then relaunch the software!");
         log.info("The software will close in 5 seconds!");
         log.info("------------------------------------------");
 
