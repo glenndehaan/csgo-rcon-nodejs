@@ -42,5 +42,8 @@
     "title": "Force archive matches",
     "description": "Click the archive button below to force archive a match",
     "archive": "Archive"
+  },
+  "log": {
+    "title": "Server Logs"
   }
 }

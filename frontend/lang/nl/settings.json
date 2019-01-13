@@ -42,5 +42,8 @@
     "title": "Forceer archief",
     "description": "Klik op de archiefknop hieronder om het archief te forceren",
     "archive": "Archief"
+  },
+  "log": {
+    "title": "Server Logs"
   }
 }

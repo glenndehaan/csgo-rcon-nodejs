@@ -42,5 +42,8 @@
     "title": "Forcer les correspondances d'archives",
     "description": "Cliquez sur le bouton d'archive ci-dessous pour forcer l'archivage d'une correspondance.",
     "archive": "Archiver"
+  },
+  "log": {
+    "title": "Journaux du serveur"
   }
 }

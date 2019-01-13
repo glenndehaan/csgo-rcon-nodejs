@@ -1,4 +1,5 @@
 import {h, Component} from 'preact';
+import { Link } from 'preact-router/match';
 
 import Challonge from "./integrations/Challonge";
 import Csv from "./integrations/Csv";
@@ -48,6 +49,7 @@ class Settings extends Component {
         return (
             <div className="starter-template">
                 <h3>{this.props.lang.settings.subtitle}</h3>
+                <Link href="/settings/log">{this.props.lang.settings.log.title}</Link>
                 <hr/>
                 <MatchGroups/>
                 <hr/>

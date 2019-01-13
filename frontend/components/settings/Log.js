@@ -31,7 +31,7 @@ class Log extends Component {
                 "url": "/settings"
             },
             {
-                "name": "Server Logs",
+                "name": this.props.lang.settings.log.title,
                 "url": false
             }
         ]);
@@ -45,7 +45,7 @@ class Log extends Component {
     render() {
         return (
             <div className="starter-template">
-                <h3>Server Logs</h3>
+                <h3>{this.props.lang.settings.log.title}</h3>
                 <div className="logs">
                     {this.props.logs.map((log, key) => (
                         <div key={key}>{log}<br/></div>
