@@ -97,6 +97,7 @@ https://github.com/glenndehaan/csgo-rcon-plugin
 * Dangerzone: `Knife round` needs to be disabled
 * Dangerzone: `Start match` needs to stop warmup
 * Dangerzone/Wingman: Restore game_type/game_mode to competitive
+* Healthcheck needs to be faster
 * ~~Add frontend translations~~
 * Add Bo1, Bo2, Bo3, Bo4, Bo5 support
 * ~~Add wingman and dangerzone support (maps, configs)~~
