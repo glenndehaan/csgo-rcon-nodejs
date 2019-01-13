@@ -92,9 +92,13 @@ https://github.com/glenndehaan/csgo-rcon-plugin
 ```
 
 ## v2 TODO's
+* Wingman: `Connect server` needs to change map to wingman map
+* Dangerzone: `Connect server` needs to change map to wingman map
+* Dangerzone: `Knife round` needs to be disabled
+* Dangerzone: `Start match` needs to stop warmup
 * ~~Add frontend translations~~
 * Add Bo1, Bo2, Bo3, Bo4, Bo5 support
-* ~~Add wingman and dangerzone support (maps, configs)~~ (Needs testing)
+* ~~Add wingman and dangerzone support (maps, configs)~~
 * Add support for uploading scores back to challonge
 * Replace basic auth with frontend login
 * Add livescoring to Home/Servers view
@@ -105,8 +109,8 @@ https://github.com/glenndehaan/csgo-rcon-plugin
 * ~~Implement NodeJS server logs web interface~~
 * ~~Implement NodeJS server controls~~ (Not possible)
 * ~~Better GitHub release integration~~
-* ~~Rcon Healthcheck (Auto reinit Rcon connection)~~ (Needs testing)
-* ~~Rcon Command error/timeout (https://github.com/randunel/node-srcds-rcon#specify-command-timeout)~~ (Needs testing)
+* ~~Rcon Healthcheck (Auto reinit Rcon connection)~~
+* ~~Rcon Command error/timeout (https://github.com/randunel/node-srcds-rcon#specify-command-timeout)~~
 
 ## v1 TODO's
 * ~~Lock matches on same server when one match is running.~~
