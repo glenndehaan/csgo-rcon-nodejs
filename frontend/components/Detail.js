@@ -1,6 +1,7 @@
 import {h, Component} from 'preact';
 import { route } from 'preact-router';
 import { connect } from "unistore/preact";
+import {Link} from "preact-router/match";
 
 import Socket from "../modules/socket";
 
@@ -296,6 +297,14 @@ class Detail extends Component {
     }
 
     /**
+     * Connects steam to a CS:GO server
+     */
+    connectClientServer(e, server) {
+        e.preventDefault();
+        window.location = server;
+    }
+
+    /**
      * Preact render function
      *
      * @returns {*}
@@ -333,7 +342,7 @@ class Detail extends Component {
                                 {this.props.lang.detail.team2Name}: {this.state.match.team2.name}<br/>
                                 {this.props.lang.detail.team2Country}: {this.state.match.team2.country}<br/>
                                 <br/>
-                                {this.props.lang.detail.server}: {this.state.match.server}<br/>
+                                {this.props.lang.detail.server}: <Link href="#" native onClick={(e) => this.connectClientServer(e, `steam://connect/${this.state.match.server.split(":")[0]}/${this.state.match.server.split(":")[1]}`)}>{this.state.match.server}</Link><br/>
                                 {this.props.lang.detail.map}: {this.state.match.map}<br/>
                                 {this.props.lang.detail.csgoKnifeConfig}: {this.state.match.knife_config}<br/>
                                 {this.props.lang.detail.csgoMainConfig}: {this.state.match.match_config}<br/>

@@ -78,6 +78,14 @@ class Servers extends Component {
     }
 
     /**
+     * Connects steam to a CS:GO server
+     */
+    connectServer(e, server) {
+        e.preventDefault();
+        window.location = server;
+    }
+
+    /**
      * Preact render function
      *
      * @returns {*}
@@ -97,7 +105,7 @@ class Servers extends Component {
                         <tbody>
                             {this.state.availability.map((server, index) => (
                                 <tr key={index}>
-                                    <td>{`${server.ip}:${server.port}`}</td>
+                                    <td><Link href="#" native onClick={(e) => this.connectServer(e, `steam://connect/${server.ip}/${server.port}`)} >{`${server.ip}:${server.port}`}</Link></td>
                                     <td><span className={`badge badge-${server.color}`}>{server.available}</span></td>
                                 </tr>
                             ))}

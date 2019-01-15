@@ -179,6 +179,14 @@ class Home extends Component {
     }
 
     /**
+     * Connects steam to a CS:GO server
+     */
+    connectServer(e, server) {
+        e.preventDefault();
+        window.location = server;
+    }
+
+    /**
      * Preact render function
      *
      * @returns {*}
@@ -242,7 +250,7 @@ class Home extends Component {
                             if((this.state.filters.notStarted && match.status === 0) || (this.state.filters.running && (match.status > 0 && match.status < 99)) || (this.state.filters.completed && match.status === 99) || (this.state.filters.archived && match.status > 99)) {
                                 return (
                                     <tr key={index}>
-                                        <td>{match.server}</td>
+                                        <td><Link href="#" native onClick={(e) => this.connectServer(e, `steam://connect/${match.server.split(":")[0]}/${match.server.split(":")[1]}`)}>{match.server}</Link></td>
                                         <td>{match.map}</td>
                                         <td>{match.team1.name}</td>
                                         <td>{match.team2.name}</td>
