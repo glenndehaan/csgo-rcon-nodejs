@@ -93,12 +93,12 @@ https://github.com/glenndehaan/csgo-rcon-plugin
 
 ## v2 TODO's
 * Wingman: `Connect server` needs to change map to wingman map
-* Dangerzone: `Connect server` needs to change map to wingman map
-* Dangerzone: `Knife round` needs to be disabled
+* Dangerzone: `Connect server` needs to change map to dangerzone map
+* ~~Dangerzone: `Knife round` needs to be disabled~~
 * Dangerzone: `Start match` needs to stop warmup
 * Dangerzone/Wingman: Restore game_type/game_mode to competitive
 * Healthcheck needs to be faster
-* Translations add socket error messages
+* ~~Translations add socket error messages~~
 * ~~Add frontend translations~~
 * Add Bo1, Bo2, Bo3, Bo4, Bo5 support
 * ~~Add wingman and dangerzone support (maps, configs)~~
@@ -107,6 +107,7 @@ https://github.com/glenndehaan/csgo-rcon-plugin
 * Add livescoring to Home/Servers view
 * ~~Add Readme `config.json` explanation~~
 * Implement LoadBalancing (Redis)?
+* Implement MongoDB?
 * ~~Implement lang files tests~~
 * ~~Implement basic tests~~
 * ~~Implement NodeJS server logs web interface~~

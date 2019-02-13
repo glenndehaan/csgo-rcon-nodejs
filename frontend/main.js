@@ -1,6 +1,6 @@
 import {h, Component, render} from 'preact';
 import Router from 'preact-router';
-import { Provider } from 'unistore/preact';
+import {connect, Provider} from 'unistore/preact';
 import mitt from 'mitt';
 
 import Socket from './modules/socket';
@@ -132,11 +132,11 @@ class App extends Component {
     errorRender() {
         return (
             <div className="starter-template">
-                <h3>Whoops!</h3>
+                <h3>{this.props.lang.general.connection.error.title}</h3>
                 <div>
-                    The connection to the server has been lost!<br/>
-                    A reconnect attempt has been made but the server didn&apos;t respond in time.<br/>
-                    Please try to refresh this page...
+                    {this.props.lang.general.connection.error.line1}<br/>
+                    {this.props.lang.general.connection.error.line2}<br/>
+                    {this.props.lang.general.connection.error.line3}
                 </div>
             </div>
         )
@@ -150,16 +150,17 @@ class App extends Component {
     reconnectRender() {
         return (
             <div className="starter-template">
-                <h3>Reconnecting!</h3>
+                <h3>{this.props.lang.general.connection.reconnecting.title}</h3>
                 <div>
-                    The connection to the server has been lost!<br/>
-                    We are trying to reconnect to the server.<br/>
-                    Please wait...
+                    {this.props.lang.general.connection.reconnecting.line1}<br/>
+                    {this.props.lang.general.connection.reconnecting.line2}<br/>
+                    {this.props.lang.general.connection.reconnecting.line3}
                 </div>
             </div>
         )
     }
 }
 
-render(<Provider store={store}><App/></Provider>, document.body);
+const DataApp = connect('lang')(App);
+render(<Provider store={store}><DataApp/></Provider>, document.body);
 require('preact/debug');

@@ -23,5 +23,19 @@
   "alert": {
     "yes": "Ja",
     "no": "Nee"
+  },
+  "connection": {
+    "error": {
+      "title": "Whoops!",
+      "line1": "De verbinding met de server is verloren!",
+      "line2": "Er is een poging tot opnieuw verbinden gemaakt, maar de server reageerde niet op tijd.",
+      "line3": "Probeer deze pagina te verversen..."
+    },
+    "reconnecting": {
+      "title": "Reconnecting!",
+      "line1": "De verbinding met de server is verloren!",
+      "line2": "We proberen opnieuw verbinding te maken met de server.",
+      "line3": "Even geduld aub..."
+    }
   }
 }

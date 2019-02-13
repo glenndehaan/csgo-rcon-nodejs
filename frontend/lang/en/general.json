@@ -23,5 +23,19 @@
   "alert": {
     "yes": "Yes",
     "no": "No"
+  },
+  "connection": {
+    "error": {
+      "title": "Whoops!",
+      "line1": "The connection to the server has been lost!",
+      "line2": "A reconnect attempt has been made but the server didn't respond in time.",
+      "line3": "Please try to refresh this page..."
+    },
+    "reconnecting": {
+      "title": "Reconnecting!",
+      "line1": "The connection to the server has been lost!",
+      "line2": "We are trying to reconnect to the server.",
+      "line3": "Please wait..."
+    }
   }
 }

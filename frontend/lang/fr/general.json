@@ -23,5 +23,19 @@
   "alert": {
     "yes": "Oui",
     "no": "Non"
+  },
+  "connection": {
+    "error": {
+      "title": "Oups!",
+      "line1": "La connexion au serveur a été perdue!",
+      "line2": "A reconnect attempt has been made but the server didn't respond in time.",
+      "line3": "S'il vous plaît essayez de rafraîchir cette page..."
+    },
+    "reconnecting": {
+      "title": "Reconnecter!",
+      "line1": "La connexion au serveur a été perdue!",
+      "line2": "Nous essayons de nous reconnecter au serveur.",
+      "line3": "S'il vous plaît, attendez..."
+    }
   }
 }

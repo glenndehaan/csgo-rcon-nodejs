@@ -23,5 +23,19 @@
   "alert": {
     "yes": "Ja",
     "no": "Nein"
+  },
+  "connection": {
+    "error": {
+      "title": "Hoppla!",
+      "line1": "Die Verbindung zum Server ist verloren!",
+      "line2": "Es wurde ein erneuter Verbindungsversuch unternommen, der Server hat jedoch nicht rechtzeitig geantwortet.",
+      "line3": "Bitte versuchen Sie diese Seite zu aktualisieren..."
+    },
+    "reconnecting": {
+      "title": "Verbindung wieder herstellen!",
+      "line1": "Die Verbindung zum Server ist verloren!",
+      "line2": "Wir versuchen, die Verbindung zum Server wiederherzustellen.",
+      "line3": "Warten Sie mal..."
+    }
   }
 }

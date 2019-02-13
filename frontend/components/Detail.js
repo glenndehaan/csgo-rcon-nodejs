@@ -365,7 +365,7 @@ class Detail extends Component {
                                     {this.props.lang.detail.startWarmup}
                                 </button>
                                 <br/>
-                                <button type='button' className='btn btn-sm btn-success btn-detail' disabled={this.state.match.status === 0 || this.state.match.status >= 99} onClick={() => this.startKnife()}>
+                                <button type='button' className='btn btn-sm btn-success btn-detail' disabled={this.state.match.status === 0 || this.state.match.status >= 99 || this.state.match.game_mode === "dangerzone"} onClick={() => this.startKnife()}>
                                     {this.props.lang.detail.startKnifeRound}
                                 </button>
                                 <br/>
