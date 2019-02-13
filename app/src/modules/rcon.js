@@ -27,7 +27,7 @@ class rcon {
         for(let item = 0; item < config.servers.length; item++){
             this.broadcasters[`${config.servers[item].ip}:${config.servers[item].port}`] = null;
             this.initServer(`${config.servers[item].ip}:${config.servers[item].port}`, config.servers[item].password);
-            setInterval(() => this.healthcheck(`${config.servers[item].ip}:${config.servers[item].port}`, config.servers[item].password), 60000);
+            setInterval(() => this.healthcheck(`${config.servers[item].ip}:${config.servers[item].port}`, config.servers[item].password), 5000);
         }
     }
 
@@ -63,9 +63,9 @@ class rcon {
      */
     healthcheck(server, password) {
         queue.add(server, () => {
-            this.rcon[server].command("status", 5000).then(() => {
+            this.rcon[server].command("status", 2500).then(() => {
                 queue.complete(server);
-                log.info(`[RCON][${server}][HEALTHCHECK]: OK`);
+                log.trace(`[RCON][${server}][HEALTHCHECK]: OK`);
             }, () => {
                 log.error(`[RCON][${server}][HEALTHCHECK]: Server error reconnecting...`);
                 queue.complete(server);
@@ -175,6 +175,22 @@ class rcon {
          */
         this.cmd(server, 'mp_restartgame 1', 'Restart game');
 
+        /**
+         * Set gamemode & switch map
+         */
+        if(matchInfo.game_mode === "wingman") {
+            this.cmd(server, 'game_mode 2', 'Set game mode');
+            this.cmd(server, 'game_type 0', 'Set game type');
+
+            this.cmd(server, 'map de_shortdust', 'Change map');
+        }
+        if(matchInfo.game_mode === "dangerzone") {
+            this.cmd(server, 'game_mode 0', 'Set game mode');
+            this.cmd(server, 'game_type 6', 'Set game type');
+
+            this.cmd(server, 'map dz_blacksite', 'Change map');
+        }
+
         log.info(`[RCON][${server}] Server config ready!`);
     }
 
@@ -214,15 +230,19 @@ class rcon {
         const match_config = (type === "main") ? matchInfo.match_config : matchInfo.knife_config;
         const message = (type === "main") ? "Live!!!" : "Knife!!!";
 
-        /**
-         * Load External config file
-         */
-        this.loadExternalCSGOConfig(server, match_config, type);
+        if(matchInfo.game_mode !== "dangerzone") {
+            /**
+             * Load External config file
+             */
+            this.loadExternalCSGOConfig(server, match_config, type);
 
-        /**
-         * Restart game
-         */
-        this.cmd(server, 'mp_restartgame 1', 'Restart game');
+            /**
+             * Restart game
+             */
+            this.cmd(server, 'mp_restartgame 1', 'Restart game');
+        } else {
+            this.cmd(server, 'mp_warmup_end', 'Warmup end');
+        }
 
         /**
          * Inform players
@@ -271,6 +291,12 @@ class rcon {
          * Restart game
          */
         this.cmd(server, 'mp_restartgame 1', 'Restart game');
+
+        /**
+         * Reset gamemode
+         */
+        this.cmd(server, 'game_mode 1', 'Reset game_mode');
+        this.cmd(server, 'game_type 0', 'Reset game_type');
 
         /**
          * Load default Server config

@@ -131,3 +131,6 @@ sv_steamgroup_exclusive 0                     	// If set, only members of Steam 
 sv_voiceenable 0
 
 say "> ESL CS:GO 2v2 Ladder Config loaded - 14.01.2016 <"
+
+// Change map
+changelevel de_shortdust

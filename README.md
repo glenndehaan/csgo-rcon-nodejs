@@ -92,12 +92,13 @@ https://github.com/glenndehaan/csgo-rcon-plugin
 ```
 
 ## v2 TODO's
-* Wingman: `Connect server` needs to change map to wingman map
-* Dangerzone: `Connect server` needs to change map to dangerzone map
+* GitHub Request: https://github.com/glenndehaan/csgo-rcon-nodejs/issues/2
+* ~~Wingman: `Connect server` needs to change map to wingman map~~
+* ~~Dangerzone: `Connect server` needs to change map to dangerzone map~~
 * ~~Dangerzone: `Knife round` needs to be disabled~~
-* Dangerzone: `Start match` needs to stop warmup
-* Dangerzone/Wingman: Restore game_type/game_mode to competitive
-* Healthcheck needs to be faster
+* ~~Dangerzone: `Start match` needs to stop warmup~~
+* ~~Dangerzone/Wingman: Restore game_type/game_mode to competitive~~
+* ~~Healthcheck needs to be faster~~
 * ~~Translations add socket error messages~~
 * ~~Add frontend translations~~
 * Add Bo1, Bo2, Bo3, Bo4, Bo5 support
