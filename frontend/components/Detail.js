@@ -27,6 +27,16 @@ class Detail extends Component {
             map: null,
             message: null
         };
+
+        this.liveScoringTabs = {
+            score: null,
+            killfeed: null
+        };
+
+        this.liveScoringContent = {
+            score: null,
+            killfeed: null
+        };
     }
 
     /**
@@ -305,6 +315,23 @@ class Detail extends Component {
     }
 
     /**
+     * Toggles the classes for the livescoring subtabs
+     *
+     * @param tabName
+     */
+    toggleLiveScoringTab(tabName) {
+        const keys = Object.keys(this.liveScoringContent);
+
+        for(let item = 0; item < keys.length; item++) {
+            this.liveScoringContent[keys[item]].classList.remove("active", "show");
+            this.liveScoringTabs[keys[item]].classList.remove("active", "show");
+        }
+
+        this.liveScoringContent[tabName].classList.add("active", "show");
+        this.liveScoringTabs[tabName].classList.add("active", "show");
+    }
+
+    /**
      * Preact render function
      *
      * @returns {*}
@@ -432,51 +459,62 @@ class Detail extends Component {
     renderLiveScoring(match) {
         return (
             <div>
-                <span>{match.server_data.CT.team_name} (CT) v/s {match.server_data.T.team_name} (T) ({match.server_data.match.CT} / {match.server_data.match.T})</span><br/>
-                <br/>
-                <h5>CT ({match.server_data.CT.team_name} - {match.server_data.match.CT})</h5>
-                <table className="table table-striped">
-                    <thead className="thead-dark">
-                        <tr>
-                            <th>Player</th>
-                            <th>K</th>
-                            <th>A</th>
-                            <th>D</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {match.server_data.CT.players.map((player, index) => (
-                            <tr key={index}>
-                                <td>{player.name}</td>
-                                <td>{player.kills}</td>
-                                <td>{player.assists}</td>
-                                <td>{player.deaths}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-                <br/>
-                <h5>T ({match.server_data.T.team_name} - {match.server_data.match.T})</h5>
-                <table className="table table-striped">
-                    <thead className="thead-dark">
-                        <tr>
-                            <th>Player</th>
-                            <th>K</th>
-                            <th>A</th>
-                            <th>D</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {match.server_data.T.players.map((player, index) => (
-                            <tr key={index}>
-                                <td>{player.name}</td>
-                                <td>{player.kills}</td>
-                                <td>{player.assists}</td>
-                                <td>{player.deaths}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                <div className="nav nav-tabs">
+                    <a className="nav-item nav-link active show" href="#score" ref={c => this.liveScoringTabs.score = c} onClick={() => this.toggleLiveScoringTab("score")}>Score</a>
+                    <a className="nav-item nav-link" href="#killfeed" ref={c => this.liveScoringTabs.killfeed = c} onClick={() => this.toggleLiveScoringTab("killfeed")}>Killfeed</a>
+                </div>
+                <div className="tab-content">
+                    <div className="tab-pane fade active show" ref={c => this.liveScoringContent.score = c}>
+                        <span>{match.server_data.CT.team_name} (CT) v/s {match.server_data.T.team_name} (T) ({match.server_data.match.CT} / {match.server_data.match.T})</span><br/>
+                        <br/>
+                        <h5>CT ({match.server_data.CT.team_name} - {match.server_data.match.CT})</h5>
+                        <table className="table table-striped">
+                            <thead className="thead-dark">
+                                <tr>
+                                    <th>Player</th>
+                                    <th>K</th>
+                                    <th>A</th>
+                                    <th>D</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {match.server_data.CT.players.map((player, index) => (
+                                    <tr key={index}>
+                                        <td>{player.name}</td>
+                                        <td>{player.kills}</td>
+                                        <td>{player.assists}</td>
+                                        <td>{player.deaths}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                        <br/>
+                        <h5>T ({match.server_data.T.team_name} - {match.server_data.match.T})</h5>
+                        <table className="table table-striped">
+                            <thead className="thead-dark">
+                                <tr>
+                                    <th>Player</th>
+                                    <th>K</th>
+                                    <th>A</th>
+                                    <th>D</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {match.server_data.T.players.map((player, index) => (
+                                    <tr key={index}>
+                                        <td>{player.name}</td>
+                                        <td>{player.kills}</td>
+                                        <td>{player.assists}</td>
+                                        <td>{player.deaths}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="tab-pane fade active show" ref={c => this.liveScoringContent.killfeed = c}>
+                        Hey nothing here yet!
+                    </div>
+                </div>
             </div>
         );
     }

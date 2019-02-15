@@ -59,7 +59,8 @@ class CsgoController extends baseController {
 
                 // Update kill feed based on player_killed
                 if(req.body.instruction === "player_killed") {
-
+                    //todo implement
+                    console.log('Waiting here!');
                 }
 
                 // Auto start warmup after knife round
