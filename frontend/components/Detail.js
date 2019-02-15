@@ -512,7 +512,27 @@ class Detail extends Component {
                         </table>
                     </div>
                     <div className="tab-pane fade" ref={c => this.liveScoringContent.killfeed = c}>
-                        Hey nothing here yet!
+                        <table className="table table-striped">
+                            <thead className="thead-dark">
+                                <tr>
+                                    <th>Player</th>
+                                    <th>Gun</th>
+                                    <th>Player</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Python</td>
+                                    <td>M4A1-S</td>
+                                    <td>Elmo (Bot)</td>
+                                </tr>
+                                <tr>
+                                    <td>Python</td>
+                                    <td>M4A1-S</td>
+                                    <td>Elmo (Bot)</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
