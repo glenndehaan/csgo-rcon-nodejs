@@ -511,7 +511,7 @@ class Detail extends Component {
                             </tbody>
                         </table>
                     </div>
-                    <div className="tab-pane fade active show" ref={c => this.liveScoringContent.killfeed = c}>
+                    <div className="tab-pane fade" ref={c => this.liveScoringContent.killfeed = c}>
                         Hey nothing here yet!
                     </div>
                 </div>
