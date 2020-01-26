@@ -31,7 +31,7 @@ Then open up a webbrowser and go to the site
 
 ## Development Usage
 - Install NodeJS 8.0 or higher
-- Copy the `_scripts/config/config.dev.json` to here `app/config/config.json`
+- Copy the `_scripts/config/config.dev.json` to here `app/src/config/config.json`
 - Run `npm install` in the root project folder
 - Run `npm run webpack` in the root project folder
 - Run `npm run dev` in the root project folder
